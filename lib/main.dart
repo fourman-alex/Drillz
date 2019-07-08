@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,9 +29,9 @@ class Step {
 
 const List<Step> _steps = [
   Step(StepType.work, 5),
-  Step(StepType.rest, 60),
+  Step(StepType.rest, 5),
   Step(StepType.work, 7),
-  Step(StepType.rest, 30)
+  Step(StepType.rest, 5)
 ];
 
 class Workout extends StatefulWidget {
@@ -40,23 +41,70 @@ class Workout extends StatefulWidget {
   _WorkoutState createState() => _WorkoutState();
 }
 
-class _WorkoutState extends State<Workout> {
-  bool isStarted = false;
-  int _currentActiveStep = 0;
+class CurrentStep extends ValueNotifier<int> {
+  CurrentStep(int value) : super(value);
+}
 
+class StepSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var currentStep = Provider.of<CurrentStep>(context);
     Widget center;
-    if (_steps[_currentActiveStep].stepType == StepType.rest) {
-      center = RestTile(
-        duration: _steps[_currentActiveStep].amount,
+    if (currentStep.value == null) {
+      center = StartTile(
+        onPressed: () => currentStep.value = 0,
       );
-    } else {
-      center = Container(
-        child: Text("do some work!"),
+    } else if (currentStep.value >= _steps.length) {
+      center = FinishTile();
+    } else if (_steps[currentStep.value].stepType == StepType.rest) {
+      center = RestTile(
+        duration: _steps[currentStep.value].amount,
+        onDone: () => currentStep.value++,
+      );
+    } else if (_steps[currentStep.value].stepType == StepType.work) {
+      center = WorkTile(
+        amount: _steps[currentStep.value].amount,
+        onPressed: () => currentStep.value++,
       );
     }
 
+    if (center == null) throw Error();
+
+    return AnimatedSwitcher(
+      child: center,
+      duration: Duration(milliseconds: 500),
+    );
+  }
+}
+
+class _WorkoutState extends State<Workout> {
+  CurrentStep _currentActiveStep;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentActiveStep = CurrentStep(null);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ChangeNotifierProvider.value(
+        value: _currentActiveStep,
+        child: Stack(
+          children: <Widget>[
+            StepSwitcher(),
+            WorkoutStepsBar(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WorkoutStepsBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     var workoutSteps = List<Widget>();
     for (var i = 0; i < _steps.length; ++i) {
       var step = _steps[i];
@@ -64,55 +112,108 @@ class _WorkoutState extends State<Workout> {
         workoutSteps.add(RaisedButton(
           child: Text("Do ${step.amount} pushups"),
           onPressed: () {
-            setState(() {
-              _currentActiveStep = i;
-            });
+            Provider.of<CurrentStep>(context).value = i;
           },
         ));
       } else {
         workoutSteps.add(RaisedButton(
           child: Text("Rest ${step.amount} seconds"),
           onPressed: () {
-            setState(() {
-              _currentActiveStep = i;
-            });
+            Provider.of<CurrentStep>(context).value = i;
           },
         ));
       }
     }
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          AnimatedSwitcher(
-            child: center,
-            duration: Duration(milliseconds: 700),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: workoutSteps,
-            ),
-          ),
-        ],
+
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: workoutSteps,
       ),
+    );
+  }
+}
+
+class StartTile extends StatelessWidget {
+  final VoidCallback _onPressed;
+
+  StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: SizedBox.expand(
+      child: FittedBox(
+        child: GestureDetector(
+          onTap: _onPressed,
+          child: Text(
+            "Start",
+          ),
+        ),
+      ),
+    ));
+  }
+}
+
+class FinishTile extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: SizedBox.expand(
+      child: FittedBox(
+        child: Text(
+          "Done!",
+        ),
+      ),
+    ));
+  }
+}
+
+class WorkTile extends StatelessWidget {
+  final int _amount;
+  final VoidCallback _onPressed;
+
+  WorkTile({@required int amount, @required VoidCallback onPressed})
+      : _onPressed = onPressed,
+        _amount = amount;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        FittedBox(
+          child: Text(
+            "Do $_amount pushups!",
+          ),
+        ),
+        RaisedButton(
+          child: Text("done"),
+          onPressed: _onPressed,
+        ),
+      ],
     );
   }
 }
 
 class RestTile extends StatefulWidget {
   final int duration;
+  final VoidCallback _onDone;
 
   @override
   _RestTileState createState() => _RestTileState();
 
-  RestTile({Key key, this.duration}) : super(key: key);
+  RestTile({Key key, @required this.duration, @required VoidCallback onDone})
+      : _onDone = onDone,
+        super(key: key);
 }
 
 class _RestTileState extends State<RestTile>
     with AutomaticKeepAliveClientMixin<RestTile> {
-  double _height = 0;
+  double _progressBarHeight = 0;
   int _timerString;
 
   Timer _timer;
@@ -139,15 +240,27 @@ class _RestTileState extends State<RestTile>
                 curve: Curves.elasticOut,
                 duration: Duration(milliseconds: 750),
                 color: Colors.green,
-                height: _height,
+                height: _progressBarHeight,
               ),
             ),
-            Align(
-              child: Text(
-                "${_timerString.toString().padLeft(2, '0')}:00",
-                textScaleFactor: 7,
-              ),
-              alignment: Alignment.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      "Rest",
+                    ),
+                  ),
+                ),
+                FittedBox(
+                  child: Text(
+                    "${_timerString.toString().padLeft(2, '0')}:00",
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -162,23 +275,24 @@ class _RestTileState extends State<RestTile>
   }
 
   void _onTap() {
+    //makes tap do nothing after timer has started
+    if (_timer != null && _timer.isActive) return;
+
     var duration = _timerString;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       print(timer.tick);
       if (timer.tick > duration) {
         timer.cancel();
-        updateKeepAlive();
+        widget._onDone();
       } else {
         setState(() {
-          _height = context.size.height * (timer.tick / duration);
+          _progressBarHeight = context.size.height * (timer.tick / duration);
           _timerString = (duration - timer.tick);
         });
       }
-      updateKeepAlive();
     });
   }
 
   @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => _timer?.isActive ?? false;
+  bool get wantKeepAlive => true;
 }
