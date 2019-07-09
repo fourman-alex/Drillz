@@ -44,6 +44,26 @@ class CurrentStep extends ValueNotifier<int> {
   CurrentStep(int value) : super(value);
 }
 
+class _WorkoutState extends State<Workout> {
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: ChangeNotifierProvider(
+        builder: (_) => CurrentStep(null),
+        child: Stack(
+          children: <Widget>[
+            StepSwitcher(),
+            Align(
+              alignment: Alignment.centerRight,
+              child: WorkoutStepsBar(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class StepSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -76,29 +96,6 @@ class StepSwitcher extends StatelessWidget {
   }
 }
 
-class _WorkoutState extends State<Workout> {
-  CurrentStep _currentActiveStep;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentActiveStep = CurrentStep(null);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider.value(
-      value: _currentActiveStep,
-      child: Stack(
-        children: <Widget>[
-          StepSwitcher(),
-          WorkoutStepsBar(),
-        ],
-      ),
-    );
-  }
-}
-
 class WorkoutStepsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -122,13 +119,9 @@ class WorkoutStepsBar extends StatelessWidget {
       }
     }
 
-    return Align(
-      alignment: Alignment.centerRight,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: workoutSteps,
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: workoutSteps,
     );
   }
 }
