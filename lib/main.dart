@@ -50,11 +50,14 @@ class _WorkoutState extends State<Workout> {
     return Material(
       child: ChangeNotifierProvider(
         builder: (_) => CurrentStep(null),
-        child: Stack(
+        child: Row(
           children: <Widget>[
-            StepSwitcher(),
-            Align(
-              alignment: Alignment.centerRight,
+            Expanded(
+              flex: 8,
+              child: StepSwitcher(),
+            ),
+            Expanded(
+              flex: 1,
               child: WorkoutStepsBar(),
             ),
           ],
@@ -102,25 +105,29 @@ class WorkoutStepsBar extends StatelessWidget {
     var workoutSteps = List<Widget>();
     for (var i = 0; i < _steps.length; ++i) {
       var step = _steps[i];
-      if (step.stepType == StepType.work) {
-        workoutSteps.add(GestureDetector(
-          child: Text("Do ${step.amount} pushups"),
-          onTap: () {
-            Provider.of<CurrentStep>(context).value = i;
-          },
-        ));
-      } else {
-        workoutSteps.add(GestureDetector(
-          child: Text("Rest ${step.amount} seconds"),
-          onTap: () {
-            Provider.of<CurrentStep>(context).value = i;
-          },
-        ));
-      }
+      workoutSteps.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: AspectRatio(
+          aspectRatio: 1/1,
+          child: Container(
+            color: Provider.of<CurrentStep>(context).value == i ? Colors.lime : Colors.lime[100],
+            child: GestureDetector(
+              child: FittedBox(
+                child: Text(step.amount.toString()),
+              ),
+              onTap: () {
+                Provider.of<CurrentStep>(context).value = i;
+              },
+            ),
+          ),
+        ),
+      ));
     }
 
     return Column(
+
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: workoutSteps,
     );
   }
