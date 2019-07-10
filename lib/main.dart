@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pogo/consts.dart';
+import 'package:pogo/steps.dart';
 import 'package:pogo/workout_tiles.dart';
 import 'package:provider/provider.dart';
 
@@ -12,44 +13,33 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       color: primaryColor,
       title: 'Pogo',
-      home: Workout(),
+      home: WorkoutWidget(),
     );
   }
 }
 
-enum StepType { work, rest }
-
-class Step {
-  final StepType stepType;
-  final int amount;
-
-  const Step(this.stepType, this.amount);
-}
-
-const List<Step> _steps = [
-  Step(StepType.work, 5),
-  Step(StepType.rest, 5),
-  Step(StepType.work, 7),
-  Step(StepType.rest, 5)
+const List<ExerciseStep> _steps = [
+  StartStep(),
+  WorkStep(5),
+  RestStep(10),
+  WorkStep(5),
+  RestStep(10),
+  FinishStep(),
 ];
 
-class Workout extends StatefulWidget {
-  Workout({Key key}) : super(key: key);
+class WorkoutWidget extends StatefulWidget {
+  WorkoutWidget({Key key}) : super(key: key);
 
   @override
-  _WorkoutState createState() => _WorkoutState();
+  _WorkoutWidgetState createState() => _WorkoutWidgetState();
 }
 
-class CurrentStep extends ValueNotifier<int> {
-  CurrentStep(int value) : super(value);
-}
-
-class _WorkoutState extends State<Workout> {
+class _WorkoutWidgetState extends State<WorkoutWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
       child: ChangeNotifierProvider(
-        builder: (_) => CurrentStep(null),
+        builder: (_) => CurrentStepNotifier(_steps),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -70,23 +60,26 @@ class _WorkoutState extends State<Workout> {
 class StepSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var currentStep = Provider.of<CurrentStep>(context);
+    var currentStepNotifier = Provider.of<CurrentStepNotifier>(context);
     Widget center;
-    if (currentStep.value == null) {
+    if (currentStepNotifier.currentStep is StartStep) {
       center = StartTile(
-        onPressed: () => currentStep.value = 0,
+        onPressed: () => currentStepNotifier.incrementStep(),
       );
-    } else if (currentStep.value >= _steps.length) {
+    } else if (currentStepNotifier.currentStep is FinishStep) {
       center = FinishTile();
-    } else if (_steps[currentStep.value].stepType == StepType.rest) {
+    } else if (currentStepNotifier.currentStep is RestStep) {
+      var restStep = currentStepNotifier.currentStep as RestStep;
       center = RestTile(
-        duration: _steps[currentStep.value].amount,
-        onDone: () => currentStep.value++,
+        key: ValueKey(currentStepNotifier.currentStepIndex),
+        duration: restStep.duration,
+        onDone: () => currentStepNotifier.incrementStep(),
       );
-    } else if (_steps[currentStep.value].stepType == StepType.work) {
+    } else if (currentStepNotifier.currentStep is WorkStep) {
+      var workStep = currentStepNotifier.currentStep as WorkStep;
       center = WorkTile(
-        amount: _steps[currentStep.value].amount,
-        onPressed: () => currentStep.value++,
+        reps: workStep.reps,
+        onPressed: () => currentStepNotifier.incrementStep(),
       );
     }
 
@@ -103,20 +96,23 @@ class WorkoutStepsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var workoutSteps = List<Widget>();
-    for (var i = 0; i < _steps.length; ++i) {
-      var step = _steps[i];
+    var currentStepNotifier = Provider.of<CurrentStepNotifier>(context);
+
+    for (var i = 0; i < currentStepNotifier.plan.length; ++i) {
       workoutSteps.add(Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: AspectRatio(
-          aspectRatio: 1/1,
+          aspectRatio: 1 / 1,
           child: Container(
-            color: Provider.of<CurrentStep>(context).value == i ? Colors.lime : Colors.lime[100],
+            color: currentStepNotifier.currentStepIndex == i
+                ? Colors.lime
+                : Colors.lime[100],
             child: GestureDetector(
               child: FittedBox(
-                child: Text(step.amount.toString()),
+                child: Text(currentStepNotifier.plan[i].toString()),
               ),
               onTap: () {
-                Provider.of<CurrentStep>(context).value = i;
+                currentStepNotifier.currentStepIndex = i;
               },
             ),
           ),
@@ -125,7 +121,6 @@ class WorkoutStepsBar extends StatelessWidget {
     }
 
     return Column(
-
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: workoutSteps,

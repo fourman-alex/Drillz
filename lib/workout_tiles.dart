@@ -42,9 +42,9 @@ class WorkTile extends StatelessWidget {
   final int _amount;
   final VoidCallback _onPressed;
 
-  WorkTile({@required int amount, @required VoidCallback onPressed})
+  WorkTile({@required int reps, @required VoidCallback onPressed})
       : _onPressed = onPressed,
-        _amount = amount;
+        _amount = reps;
 
   @override
   Widget build(BuildContext context) {
