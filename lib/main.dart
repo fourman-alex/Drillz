@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pogo/consts.dart';
+import 'package:pogo/plan.dart';
 import 'package:pogo/steps.dart';
+import 'package:pogo/workout_selection_screen.dart';
 import 'package:pogo/workout_tiles.dart';
 import 'package:provider/provider.dart';
+//todo add keys to widget constructors
 
 void main() => runApp(MyApp());
 
@@ -13,19 +16,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       color: primaryColor,
       title: 'Pogo',
-      home: WorkoutWidget(),
+      home: WorkoutSelectionScreen(
+        workouts: plan,
+      ),
     );
   }
 }
-
-const List<ExerciseStep> _steps = [
-  StartStep(),
-  WorkStep(5),
-  RestStep(10),
-  WorkStep(5),
-  RestStep(10),
-  FinishStep(),
-];
 
 class WorkoutWidget extends StatefulWidget {
   WorkoutWidget({Key key}) : super(key: key);
@@ -39,7 +35,7 @@ class _WorkoutWidgetState extends State<WorkoutWidget> {
   Widget build(BuildContext context) {
     return Material(
       child: ChangeNotifierProvider(
-        builder: (_) => CurrentStepNotifier(_steps),
+        builder: (_) => CurrentStepNotifier(throw UnimplementedError),
         child: Row(
           children: <Widget>[
             Expanded(
