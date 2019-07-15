@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
               );
               break;
             case 1:
-              page = WorkoutWidget(currentStepNotifier: _currentStepNotifier);
+              page = WorkoutScreen(currentStepNotifier: _currentStepNotifier);
               break;
           }
           return page;
@@ -53,17 +53,17 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class WorkoutWidget extends StatefulWidget {
+class WorkoutScreen extends StatefulWidget {
   final CurrentStepNotifier currentStepNotifier;
 
-  WorkoutWidget({Key key, @required this.currentStepNotifier})
+  WorkoutScreen({Key key, @required this.currentStepNotifier})
       : super(key: key);
 
   @override
-  _WorkoutWidgetState createState() => _WorkoutWidgetState();
+  _WorkoutScreenState createState() => _WorkoutScreenState();
 }
 
-class _WorkoutWidgetState extends State<WorkoutWidget> {
+class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
