@@ -47,14 +47,8 @@ class FinishStep extends ExerciseStep {
 }
 
 class CurrentStepNotifier extends ChangeNotifier {
-  final List<ExerciseStep> _steps;
+  final List<ExerciseStep> _steps = [];
   int _currentStepIndex;
-
-  CurrentStepNotifier(List<ExerciseStep> steps)
-      : assert(steps != null),
-        assert(steps.isNotEmpty),
-        _steps = steps,
-        _currentStepIndex = 0;
 
   ExerciseStep get currentStep => _steps[_currentStepIndex];
 
@@ -66,7 +60,14 @@ class CurrentStepNotifier extends ChangeNotifier {
 
   int get currentStepIndex => _currentStepIndex;
 
-  UnmodifiableListView<ExerciseStep> get plan => UnmodifiableListView(_steps);
+  UnmodifiableListView<ExerciseStep> get workout =>
+      UnmodifiableListView(_steps);
+
+  set steps(List<ExerciseStep> value) {
+    _steps.addAll(value);
+    _currentStepIndex = 0;
+    notifyListeners();
+  }
 
   void incrementStep() {
     if (_currentStepIndex + 1 < _steps.length) {

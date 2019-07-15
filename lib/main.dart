@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
 import 'package:pogo/consts.dart';
+import 'package:pogo/page_switcher.dart';
 import 'package:pogo/plan.dart';
 import 'package:pogo/steps.dart';
 import 'package:pogo/workout_selection_screen.dart';
@@ -8,23 +9,43 @@ import 'package:pogo/workout_tiles.dart';
 import 'package:provider/provider.dart';
 //todo add keys to widget constructors
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  CurrentStepNotifier _currentStepNotifier = CurrentStepNotifier();
+  ValueNotifier<Page> _pageListenable = ValueNotifier(Page.first);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       color: primaryColor,
       title: 'Pogo',
-      home: WorkoutSelectionScreen(
-        workouts: plan,
+      home: PageSwitcher(
+        pageListenable: _pageListenable,
+        firstPage: WorkoutSelectionScreen(
+            workouts: plan,
+            onWorkoutSelected: (workout) {
+              _currentStepNotifier.steps = workout.steps;
+              _pageListenable.value = Page.second;
+            }),
+        secondPage: WorkoutWidget(currentStepNotifier: _currentStepNotifier),
       ),
     );
   }
 }
 
 class WorkoutWidget extends StatefulWidget {
-  WorkoutWidget({Key key}) : super(key: key);
+  final CurrentStepNotifier currentStepNotifier;
+
+  WorkoutWidget({Key key, @required this.currentStepNotifier})
+      : super(key: key);
 
   @override
   _WorkoutWidgetState createState() => _WorkoutWidgetState();
@@ -34,8 +55,8 @@ class _WorkoutWidgetState extends State<WorkoutWidget> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: ChangeNotifierProvider(
-        builder: (_) => CurrentStepNotifier(throw UnimplementedError),
+      child: ChangeNotifierProvider.value(
+        value: widget.currentStepNotifier,
         child: Row(
           children: <Widget>[
             Expanded(
@@ -94,7 +115,7 @@ class WorkoutStepsBar extends StatelessWidget {
     var workoutSteps = List<Widget>();
     var currentStepNotifier = Provider.of<CurrentStepNotifier>(context);
 
-    for (var i = 0; i < currentStepNotifier.plan.length; ++i) {
+    for (var i = 0; i < currentStepNotifier.workout.length; ++i) {
       workoutSteps.add(Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: AspectRatio(
@@ -105,7 +126,7 @@ class WorkoutStepsBar extends StatelessWidget {
                 : Colors.lime[100],
             child: GestureDetector(
               child: FittedBox(
-                child: Text(currentStepNotifier.plan[i].toString()),
+                child: Text(currentStepNotifier.workout[i].toString()),
               ),
               onTap: () {
                 currentStepNotifier.currentStepIndex = i;

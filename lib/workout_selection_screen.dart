@@ -5,16 +5,20 @@ import 'package:pogo/steps.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
   final List<Workout> workouts;
+  final Function(Workout workout) onWorkoutSelected;
 
-  const WorkoutSelectionScreen({Key key, @required this.workouts})
-      : super(key: key);
+  const WorkoutSelectionScreen({
+    Key key,
+    @required this.workouts,
+    this.onWorkoutSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     //create list items
     var widgets = List<Widget>();
     for (var workout in workouts) {
-      var listItem = new WorkoutListTile(
+      var listItem = WorkoutListTile(
         workout: workout,
       );
       widgets.add(listItem);
@@ -23,7 +27,15 @@ class WorkoutSelectionScreen extends StatelessWidget {
     return Material(
       child: Container(
         child: ListView(
-          children: widgets,
+          children: <Widget>[
+            for (var workout in workouts)
+              GestureDetector(
+                onTap: () => onWorkoutSelected(workout),
+                child: WorkoutListTile(
+                  workout: workout,
+                ),
+              )
+          ],
         ),
       ),
     );
@@ -49,9 +61,9 @@ class WorkoutListTile extends StatelessWidget {
               color: (i % 2) == 0 ? Colors.lightBlue[100] : Colors.pink[100],
               child: FittedBox(
                   child: Text(
-                    step.toString(),
-                    textAlign: TextAlign.center,
-                  )),
+                step.toString(),
+                textAlign: TextAlign.center,
+              )),
             ),
             flex: step.reps,
           ));
@@ -61,8 +73,23 @@ class WorkoutListTile extends StatelessWidget {
       return rects;
     }
 
-    return Row(
-      children: buildRepRects(),
+    List<WorkStep> workSteps = [
+      ...workout.steps.where((step) => step is WorkStep)
+    ];
+    var repsCount = workSteps
+        .map((step) => step.reps)
+        .reduce((value, element) => value + element);
+    return Stack(
+      children: <Widget>[
+//        Positioned.fill(
+//          child: FittedBox(
+//            child: Text(repsCount.toString(), style: TextStyle(color: Colors.deepOrangeAccent),),
+//          ),
+//        ),
+        Row(
+          children: buildRepRects(),
+        ),
+      ],
     );
   }
 }
