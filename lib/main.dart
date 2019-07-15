@@ -20,22 +20,34 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   CurrentStepNotifier _currentStepNotifier = CurrentStepNotifier();
-  ValueNotifier<Page> _pageListenable = ValueNotifier(Page.first);
+  PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       color: primaryColor,
-      title: 'Pogo',
-      home: PageSwitcher(
-        pageListenable: _pageListenable,
-        firstPage: WorkoutSelectionScreen(
-            workouts: plan,
-            onWorkoutSelected: (workout) {
-              _currentStepNotifier.steps = workout.steps;
-              _pageListenable.value = Page.second;
-            }),
-        secondPage: WorkoutWidget(currentStepNotifier: _currentStepNotifier),
+      home: PageView.builder(
+        itemCount: 2,
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          Widget page;
+          switch (index) {
+            case 0:
+              page = WorkoutSelectionScreen(
+                workouts: plan,
+                onWorkoutSelected: (workout) {
+                  _currentStepNotifier.steps = workout.steps;
+                  _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuad);
+                },
+              );
+              break;
+            case 1:
+              page = WorkoutWidget(currentStepNotifier: _currentStepNotifier);
+              break;
+          }
+          return page;
+        },
       ),
     );
   }

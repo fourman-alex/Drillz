@@ -2,18 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
 class PageSwitcher extends StatefulWidget {
-  final Widget firstPage;
-  final Widget secondPage;
-  final ValueListenable<Page> pageListenable;
+  final Widget child;
 
-  const PageSwitcher(
-      {Key key,
-      @required this.firstPage,
-      @required this.secondPage,
-      @required this.pageListenable})
-      : assert(firstPage != null),
-        assert(secondPage != null),
-        assert(pageListenable != null),
+  const PageSwitcher({
+    Key key,
+    @required this.child,
+  })  : assert(child != null),
         super(key: key);
 
   @override
@@ -26,14 +20,15 @@ class PageSwitcherState extends State<PageSwitcher>
   Animation<Offset> _pageOnePosition;
   Animation<Offset> _pageTwoPosition;
 
-  Page _pageValue;
+  Widget _currentPage;
+  Widget _nextPage;
 
   @override
   void didUpdateWidget(PageSwitcher oldWidget) {
-    if (oldWidget.pageListenable != widget.pageListenable) {
-      oldWidget.pageListenable.removeListener(_pageChanged);
-      _pageValue = widget.pageListenable.value;
-      widget.pageListenable.addListener(_pageChanged);
+    if (oldWidget.child != widget.child) {
+      _currentPage = oldWidget.child;
+      _nextPage = widget.child;
+      _controller.forward(from: 0.0);
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -58,8 +53,7 @@ class PageSwitcherState extends State<PageSwitcher>
       curve: Curves.fastOutSlowIn,
     )));
 
-    _pageValue = widget.pageListenable.value;
-    widget.pageListenable.addListener(_pageChanged);
+    _currentPage = widget.child;
   }
 
   @override
@@ -69,13 +63,13 @@ class PageSwitcherState extends State<PageSwitcher>
         Positioned.fill(
           child: SlideTransition(
             position: _pageOnePosition,
-            child: widget.firstPage,
+            child: _currentPage,
           ),
         ),
         Positioned.fill(
           child: SlideTransition(
             position: _pageTwoPosition,
-            child: widget.secondPage,
+            child: _nextPage,
           ),
         ),
       ],
@@ -99,37 +93,37 @@ class PageSwitcherState extends State<PageSwitcher>
     }
   }
 
-  void _pageChanged() {
-    setState(() {
-      _pageValue = widget.pageListenable.value;
-      switch (_pageValue) {
-        case Page.first:
-          switch (_controller.status) {
-            case AnimationStatus.dismissed:
-            case AnimationStatus.reverse:
-              // do nothing
-              break;
-            case AnimationStatus.forward:
-            case AnimationStatus.completed:
-              _controller.reverse();
-              break;
-          }
-          break;
-        case Page.second:
-          switch (_controller.status) {
-            case AnimationStatus.dismissed:
-            case AnimationStatus.reverse:
-              _controller.forward();
-              break;
-            case AnimationStatus.forward:
-            case AnimationStatus.completed:
-              //do nothing
-              break;
-          }
-          break;
-      }
-    });
-  }
+//  void _pageChanged() {
+//    setState(() {
+//      _pageValue = widget.pageListenable.value;
+//      switch (_pageValue) {
+//        case Page.first:
+//          switch (_controller.status) {
+//            case AnimationStatus.dismissed:
+//            case AnimationStatus.reverse:
+//              // do nothing
+//              break;
+//            case AnimationStatus.forward:
+//            case AnimationStatus.completed:
+//              _controller.reverse();
+//              break;
+//          }
+//          break;
+//        case Page.second:
+//          switch (_controller.status) {
+//            case AnimationStatus.dismissed:
+//            case AnimationStatus.reverse:
+//              _controller.forward();
+//              break;
+//            case AnimationStatus.forward:
+//            case AnimationStatus.completed:
+//              //do nothing
+//              break;
+//          }
+//          break;
+//      }
+//    });
+//  }
 }
 
 enum Page { first, second }

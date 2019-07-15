@@ -5,7 +5,7 @@ import 'package:pogo/steps.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
   final List<Workout> workouts;
-  final Function(Workout workout) onWorkoutSelected;
+  final void Function(Workout workout) onWorkoutSelected;
 
   const WorkoutSelectionScreen({
     Key key,
