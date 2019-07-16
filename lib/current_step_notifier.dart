@@ -1,35 +1,30 @@
-import 'dart:collection';
-
 import 'package:flutter/foundation.dart';
 import 'package:pogo/steps.dart';
 
+import 'data_provider.dart' as DataProvider;
+
 class CurrentStepNotifier extends ChangeNotifier {
-  final List<ExerciseStep> _steps = [];
+  Workout _workout;
   int _currentStepIndex;
 
-  ExerciseStep get currentStep => _steps[_currentStepIndex];
+  ExerciseStep get currentStep => _workout.steps[_currentStepIndex];
 
   set currentStepIndex(int value) {
-    if (value >= _steps.length) throw IndexError(value, _steps);
+    if (value >= _workout.steps.length) throw IndexError(value, _workout.steps);
     _currentStepIndex = value;
+    if (currentStep is FinishStep) {
+      DataProvider.setWorkoutCompleted(_workout.id, DateTime.now());
+    }
     notifyListeners();
   }
 
   int get currentStepIndex => _currentStepIndex;
 
-  UnmodifiableListView<ExerciseStep> get workout =>
-      UnmodifiableListView(_steps);
+  get workout => _workout;
 
-  set steps(List<ExerciseStep> value) {
-    _steps.addAll(value);
+  set workout(Workout value) {
+    _workout = value;
     _currentStepIndex = 0;
     notifyListeners();
-  }
-
-  void incrementStep() {
-    if (_currentStepIndex + 1 < _steps.length) {
-      _currentStepIndex++;
-      notifyListeners();
-    }
   }
 }

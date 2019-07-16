@@ -45,7 +45,7 @@ class StepSwitcher extends StatelessWidget {
     Widget center;
     if (currentStepNotifier.currentStep is StartStep) {
       center = StartTile(
-        onPressed: () => currentStepNotifier.incrementStep(),
+        onPressed: () => currentStepNotifier.currentStepIndex++,
       );
     } else if (currentStepNotifier.currentStep is FinishStep) {
       center = FinishTile();
@@ -54,13 +54,13 @@ class StepSwitcher extends StatelessWidget {
       center = RestTile(
         key: ValueKey(currentStepNotifier.currentStepIndex),
         duration: restStep.duration,
-        onDone: () => currentStepNotifier.incrementStep(),
+        onDone: () => currentStepNotifier.currentStepIndex++,
       );
     } else if (currentStepNotifier.currentStep is WorkStep) {
       var workStep = currentStepNotifier.currentStep as WorkStep;
       center = WorkTile(
         reps: workStep.reps,
-        onPressed: () => currentStepNotifier.incrementStep(),
+        onPressed: () => currentStepNotifier.currentStepIndex++,
       );
     }
 
@@ -76,12 +76,12 @@ class StepSwitcher extends StatelessWidget {
 class WorkoutStepsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var workoutSteps = List<Widget>();
-    var workout =
-        Provider.of<CurrentStepNotifier>(context, listen: false).workout;
+    var workoutStepsWidgets = List<Widget>();
+    var workoutSteps =
+        Provider.of<CurrentStepNotifier>(context, listen: false).workout.steps;
 
-    for (var i = 0; i < workout.length; ++i) {
-      workoutSteps.add(Expanded(
+    for (var i = 0; i < workoutSteps.length; ++i) {
+      workoutStepsWidgets.add(Expanded(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: AspectRatio(
@@ -94,7 +94,7 @@ class WorkoutStepsBar extends StatelessWidget {
                       : Colors.lime[100],
                   child: GestureDetector(
                     child: FittedBox(
-                      child: Text(workout[i].toString()),
+                      child: Text(workoutSteps[i].toString()),
                     ),
                     onTap: () {
                       currentStepNotifier.currentStepIndex = i;
@@ -111,7 +111,7 @@ class WorkoutStepsBar extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: workoutSteps,
+      children: workoutStepsWidgets,
     );
   }
 }

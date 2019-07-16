@@ -1,3 +1,18 @@
+import 'dart:collection';
+
+class Workout {
+  final String id;
+  final List<ExerciseStep> _steps;
+
+  const Workout(
+    this.id,
+    List<ExerciseStep> steps,
+  ) : _steps = steps;
+
+  UnmodifiableListView<ExerciseStep> get steps => UnmodifiableListView(_steps);
+
+}
+
 abstract class ExerciseStep {
   const ExerciseStep();
 }

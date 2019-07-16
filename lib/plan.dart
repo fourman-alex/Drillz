@@ -1,14 +1,5 @@
 import 'steps.dart';
 
-class Workout {
-  final String id;
-  final List<ExerciseStep> steps;
-
-  const Workout(
-    this.id,
-    this.steps,
-  );
-}
 
 const List<ExerciseStep> _steps1 = [
   StartStep(),

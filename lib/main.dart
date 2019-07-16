@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
               page = WorkoutSelectionScreen(
                 workouts: plan,
                 onWorkoutSelected: (workout) {
-                  _currentStepNotifier.steps = workout.steps;
+                  _currentStepNotifier.workout = workout;
                   _pageController.nextPage(
                       duration: Duration(milliseconds: 500),
                       curve: Curves.easeInOutQuad);
