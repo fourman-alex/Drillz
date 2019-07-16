@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:pogo/data_provider.dart' as DataProvider;
 import 'package:pogo/plan.dart';
 import 'package:pogo/steps.dart';
 
@@ -49,45 +50,41 @@ class WorkoutListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> buildRepRects() {
-      var rects = List<Widget>();
-      var i = 0;
-      for (var step in workout.steps) {
-        if (step is WorkStep) {
-          rects.add(Expanded(
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 4.0),
-              height: 50.0,
-              color: (i % 2) == 0 ? Colors.lightBlue[100] : Colors.pink[100],
-              child: FittedBox(
-                  child: Text(
-                step.toString(),
-                textAlign: TextAlign.center,
-              )),
-            ),
-            flex: step.reps,
-          ));
-          i++;
-        }
+    var rects = List<Widget>();
+    var i = 0;
+    for (var step in workout.steps) {
+      if (step is WorkStep) {
+        rects.add(Expanded(
+          child: Container(
+            margin: EdgeInsets.symmetric(vertical: 4.0),
+            height: 50.0,
+            color: (i % 2) == 0 ? Colors.lightBlue[100] : Colors.pink[100],
+            child: FittedBox(
+                child: Text(
+              step.toString(),
+              textAlign: TextAlign.center,
+            )),
+          ),
+          flex: step.reps,
+        ));
+        i++;
       }
-      return rects;
     }
 
-    List<WorkStep> workSteps = [
-      ...workout.steps.where((step) => step is WorkStep)
-    ];
-    var repsCount = workSteps
-        .map((step) => step.reps)
-        .reduce((value, element) => value + element);
-    return Stack(
+    var attemptedDateFuture = DataProvider.getWorkoutAttempted(workout.id);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-//        Positioned.fill(
-//          child: FittedBox(
-//            child: Text(repsCount.toString(), style: TextStyle(color: Colors.deepOrangeAccent),),
-//          ),
-//        ),
         Row(
-          children: buildRepRects(),
+          children: rects,
+        ),
+        FutureBuilder<DateTime>(
+          future: attemptedDateFuture,
+          builder: (context, snap) {
+            if (snap.hasData) return Text("Attempted on: ${snap.data}");
+            return Text('');
+          },
         ),
       ],
     );

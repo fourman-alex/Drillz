@@ -1,9 +1,13 @@
 import 'steps.dart';
 
 class Workout {
+  final String id;
   final List<ExerciseStep> steps;
 
-  const Workout(this.steps);
+  const Workout(
+    this.id,
+    this.steps,
+  );
 }
 
 const List<ExerciseStep> _steps1 = [
@@ -40,7 +44,7 @@ const List<ExerciseStep> _steps3 = [
 ];
 
 const List<Workout> plan = [
-  Workout(_steps1),
-  Workout(_steps2),
-  Workout(_steps3),
+  Workout("level 1", _steps1),
+  Workout("level 2", _steps2),
+  Workout("level 3", _steps3),
 ];
