@@ -14,6 +14,8 @@ class CurrentStepNotifier extends ChangeNotifier {
     _currentStepIndex = value;
     if (currentStep is FinishStep) {
       DataProvider.setWorkoutCompleted(_workout.id, DateTime.now());
+    } else if (currentStep is StartStep) {
+      DataProvider.setWorkoutAttempted(_workout.id, DateTime.now());
     }
     notifyListeners();
   }
@@ -24,7 +26,8 @@ class CurrentStepNotifier extends ChangeNotifier {
 
   set workout(Workout value) {
     _workout = value;
-    _currentStepIndex = 0;
-    notifyListeners();
+    //use the setter to funnel all "set" calls to a single place.
+    // Also, it will trigger `notifyListeners()` call
+    currentStepIndex = 0;
   }
 }
