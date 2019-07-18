@@ -37,10 +37,16 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _onWorkoutsListChanged() {
-    if (_workoutsNotifier.value.isNotEmpty)
-      _pageController.animateToPage(1,
-          duration: Duration(milliseconds: 500), curve: Curves.easeInOutQuad);
+    if (_workoutsNotifier.value.isNotEmpty) animateToNextPage();
     _workoutsNotifier.removeListener(_onWorkoutsListChanged);
+  }
+
+  ///Just a convenience method to avoid code duplication
+  void animateToNextPage() {
+    _pageController.nextPage(
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOutQuad,
+    );
   }
 
   @override
@@ -62,9 +68,7 @@ class _MyAppState extends State<MyApp> {
                 workouts: _workoutsNotifier.value,
                 onWorkoutSelected: (workout) {
                   _currentStepNotifier.workout = workout;
-                  _pageController.nextPage(
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOutQuad);
+                  animateToNextPage();
                 },
               );
               break;
