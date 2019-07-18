@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:pogo/steps.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
@@ -69,6 +70,8 @@ class WorkoutListTile extends StatelessWidget {
       }
     }
 
+    var dateFormat = DateFormat.yMEd();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -78,9 +81,9 @@ class WorkoutListTile extends StatelessWidget {
         Row(
           children: <Widget>[
             if (workout.dateAttempted != null)
-              Text("Attempted on: ${workout.dateAttempted}"),
+              Text("Attempted on: ${dateFormat.format(workout.dateAttempted)}"),
             if (workout.dateCompleted != null)
-              Text("Completed on: ${workout.dateCompleted}"),
+              Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
           ],
         ),
       ],
