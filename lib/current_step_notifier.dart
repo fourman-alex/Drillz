@@ -13,9 +13,17 @@ class CurrentStepNotifier extends ChangeNotifier {
     if (value >= _workout.steps.length) throw IndexError(value, _workout.steps);
     _currentStepIndex = value;
     if (currentStep is FinishStep) {
-      DataProvider.setWorkoutCompleted(_workout.id, DateTime.now());
+      DataProvider.setWorkoutDate(
+        DataProvider.Date.completed,
+        _workout.id,
+        DateTime.now(),
+      );
     } else if (currentStep is StartStep) {
-      DataProvider.setWorkoutAttempted(_workout.id, DateTime.now());
+      DataProvider.setWorkoutDate(
+        DataProvider.Date.attempted,
+        _workout.id,
+        DateTime.now(),
+      );
     }
     notifyListeners();
   }

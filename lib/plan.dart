@@ -1,6 +1,5 @@
 import 'steps.dart';
 
-
 const List<ExerciseStep> _steps1 = [
   StartStep(),
   WorkStep(7),
@@ -34,8 +33,8 @@ const List<ExerciseStep> _steps3 = [
   FinishStep(),
 ];
 
-const List<Workout> plan = [
-  Workout("level 1", _steps1),
-  Workout("level 2", _steps2),
-  Workout("level 3", _steps3),
+const List<Map<String, Object>> plan = [
+  {"id": "Level 1", "steps": _steps1},
+  {"id": "Level 2", "steps": _steps2},
+  {"id": "Level 3", "steps": _steps3},
 ];

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/data_provider.dart' as DataProvider;
-import 'package:pogo/plan.dart';
 import 'package:pogo/steps.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
@@ -71,20 +69,19 @@ class WorkoutListTile extends StatelessWidget {
       }
     }
 
-    var attemptedDateFuture = DataProvider.getWorkoutAttempted(workout.id);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Row(
           children: rects,
         ),
-        FutureBuilder<DateTime>(
-          future: attemptedDateFuture,
-          builder: (context, snap) {
-            if (snap.hasData) return Text("Attempted on: ${snap.data}");
-            return Text('');
-          },
+        Row(
+          children: <Widget>[
+            if (workout.dateAttempted != null)
+              Text("Attempted on: ${workout.dateAttempted}"),
+            if (workout.dateCompleted != null)
+              Text("Completed on: ${workout.dateCompleted}"),
+          ],
         ),
       ],
     );

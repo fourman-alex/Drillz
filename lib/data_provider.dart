@@ -1,23 +1,20 @@
-import 'package:flutter/foundation.dart' as Foundation;
+import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String _attemptedPrefKey = "attempted:";
-const String _completedPrefKey = "completed:";
+String _key(Date dateType, String id) => dateType.toString() + id;
 
-Future<DateTime> getWorkoutAttempted(String id) async {
+Future<DateTime> getWorkoutDate(Date dateType, String id) async {
   var prefs = await SharedPreferences.getInstance();
-  return DateTime.parse(prefs.getString(_attemptedPrefKey + id));
+  var dateTimeString = prefs.getString(_key(dateType, id));
+  if (dateTimeString != null) return DateTime.parse(dateTimeString);
+  return null;
 }
 
-void setWorkoutAttempted(String id, DateTime attemptedDate) async {
+void setWorkoutDate(Date dateType, String id, DateTime completedDate) async {
   var prefs = await SharedPreferences.getInstance();
-  prefs.setString(_attemptedPrefKey + id, attemptedDate.toIso8601String());
+  var key = _key(dateType, id);
+  var res = await prefs.setString(key, completedDate.toIso8601String());
+  debugPrint("set $completedDate on key:$key is:$res");
 }
 
-void setWorkoutCompleted(String id, DateTime completedDate) async {
-  var prefs = await SharedPreferences.getInstance();
-  var res = await prefs.setString(
-      _completedPrefKey + id, completedDate.toIso8601String());
-  if (Foundation.kDebugMode)
-    print("set $completedDate on key: $_completedPrefKey + $id is:$res");
-}
+enum Date { attempted, completed }

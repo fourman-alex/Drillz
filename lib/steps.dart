@@ -3,10 +3,12 @@ import 'dart:collection';
 class Workout {
   final String id;
   final List<ExerciseStep> _steps;
+  final DateTime dateAttempted;
+  final DateTime dateCompleted;
 
   const Workout(
     this.id,
-    List<ExerciseStep> steps,
+    List<ExerciseStep> steps, this.dateAttempted, this.dateCompleted,
   ) : _steps = steps;
 
   UnmodifiableListView<ExerciseStep> get steps => UnmodifiableListView(_steps);
