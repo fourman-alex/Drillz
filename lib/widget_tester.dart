@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pogo/consts.dart';
-import 'package:pogo/type_selection_screen.dart';
+import 'package:pogo/workout_selection_screen.dart';
 //todo add keys to widget constructors
 
 void main() {
@@ -18,7 +18,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 //      theme: ThemeData.light(),
       color: primaryColor,
-      home: Material(child: SafeArea(child: TypeSelectionScreen())),
+      home: Material(child: SafeArea(child: WorkoutSelectionScreen())),
     );
   }
 }

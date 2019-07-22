@@ -3,7 +3,7 @@ import 'package:pogo/consts.dart';
 import 'package:pogo/current_step_notifier.dart';
 import 'package:pogo/steps.dart';
 import 'package:pogo/workout_screen.dart';
-import 'package:pogo/workout_selection_screen.dart';
+import 'package:pogo/level_selection_screen.dart';
 
 import 'start_screen.dart';
 //todo add keys to widget constructors
@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
               page = StartScreen(_workoutsNotifier);
               break;
             case 1:
-              page = WorkoutSelectionScreen(
+              page = LevelSelectionScreen(
                 workouts: _workoutsNotifier.value,
                 onWorkoutSelected: (workout) {
                   _currentStepNotifier.workout = workout;
