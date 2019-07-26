@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
 class FillTransition extends StatelessWidget {
-  const FillTransition({
+  FillTransition({
     Key key,
     @required this.source,
     @required this.child,
-  })  : assert(source != null),
+    Color fromColor,
+    Color toColor,
+  })  : colorTween = (fromColor != null && toColor != null)
+            ? ColorTween(begin: fromColor, end: toColor)
+            : null,
+        assert(source != null),
         assert(child != null),
         super(key: key);
 
   final Rect source;
   final Widget child;
+  final ColorTween colorTween;
 
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = ModalRoute.of(context).animation;
-    final endColor = Theme.of(context).canvasColor;
-    final colorTween = ColorTween(begin: Colors.white, end: endColor);
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
@@ -39,7 +43,6 @@ class FillTransition extends StatelessWidget {
           curve: Curves.easeIn,
         );
 
-
         return Stack(
           children: <Widget>[
             PositionedTransition(
@@ -47,11 +50,14 @@ class FillTransition extends StatelessWidget {
               child: Stack(
                 fit: StackFit.passthrough,
                 children: <Widget>[
-                  AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, child) =>
-                        Material(color: colorTween.evaluate(animation)),
-                  ),
+                  if (colorTween != null)
+                    AnimatedBuilder(
+                      animation: animation,
+                      builder: (context, child) =>
+                          Material(color: colorTween.evaluate(animation)),
+                    )
+                  else
+                    Material(),
                   FadeTransition(
                     child: SafeArea(child: child),
                     opacity: fadeAnimation,

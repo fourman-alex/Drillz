@@ -44,17 +44,18 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
           crossAxisCount: 2,
           children: <Widget>[
             Card(
-              child: InkWell(
-                child: Material(
-                  key: _pushupsKey,
-                  color: Colors.white,
-                  child: Text("Pushups ink"),
+              child: Builder(
+                builder: (context) => InkWell(
+                  child: Material(
+                    color: Colors.white,
+                    child: Text("Pushups ink"),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      SelectionScreen.route(context),
+                    );
+                  },
                 ),
-                onTap: () {
-                  Navigator.of(context).push(
-                    SelectionScreen.route(context, _pushupsKey),
-                  );
-                },
               ),
             ),
             Card(
