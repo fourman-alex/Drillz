@@ -1,18 +1,27 @@
 import 'package:flutter/foundation.dart';
-import 'package:pogo/data.dart';
+import 'package:pogo/data/pushups.dart';
+import 'package:pogo/data/pullups.dart';
 import 'package:pogo/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Future<WorkoutSelection> get modelAsync async {
   var pushUpPlan = List<Workout>();
-  for (var level in pushUpsLevelSelection) {
+  for (var level in pushUpsData) {
     var id = level["id"];
     var dateAttempted = await _getWorkoutDate(Date.attempted, id);
     var dateCompleted = await _getWorkoutDate(Date.completed, id);
     pushUpPlan.add(Workout(id, level["steps"], dateAttempted, dateCompleted));
   }
-  await Future.delayed(Duration(seconds: 3));
-  return WorkoutSelection(pushUpPlan, pushUpPlan, pushUpPlan, pushUpPlan);
+
+  var pullupsPlan = List<Workout>();
+  for (var level in pullupsData) {
+    var id = level["id"];
+    var dateAttempted = await _getWorkoutDate(Date.attempted, id);
+    var dateCompleted = await _getWorkoutDate(Date.completed, id);
+    pullupsPlan.add(Workout(id, level["steps"], dateAttempted, dateCompleted));
+  }
+
+  return WorkoutSelection(pushUpPlan, pullupsPlan, pushUpPlan, pushUpPlan);
 }
 
 String _key(Date dateType, String id) => dateType.toString() + id;
