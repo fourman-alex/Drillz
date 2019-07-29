@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pogo/plan.dart';
-import 'package:pogo/positioned.dart';
-import 'package:pogo/steps.dart';
+import 'package:pogo/model.dart';
+import 'package:pogo/level_selection_screen.dart';
 
 import 'data_provider.dart' as DataProvider;
 
@@ -12,24 +11,14 @@ class WorkoutSelectionScreen extends StatefulWidget {
 
 class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   List<Workout> _workouts;
-  GlobalKey _pushupsKey = GlobalKey();
+
+  ValueNotifier<WorkoutSelection> _modelValueNotifier = ValueNotifier(null);
 
   @override
   void initState() {
-    // TODO: implement initState
-    Future(() async {
-      _workouts = [
-        for (var rawWorkout in plan)
-          Workout(
-            rawWorkout["id"],
-            rawWorkout["steps"],
-            await DataProvider.getWorkoutDate(
-                DataProvider.Date.attempted, rawWorkout["id"]),
-            await DataProvider.getWorkoutDate(
-                DataProvider.Date.completed, rawWorkout["id"]),
-          )
-      ];
-    });
+    //we need to load all workout data
+    DataProvider.modelAsync
+        .then((model) => _modelValueNotifier.value = model);
 
     super.initState();
   }
@@ -37,38 +26,58 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Center(
-        child: GridView.count(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          crossAxisCount: 2,
-          children: <Widget>[
-            Card(
-              child: Builder(
-                builder: (context) => InkWell(
-                  child: Material(
-                    color: Colors.white,
-                    child: Text("Pushups ink"),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      SelectionScreen.route(context),
-                    );
-                  },
+      child: ValueListenableBuilder<WorkoutSelection>(
+        valueListenable: _modelValueNotifier,
+        builder: (_, model, __) {
+          //create indicator
+          Widget progressIndicator;
+          if (model == null) {
+            progressIndicator = CircularProgressIndicator();
+          } else
+            progressIndicator = Container();
+
+          return Column(
+            children: <Widget>[
+              Center(
+                child: GridView.count(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  children: <Widget>[
+                    Card(
+                      child: Builder(
+                        builder: (context) => InkWell(
+                          child: Material(
+                            color: model != null ? Colors.white : Colors.red,
+                            child: Text("Pushups ink"),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).push(
+                              LevelSelectionScreen.route(context, model.pushUpsPlan, null),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    Card(
+                      child: Text("Pushups"),
+                    ),
+                    Card(
+                      child: Text("Pushups"),
+                    ),
+                    Card(
+                      child: Text("Pushups"),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Card(
-              child: Text("Pushups"),
-            ),
-            Card(
-              child: Text("Pushups"),
-            ),
-            Card(
-              child: Text("Pushups"),
-            ),
-          ],
-        ),
+              AnimatedSwitcher(
+                duration: Duration(milliseconds: 250),
+                child: progressIndicator,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

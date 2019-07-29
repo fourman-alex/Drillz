@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
-import 'package:pogo/steps.dart';
-
-import 'data_provider.dart' as DataProvider;
+import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/model.dart';
 
 class CurrentStepNotifier extends ChangeNotifier {
   Workout _workout;
   int _currentStepIndex;
+
+  CurrentStepNotifier(Workout workout) {
+    this.workout = workout;
+  }
 
   ExerciseStep get currentStep => _workout.steps[_currentStepIndex];
 

@@ -1,6 +1,6 @@
-import 'steps.dart';
+import 'model.dart';
 
-const List<ExerciseStep> _steps1 = [
+const List<ExerciseStep> _pushupsLevel1 = [
   StartStep(),
   WorkStep(7),
   RestStep(10),
@@ -15,7 +15,7 @@ const List<ExerciseStep> _steps1 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _steps2 = [
+const List<ExerciseStep> _pushupsLevel2 = [
   StartStep(),
   WorkStep(3),
   RestStep(8),
@@ -24,7 +24,7 @@ const List<ExerciseStep> _steps2 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _steps3 = [
+const List<ExerciseStep> _pushupsLevel3 = [
   StartStep(),
   WorkStep(2),
   RestStep(2),
@@ -33,8 +33,8 @@ const List<ExerciseStep> _steps3 = [
   FinishStep(),
 ];
 
-const List<Map<String, Object>> plan = [
-  {"id": "Level 1", "steps": _steps1},
-  {"id": "Level 2", "steps": _steps2},
-  {"id": "Level 3", "steps": _steps3},
+const List<Map<String, Object>> pushUpsLevelSelection = [
+  {"id": "PushUps Level 1", "steps": _pushupsLevel1},
+  {"id": "PushUps Level 2", "steps": _pushupsLevel2},
+  {"id": "PushUps Level 3", "steps": _pushupsLevel3},
 ];

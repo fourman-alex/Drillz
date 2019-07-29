@@ -1,17 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:pogo/steps.dart';
+import 'package:pogo/current_step_notifier.dart';
+import 'package:pogo/fill_transition.dart';
+import 'package:pogo/model.dart';
+import 'package:pogo/workout_screen.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
+  final Rect sourceRect;
   final List<Workout> workouts;
-  final void Function(Workout workout) onWorkoutSelected;
 
   const LevelSelectionScreen({
     Key key,
-    @required this.workouts,
-    this.onWorkoutSelected,
-  }) : super(key: key);
+    @required this.sourceRect,
+    this.workouts,
+  })  : assert(sourceRect != null),
+        super(key: key);
+
+  /// [context] must be the [BuildContext] of the widget from which the
+  /// transition will visually fill
+  static Route<void> route(
+    BuildContext context,
+    List<Workout> workouts,
+    void Function(Workout workout) onWorkoutSelected,
+  ) {
+    final RenderBox box = context.findRenderObject();
+    final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
+
+    return PageRouteBuilder<void>(
+      pageBuilder: (BuildContext context, _, __) => LevelSelectionScreen(
+        sourceRect: sourceRect,
+        workouts: workouts,
+      ),
+      transitionDuration: const Duration(milliseconds: 1000),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        //uses secondaryAnimation to slide this screen out when a new one covers it
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: Offset.zero,
+            end: Offset(-1.0, 0.0),
+          ).animate(secondaryAnimation),
+          child: child,
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +56,24 @@ class LevelSelectionScreen extends StatelessWidget {
       widgets.add(listItem);
     }
 
-    return Material(
-      child: Container(
-        child: ListView(
-          children: <Widget>[
-            for (var workout in workouts)
-              GestureDetector(
-                onTap: () => onWorkoutSelected(workout),
-                child: LevelListTile(
-                  workout: workout,
-                ),
-              )
-          ],
+    return FillTransition(
+      source: sourceRect,
+      fromColor: null,
+      toColor: null,
+      child: Material(
+        child: Container(
+          child: ListView(
+            children: <Widget>[
+              for (var workout in workouts)
+                GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .push(WorkoutScreen.route(CurrentStepNotifier(workout))),
+                  child: LevelListTile(
+                    workout: workout,
+                  ),
+                )
+            ],
+          ),
         ),
       ),
     );

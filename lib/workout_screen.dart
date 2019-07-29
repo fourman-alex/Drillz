@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pogo/current_step_notifier.dart';
-import 'package:pogo/steps.dart';
+import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +13,24 @@ class WorkoutScreen extends StatefulWidget {
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
+
+  static Route<dynamic> route(CurrentStepNotifier currentStepNotifier) {
+    return PageRouteBuilder<void>(
+      pageBuilder: (context, _, __) {
+        return WorkoutScreen(currentStepNotifier: currentStepNotifier);
+      },
+      transitionsBuilder:
+          (context, animation, secondaryAnimation, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(1.0, 0.0),
+            end: Offset.zero,
+          ).animate(animation),
+          child: child,
+        );
+      },
+    );
+  }
 }
 
 class _WorkoutScreenState extends State<WorkoutScreen> {

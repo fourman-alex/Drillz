@@ -1,5 +1,14 @@
 import 'dart:collection';
 
+class WorkoutSelection {
+  final List<Workout> pushUpsPlan;
+  final List<Workout> pullUpsPlan;
+  final List<Workout> sitUpsPlan;
+  final List<Workout> squatsPlan;
+
+  WorkoutSelection(this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
+}
+
 class Workout {
   final String id;
   final List<ExerciseStep> _steps;
