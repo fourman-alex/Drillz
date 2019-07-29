@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pogo/model.dart';
 import 'package:pogo/level_selection_screen.dart';
+import 'package:pogo/model.dart';
 
 import 'data_provider.dart' as DataProvider;
 
@@ -17,8 +17,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   @override
   void initState() {
     //we need to load all workout data
-    DataProvider.modelAsync
-        .then((model) => _modelValueNotifier.value = model);
+    DataProvider.modelAsync.then((model) => _modelValueNotifier.value = model);
 
     super.initState();
   }
@@ -44,38 +43,66 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                   physics: NeverScrollableScrollPhysics(),
                   crossAxisCount: 2,
                   children: <Widget>[
-                    Card(
-                      child: Builder(
-                        builder: (context) => InkWell(
-                          child: Material(
-                            color: model != null ? Colors.white : Colors.red,
-                            child: Text("Pushups ink"),
-                          ),
-                          onTap: () {
-                            Navigator.of(context).push(
-                              LevelSelectionScreen.route(context, model.pushUpsPlan, null),
-                            );
-                          },
-                        ),
-                      ),
+                    _WorkoutButton(
+                      text: "pushups",
+                      plan: model?.pushUpsPlan,
                     ),
-                    Card(
-                      child: Text("Pushups"),
+                    _WorkoutButton(
+                      text: "pullups",
+                      plan: model?.pullUpsPlan,
                     ),
-                    Card(
-                      child: Text("Pushups"),
+                    _WorkoutButton(
+                      text: "situps",
+                      plan: model?.sitUpsPlan,
                     ),
-                    Card(
-                      child: Text("Pushups"),
+                    _WorkoutButton(
+                      text: "squats",
+                      plan: model?.squatsPlan,
                     ),
                   ],
                 ),
               ),
-              AnimatedSwitcher(
-                duration: Duration(milliseconds: 250),
-                child: progressIndicator,
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 250),
+                  child: progressIndicator,
+                ),
               ),
             ],
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _WorkoutButton extends StatelessWidget {
+  final String text;
+  final List<Workout> plan;
+
+  const _WorkoutButton({
+    Key key,
+    this.text,
+    this.plan,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Builder(
+        builder: (context) {
+          var child = Center(child: Text(text));
+          if (plan == null) return child;
+          return InkWell(
+            child: child,
+            onTap: () {
+              if (plan != null) {
+                Navigator.of(context).push(
+                  LevelSelectionScreen.route(context, plan),
+                );
+              }
+            },
           );
         },
       ),

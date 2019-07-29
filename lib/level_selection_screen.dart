@@ -21,7 +21,6 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route(
     BuildContext context,
     List<Workout> workouts,
-    void Function(Workout workout) onWorkoutSelected,
   ) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
