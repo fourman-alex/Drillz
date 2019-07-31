@@ -21,12 +21,11 @@ class FillTransition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = ModalRoute.of(context).animation;
-
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final Animation<double> positionAnimation = CurvedAnimation(
           parent: animation,
-          curve: Curves.fastOutSlowIn,
+          curve: Interval(0.2, 0.7, curve: Curves.easeInOut),
         );
 
         final Animation<RelativeRect> itemPosition = RelativeRectTween(
@@ -38,9 +37,14 @@ class FillTransition extends StatelessWidget {
           end: RelativeRect.fill,
         ).animate(positionAnimation);
 
+        final Animation<double> materialFadeAnimation = CurvedAnimation(
+          parent: animation,
+          curve: Interval(0.0, 0.2),
+        );
+
         final Animation<double> fadeAnimation = CurvedAnimation(
           parent: animation,
-          curve: Curves.easeIn,
+          curve: Interval(0.7, 1.0, curve: Curves.easeInOut),
         );
 
         return Stack(
@@ -50,14 +54,10 @@ class FillTransition extends StatelessWidget {
               child: Stack(
                 fit: StackFit.passthrough,
                 children: <Widget>[
-                  if (colorTween != null)
-                    AnimatedBuilder(
-                      animation: animation,
-                      builder: (context, child) =>
-                          Material(color: colorTween.evaluate(animation)),
-                    )
-                  else
-                    Material(),
+                  FadeTransition(
+                    opacity: materialFadeAnimation,
+                    child: Material(),
+                  ),
                   FadeTransition(
                     child: SafeArea(child: child),
                     opacity: fadeAnimation,
