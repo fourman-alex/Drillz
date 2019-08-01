@@ -89,7 +89,7 @@ class StepSwitcher extends StatelessWidget {
       );
     }
 
-    if (center == null) throw Error();
+    assert (center != null, "center has to be a Tile of some kind, it can't be null");
 
     return AnimatedSwitcher(
       child: center,
