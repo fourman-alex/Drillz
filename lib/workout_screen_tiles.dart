@@ -27,14 +27,19 @@ class StartTile extends StatelessWidget {
 class FinishTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox.expand(
-      child: FittedBox(
-        child: Text(
-          "Done!",
+    return GestureDetector(
+      onTap: () {
+        Navigator.popUntil(context, ModalRoute.withName("/"));
+      },
+      child: Center(
+          child: SizedBox.expand(
+        child: FittedBox(
+          child: Text(
+            "Done!",
+          ),
         ),
-      ),
-    ));
+      )),
+    );
   }
 }
 
