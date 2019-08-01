@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pogo/level_selection_screen.dart';
 import 'package:pogo/model.dart';
-
-import 'data_provider.dart' as DataProvider;
+import 'package:provider/provider.dart';
 
 class WorkoutSelectionScreen extends StatefulWidget {
   @override
@@ -10,24 +9,12 @@ class WorkoutSelectionScreen extends StatefulWidget {
 }
 
 class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
-  List<Workout> _workouts;
-
-  ValueNotifier<WorkoutSelection> _modelValueNotifier = ValueNotifier(null);
-
-  @override
-  void initState() {
-    //we need to load all workout data
-    DataProvider.modelAsync.then((model) => _modelValueNotifier.value = model);
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: ValueListenableBuilder<WorkoutSelection>(
-        valueListenable: _modelValueNotifier,
-        builder: (_, model, __) {
+      child: Consumer<ValueNotifier<WorkoutSelection>>(
+        builder: (_, modelNotifier, __) {
+          var model = modelNotifier.value;
           //create indicator
           Widget progressIndicator;
           if (model == null) {
@@ -98,9 +85,13 @@ class _WorkoutButton extends StatelessWidget {
             child: child,
             onTap: () {
               if (plan != null) {
-                Navigator.of(context).push(
+                Navigator.of(context)
+                    .push(
                   LevelSelectionScreen.route(context, plan),
-                );
+                )
+                    .then((returnValue) {
+                  debugPrint("LevelSelectionScreen popped");
+                });
               }
             },
           );

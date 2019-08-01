@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
+import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/model.dart';
+import 'package:provider/provider.dart';
 
 class StartTile extends StatelessWidget {
   final VoidCallback _onPressed;
@@ -29,6 +32,11 @@ class FinishTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        var workoutSelectionNotifier =
+            Provider.of<ValueNotifier<WorkoutSelection>>(context, listen: false)
+              ..value = null;
+        DataProvider.modelAsync
+            .then((model) => workoutSelectionNotifier.value = model);
         Navigator.popUntil(context, ModalRoute.withName("/"));
       },
       child: Center(

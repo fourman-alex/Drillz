@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pogo/consts.dart';
+import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/model.dart';
 import 'package:pogo/workout_selection_screen.dart';
+import 'package:provider/provider.dart';
 //todo add keys to widget constructors
 
 void main() {
@@ -13,11 +16,24 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  ValueNotifier<WorkoutSelection> _modelValueNotifier = ValueNotifier(null);
+
+  @override
+  void initState() {
+    //we need to load all workout data
+    DataProvider.modelAsync.then((model) => _modelValueNotifier.value = model);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      color: primaryColor,
-      home: WorkoutSelectionScreen(),
+    return ChangeNotifierProvider.value(
+      value: _modelValueNotifier,
+      child: MaterialApp(
+        color: primaryColor,
+        home: WorkoutSelectionScreen(),
+      ),
     );
   }
 }
