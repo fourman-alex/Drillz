@@ -6,18 +6,18 @@ import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  final CurrentStepNotifier currentStepNotifier;
+  final Workout workout;
 
-  WorkoutScreen({Key key, @required this.currentStepNotifier})
+  WorkoutScreen({Key key, @required this.workout})
       : super(key: key);
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(CurrentStepNotifier currentStepNotifier) {
+  static Route<dynamic> route(Workout workout) {
     return PageRouteBuilder<void>(
       pageBuilder: (context, _, __) {
-        return WorkoutScreen(currentStepNotifier: currentStepNotifier);
+        return WorkoutScreen(workout: workout,);
       },
       transitionsBuilder:
           (context, animation, secondaryAnimation, child) {
@@ -34,11 +34,18 @@ class WorkoutScreen extends StatefulWidget {
 }
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
+  CurrentStepNotifier _currentStepNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentStepNotifier = CurrentStepNotifier(widget.workout);
+  }
   @override
   Widget build(BuildContext context) {
     return Material(
       child: ChangeNotifierProvider.value(
-        value: widget.currentStepNotifier,
+        value: _currentStepNotifier,
         child: Row(
           children: <Widget>[
             Expanded(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pogo/current_step_notifier.dart';
 import 'package:pogo/fill_transition.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
@@ -46,84 +45,99 @@ class LevelSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //create list items
-    var widgets = List<Widget>();
-    for (var workout in workouts) {
-      var listItem = LevelListTile(
-        workout: workout,
-      );
-      widgets.add(listItem);
-    }
+    //find last completed
+    var lastCompletedIndex =
+        workouts.lastIndexWhere((workout) => workout.dateCompleted != null);
+    var lastWorkout =
+        lastCompletedIndex != -1 ? workouts[lastCompletedIndex] : null;
+    var currentWorkout = lastCompletedIndex + 1 < workouts.length
+        ? workouts[lastCompletedIndex + 1]
+        : null;
 
     return FillTransition(
       source: sourceRect,
-      fromColor: null,
-      toColor: null,
-      child: Material(
-        child: Container(
-          child: ListView(
-            children: <Widget>[
-              for (var workout in workouts)
-                GestureDetector(
-                  onTap: () => Navigator.of(context)
-                      .push(WorkoutScreen.route(CurrentStepNotifier(workout))),
-                  child: LevelListTile(
-                    workout: workout,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: PageView(
+              scrollDirection: Axis.vertical,
+              controller: PageController(viewportFraction: 1.0),
+              children: <Widget>[
+                if (lastWorkout != null)
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    child: LevelPage(
+                      workout: lastWorkout,
+                      text: "Last",
+                    ),
                   ),
-                )
-            ],
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    debugPrint("current workout tapped");
+                    Navigator.push(
+                        context, WorkoutScreen.route(currentWorkout));
+                  },
+                  child: LevelPage(
+                    workout: currentWorkout,
+                    text: "You have reached!",
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Align(
+            alignment: AlignmentDirectional.bottomStart,
+            child: FlatButton.icon(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(Icons.arrow_back),
+                label: SizedBox()),
+          ),
+        ],
       ),
     );
   }
 }
 
-class LevelListTile extends StatelessWidget {
+class LevelPage extends StatelessWidget {
   final Workout workout;
+  final String text;
+  final void Function() onTap;
 
-  const LevelListTile({Key key, @required this.workout}) : super(key: key);
+  const LevelPage({Key key, this.workout, this.text, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var rects = List<Widget>();
-    var i = 0;
-    for (var step in workout.steps) {
-      if (step is WorkStep) {
-        rects.add(Expanded(
-          child: Container(
-            margin: EdgeInsets.symmetric(vertical: 4.0),
-            height: 50.0,
-            color: (i % 2) == 0 ? Colors.lightBlue[100] : Colors.pink[100],
-            child: FittedBox(
-                child: Text(
-              step.toString(),
-              textAlign: TextAlign.center,
-            )),
+    final DateFormat dateFormat = DateFormat.yMEd();
+
+    return Card(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            workout.id,
+            style: Theme.of(context).textTheme.subhead,
           ),
-          flex: step.reps,
-        ));
-        i++;
-      }
-    }
-
-    var dateFormat = DateFormat.yMEd();
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Row(
-          children: rects,
-        ),
-        Row(
-          children: <Widget>[
-            if (workout.dateAttempted != null)
-              Text("Attempted on: ${dateFormat.format(workout.dateAttempted)}"),
-            if (workout.dateCompleted != null)
-              Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
-          ],
-        ),
-      ],
+          Text(
+            text ?? "",
+            style: Theme.of(context).textTheme.headline,
+          ),
+          if (workout.dateAttempted != null)
+            Text("Unlcoked on: ${dateFormat.format(workout.dateAttempted)}"),
+          if (workout.dateCompleted != null)
+            Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                for (var step in workout.steps)
+                  if (step is WorkStep) Text(step.reps.toString())
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
