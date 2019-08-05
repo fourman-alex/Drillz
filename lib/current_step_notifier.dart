@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
-//todo provide the DataProvider so it can be mocked for testing
-import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
 
 class CurrentStepNotifier extends ChangeNotifier {
@@ -18,14 +17,14 @@ class CurrentStepNotifier extends ChangeNotifier {
     if (value >= workout.steps.length) throw IndexError(value, workout.steps);
     _currentStepIndex = value;
     if (currentStep is FinishStep) {
-      DataProvider.setWorkoutDate(
-        DataProvider.Date.completed,
+      Repository.setWorkoutDate(
+        Date.completed,
         workout.id,
         DateTime.now(),
       );
     } else if (currentStep is StartStep) {
-      DataProvider.setWorkoutDate(
-        DataProvider.Date.attempted,
+      Repository.setWorkoutDate(
+        Date.attempted,
         workout.id,
         DateTime.now(),
       );

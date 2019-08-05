@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
-import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class FinishTile extends StatelessWidget {
         var workoutSelectionNotifier =
             Provider.of<ValueNotifier<WorkoutSelection>>(context, listen: false)
               ..value = null;
-        DataProvider.modelAsync
+        Repository.modelAsync
             .then((model) => workoutSelectionNotifier.value = model);
         Navigator.popUntil(context, ModalRoute.withName("/"));
       },

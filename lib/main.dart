@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pogo/consts.dart';
-import 'package:pogo/data_provider.dart' as DataProvider;
+import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_selection_screen.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     //we need to load all workout data
-    DataProvider.modelAsync.then((model) => _modelValueNotifier.value = model);
+    Repository.modelAsync.then((model) => _modelValueNotifier.value = model);
 
     super.initState();
   }
