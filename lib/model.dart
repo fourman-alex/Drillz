@@ -6,7 +6,8 @@ class WorkoutSelection {
   final List<Workout> sitUpsPlan;
   final List<Workout> squatsPlan;
 
-  WorkoutSelection(this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
+  WorkoutSelection(
+      this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
 }
 
 class Workout {
@@ -17,11 +18,12 @@ class Workout {
 
   const Workout(
     this.id,
-    List<ExerciseStep> steps, this.dateAttempted, this.dateCompleted,
+    List<ExerciseStep> steps,
+    this.dateAttempted,
+    this.dateCompleted,
   ) : _steps = steps;
 
   UnmodifiableListView<ExerciseStep> get steps => UnmodifiableListView(_steps);
-
 }
 
 abstract class ExerciseStep {
@@ -55,16 +57,24 @@ class StartStep extends ExerciseStep {
   const StartStep();
 
   @override
-  String toString() {
-    return "Start";
-  }
+  String toString() => "Start";
+
+  @override
+  bool operator ==(other) => other is StartStep;
+
+  @override
+  int get hashCode => toString().hashCode;
 }
 
 class FinishStep extends ExerciseStep {
   const FinishStep();
 
   @override
-  String toString() {
-    return "Finish";
-  }
+  String toString() => "Finish";
+
+  @override
+  bool operator ==(other) => other is FinishStep;
+
+  @override
+  int get hashCode => toString().hashCode;
 }
