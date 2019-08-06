@@ -41,6 +41,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     super.initState();
     _currentStepNotifier = CurrentStepNotifier(widget.workout);
   }
+
   @override
   Widget build(BuildContext context) {
     return Material(
