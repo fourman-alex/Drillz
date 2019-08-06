@@ -33,7 +33,7 @@ class FinishTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         var workoutSelectionNotifier =
-            Provider.of<ValueNotifier<WorkoutSelection>>(context, listen: false)
+            Provider.of<ValueNotifier<Model>>(context, listen: false)
               ..value = null;
         Repository.modelAsync
             .then((model) => workoutSelectionNotifier.value = model);

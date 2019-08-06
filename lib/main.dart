@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ValueNotifier<WorkoutSelection> _modelValueNotifier = ValueNotifier(null);
+  ValueNotifier<Model> _modelValueNotifier = ValueNotifier(null);
 
   @override
   void initState() {

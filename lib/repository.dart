@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
   ///get all plans asynchronously
-  static Future<WorkoutSelection> get modelAsync async {
+  static Future<Model> get modelAsync async {
     var pushUpPlan = List<Level>();
     for (var level in pushUpsData) {
       var id = level["id"];
@@ -24,7 +24,7 @@ class Repository {
     }
 
     //todo: actually add situps, squats data
-    return WorkoutSelection(pushUpPlan, pullupsPlan, pushUpPlan, pushUpPlan);
+    return Model(pushUpPlan, pullupsPlan, pushUpPlan, pushUpPlan);
   }
 
   static String _key(Date dateType, String id) => dateType.toString() + id;

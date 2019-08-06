@@ -1,12 +1,12 @@
 import 'dart:collection';
 
-class WorkoutSelection {
+class Model {
   final List<Level> pushUpsPlan;
   final List<Level> pullUpsPlan;
   final List<Level> sitUpsPlan;
   final List<Level> squatsPlan;
 
-  WorkoutSelection(
+  Model(
       this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
 }
 

@@ -12,7 +12,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Consumer<ValueNotifier<WorkoutSelection>>(
+      child: Consumer<ValueNotifier<Model>>(
         builder: (_, modelNotifier, __) {
           var model = modelNotifier.value;
           //create indicator
