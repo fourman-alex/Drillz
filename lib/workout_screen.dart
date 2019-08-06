@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/current_step_notifier.dart';
 import 'package:pogo/model.dart';
+import 'package:pogo/repository.dart';
 import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  final Level workout;
+  final Level level;
 
-  WorkoutScreen({Key key, @required this.workout})
-      : super(key: key);
+  WorkoutScreen({Key key, @required this.level}) : super(key: key);
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(Level workout) {
+  static Route<dynamic> route(Level level) {
     return PageRouteBuilder<void>(
       pageBuilder: (context, _, __) {
-        return WorkoutScreen(workout: workout,);
+        return WorkoutScreen(
+          level: level,
+        );
       },
-      transitionsBuilder:
-          (context, animation, secondaryAnimation, child) {
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(1.0, 0.0),
@@ -34,19 +34,39 @@ class WorkoutScreen extends StatefulWidget {
 }
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
-  CurrentStepNotifier _currentStepNotifier;
+  ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier(null);
 
   @override
   void initState() {
+    _currentStepIndexNotifier.addListener(_handleCurrentStepChanged);
+    _currentStepIndexNotifier.value = 0;
     super.initState();
-    _currentStepNotifier = CurrentStepNotifier(widget.workout);
+  }
+
+  @override
+  void dispose() {
+    _currentStepIndexNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(WorkoutScreen oldWidget) {
+    //reset the index if the level changed
+    if (widget != oldWidget && widget.level != oldWidget.level)
+      _currentStepIndexNotifier.value = 0;
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: ChangeNotifierProvider.value(
-        value: _currentStepNotifier,
+      child: MultiProvider(
+        providers: [
+          ListenableProvider<ValueNotifier<int>>.value(
+            value: _currentStepIndexNotifier,
+          ),
+          Provider<Level>.value(value: widget.level)
+        ],
         child: Row(
           children: <Widget>[
             Expanded(
@@ -62,35 +82,53 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       ),
     );
   }
+
+  void _handleCurrentStepChanged() {
+    var currentStep = widget.level.steps[_currentStepIndexNotifier.value];
+    if (currentStep is FinishStep) {
+      Repository.setWorkoutDate(
+        Date.completed,
+        widget.level.id,
+        DateTime.now(),
+      );
+    } else if (currentStep is StartStep) {
+      Repository.setWorkoutDate(
+        Date.attempted,
+        widget.level.id,
+        DateTime.now(),
+      );
+    }
+  }
 }
 
 class StepSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var currentStepNotifier = Provider.of<CurrentStepNotifier>(context);
+    var level = Provider.of<Level>(context, listen: false);
+    var currentStepIndexNotifier = Provider.of<ValueNotifier<int>>(context);
+    var currentStep = level.steps[currentStepIndexNotifier.value];
     Widget center;
-    if (currentStepNotifier.currentStep is StartStep) {
+    if (currentStep is StartStep) {
       center = StartTile(
-        onPressed: () => currentStepNotifier.currentStepIndex++,
+        onPressed: () => currentStepIndexNotifier.value++,
       );
-    } else if (currentStepNotifier.currentStep is FinishStep) {
+    } else if (currentStep is FinishStep) {
       center = FinishTile();
-    } else if (currentStepNotifier.currentStep is RestStep) {
-      var restStep = currentStepNotifier.currentStep as RestStep;
+    } else if (currentStep is RestStep) {
       center = RestTile(
-        key: ValueKey(currentStepNotifier.currentStepIndex),
-        duration: restStep.duration,
-        onDone: () => currentStepNotifier.currentStepIndex++,
+        key: ValueKey(currentStepIndexNotifier.value),
+        duration: currentStep.duration,
+        onDone: () => currentStepIndexNotifier.value++,
       );
-    } else if (currentStepNotifier.currentStep is WorkStep) {
-      var workStep = currentStepNotifier.currentStep as WorkStep;
+    } else if (currentStep is WorkStep) {
       center = WorkTile(
-        reps: workStep.reps,
-        onPressed: () => currentStepNotifier.currentStepIndex++,
+        reps: currentStep.reps,
+        onPressed: () => currentStepIndexNotifier.value++,
       );
     }
 
-    assert (center != null, "center has to be a Tile of some kind, it can't be null");
+    assert(center != null,
+        "center has to be a Tile of some kind, it can't be null");
 
     return AnimatedSwitcher(
       child: center,
@@ -103,8 +141,7 @@ class WorkoutStepsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var workoutStepsWidgets = List<Widget>();
-    var workoutSteps =
-        Provider.of<CurrentStepNotifier>(context, listen: false).level.steps;
+    var workoutSteps = Provider.of<Level>(context, listen: false).steps;
 
     for (var i = 0; i < workoutSteps.length; ++i) {
       workoutStepsWidgets.add(Expanded(
@@ -112,10 +149,10 @@ class WorkoutStepsBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: AspectRatio(
             aspectRatio: 1 / 1,
-            child: Consumer<CurrentStepNotifier>(
+            child: Consumer<ValueNotifier<int>>(
               builder: (_, currentStepNotifier, __) {
                 return Container(
-                  color: currentStepNotifier.currentStepIndex == i
+                  color: currentStepNotifier.value == i
                       ? Colors.lime
                       : Colors.lime[100],
                   child: GestureDetector(
@@ -123,7 +160,7 @@ class WorkoutStepsBar extends StatelessWidget {
                       child: Text(workoutSteps[i].toString()),
                     ),
                     onTap: () {
-                      currentStepNotifier.currentStepIndex = i;
+                      currentStepNotifier.value = i;
                     },
                   ),
                 );
