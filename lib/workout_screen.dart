@@ -6,7 +6,7 @@ import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  final Workout workout;
+  final Level workout;
 
   WorkoutScreen({Key key, @required this.workout})
       : super(key: key);
@@ -14,7 +14,7 @@ class WorkoutScreen extends StatefulWidget {
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(Workout workout) {
+  static Route<dynamic> route(Level workout) {
     return PageRouteBuilder<void>(
       pageBuilder: (context, _, __) {
         return WorkoutScreen(workout: workout,);

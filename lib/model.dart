@@ -1,22 +1,22 @@
 import 'dart:collection';
 
 class WorkoutSelection {
-  final List<Workout> pushUpsPlan;
-  final List<Workout> pullUpsPlan;
-  final List<Workout> sitUpsPlan;
-  final List<Workout> squatsPlan;
+  final List<Level> pushUpsPlan;
+  final List<Level> pullUpsPlan;
+  final List<Level> sitUpsPlan;
+  final List<Level> squatsPlan;
 
   WorkoutSelection(
       this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
 }
 
-class Workout {
+class Level {
   final String id;
   final List<ExerciseStep> _steps;
   final DateTime dateAttempted;
   final DateTime dateCompleted;
 
-  const Workout(
+  const Level(
     this.id,
     List<ExerciseStep> steps,
     this.dateAttempted,

@@ -6,7 +6,7 @@ import 'package:pogo/workout_screen.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   final Rect sourceRect;
-  final List<Workout> workouts;
+  final List<Level> workouts;
 
   const LevelSelectionScreen({
     Key key,
@@ -19,7 +19,7 @@ class LevelSelectionScreen extends StatelessWidget {
   /// transition will visually fill
   static Route<void> route(
     BuildContext context,
-    List<Workout> workouts,
+    List<Level> workouts,
   ) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
@@ -100,7 +100,7 @@ class LevelSelectionScreen extends StatelessWidget {
 }
 
 class LevelPage extends StatelessWidget {
-  final Workout workout;
+  final Level workout;
   final String text;
   final void Function() onTap;
 

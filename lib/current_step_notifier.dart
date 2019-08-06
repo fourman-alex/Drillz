@@ -3,12 +3,12 @@ import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
 
 class CurrentStepNotifier extends ChangeNotifier {
-  Workout workout;
+  Level workout;
   int _currentStepIndex = 0;
 
-  CurrentStepNotifier(Workout workout) : this.workout = workout {
+  CurrentStepNotifier(Level workout) : this.workout = workout {
     //check params
-    if (workout is! Workout) throw ArgumentError(workout);
+    if (workout is! Level) throw ArgumentError(workout);
   }
 
   ExerciseStep get currentStep => workout.steps[_currentStepIndex];

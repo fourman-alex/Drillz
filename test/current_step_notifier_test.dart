@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pogo/current_step_notifier.dart';
 import 'package:pogo/model.dart';
 
-var normalWorkout = Workout(
+var normalWorkout = Level(
   "Pushups level 1",
   const [
     StartStep(),

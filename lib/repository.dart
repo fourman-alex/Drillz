@@ -7,20 +7,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Repository {
   ///get all plans asynchronously
   static Future<WorkoutSelection> get modelAsync async {
-    var pushUpPlan = List<Workout>();
+    var pushUpPlan = List<Level>();
     for (var level in pushUpsData) {
       var id = level["id"];
       var dateAttempted = await _getWorkoutDate(Date.attempted, id);
       var dateCompleted = await _getWorkoutDate(Date.completed, id);
-      pushUpPlan.add(Workout(id, level["steps"], dateAttempted, dateCompleted));
+      pushUpPlan.add(Level(id, level["steps"], dateAttempted, dateCompleted));
     }
 
-    var pullupsPlan = List<Workout>();
+    var pullupsPlan = List<Level>();
     for (var level in pullupsData) {
       var id = level["id"];
       var dateAttempted = await _getWorkoutDate(Date.attempted, id);
       var dateCompleted = await _getWorkoutDate(Date.completed, id);
-      pullupsPlan.add(Workout(id, level["steps"], dateAttempted, dateCompleted));
+      pullupsPlan.add(Level(id, level["steps"], dateAttempted, dateCompleted));
     }
 
     //todo: actually add situps, squats data

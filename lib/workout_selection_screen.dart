@@ -66,7 +66,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 
 class _WorkoutButton extends StatelessWidget {
   final String text;
-  final List<Workout> plan;
+  final List<Level> plan;
 
   const _WorkoutButton({
     Key key,
