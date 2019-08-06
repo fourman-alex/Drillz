@@ -1,6 +1,6 @@
 import 'package:pogo/model.dart';
 
-const List<ExerciseStep> _level1 = [
+List<ExerciseStep> _level1 = [
   StartStep(),
   WorkStep(2),
   RestStep(60),
@@ -14,7 +14,7 @@ const List<ExerciseStep> _level1 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level2 = [
+List<ExerciseStep> _level2 = [
   StartStep(),
   WorkStep(2),
   RestStep(60),
@@ -28,7 +28,7 @@ const List<ExerciseStep> _level2 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level3 = [
+List<ExerciseStep> _level3 = [
   StartStep(),
   WorkStep(2),
   RestStep(60),
@@ -42,7 +42,7 @@ const List<ExerciseStep> _level3 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level4 = [
+List<ExerciseStep> _level4 = [
   StartStep(),
   WorkStep(3),
   RestStep(60),
@@ -56,7 +56,7 @@ const List<ExerciseStep> _level4 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level5 = [
+List<ExerciseStep> _level5 = [
   StartStep(),
   WorkStep(3),
   RestStep(60),
@@ -70,7 +70,7 @@ const List<ExerciseStep> _level5 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level6 = [
+List<ExerciseStep> _level6 = [
   StartStep(),
   WorkStep(3),
   RestStep(60),
@@ -84,7 +84,7 @@ const List<ExerciseStep> _level6 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level7 = [
+List<ExerciseStep> _level7 = [
   StartStep(),
   WorkStep(4),
   RestStep(60),
@@ -98,7 +98,7 @@ const List<ExerciseStep> _level7 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level8 = [
+List<ExerciseStep> _level8 = [
   StartStep(),
   WorkStep(5),
   RestStep(60),
@@ -112,7 +112,7 @@ const List<ExerciseStep> _level8 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level9 = [
+List<ExerciseStep> _level9 = [
   StartStep(),
   WorkStep(6),
   RestStep(60),
@@ -126,25 +126,11 @@ const List<ExerciseStep> _level9 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level10 = [
+List<ExerciseStep> _level10 = [
   StartStep(),
   WorkStep(5),
   RestStep(60),
   WorkStep(4),
-  RestStep(60),
-  WorkStep(5),
-  RestStep(60),
-  WorkStep(6),
-  RestStep(60),
-  WorkStep(7),
-  FinishStep(),
-];
-
-const List<ExerciseStep> _level11 = [
-  StartStep(),
-  WorkStep(7),
-  RestStep(60),
-  WorkStep(6),
   RestStep(60),
   WorkStep(5),
   RestStep(60),
@@ -154,7 +140,21 @@ const List<ExerciseStep> _level11 = [
   FinishStep(),
 ];
 
-const List<ExerciseStep> _level12 = [
+List<ExerciseStep> _level11 = [
+  StartStep(),
+  WorkStep(7),
+  RestStep(60),
+  WorkStep(6),
+  RestStep(60),
+  WorkStep(5),
+  RestStep(60),
+  WorkStep(6),
+  RestStep(60),
+  WorkStep(7),
+  FinishStep(),
+];
+
+List<ExerciseStep> _level12 = [
   StartStep(),
   WorkStep(8),
   RestStep(60),
@@ -170,7 +170,7 @@ const List<ExerciseStep> _level12 = [
   FinishStep(),
 ];
 
-const List<Map<String, Object>> pullupsData = [
+List<Map<String, Object>> pullupsData = [
   {"id": "PullUps Level 1", "steps": _level1},
   {"id": "PullUps Level 2", "steps": _level2},
   {"id": "PullUps Level 3", "steps": _level3},

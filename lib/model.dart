@@ -7,7 +7,16 @@ class Model {
   final List<Level> squatsPlan;
 
   Model(
-      this.pushUpsPlan, this.pullUpsPlan, this.sitUpsPlan, this.squatsPlan);
+    this.pushUpsPlan,
+    this.pullUpsPlan,
+    this.sitUpsPlan,
+    this.squatsPlan,
+  ) {
+    if (pullUpsPlan is! List<Level>) throw ArgumentError(pullUpsPlan);
+    if (pushUpsPlan is! List<Level>) throw ArgumentError(pushUpsPlan);
+    if (sitUpsPlan is! List<Level>) throw ArgumentError(sitUpsPlan);
+    if (squatsPlan is! List<Level>) throw ArgumentError(squatsPlan);
+  }
 }
 
 class Level {
@@ -16,12 +25,17 @@ class Level {
   final DateTime dateAttempted;
   final DateTime dateCompleted;
 
-  const Level(
+  ///
+  /// [dateCompleted] must come after [dateAttempted]
+  Level(
     this.id,
     List<ExerciseStep> steps,
     this.dateAttempted,
     this.dateCompleted,
-  ) : _steps = steps;
+  ) : _steps = steps{
+    if (id is! String) throw ArgumentError(id);
+    if (dateCompleted.isBefore(dateAttempted)) throw ArgumentError("dateCompleted must be after dateAttempted");
+  }
 
   UnmodifiableListView<ExerciseStep> get steps => UnmodifiableListView(_steps);
 }
@@ -33,7 +47,9 @@ abstract class ExerciseStep {
 class WorkStep extends ExerciseStep {
   final int reps;
 
-  const WorkStep(this.reps);
+  WorkStep(this.reps) {
+    if (reps is! int || reps <= 0) throw ArgumentError(reps);
+  }
 
   @override
   String toString() {
@@ -45,7 +61,9 @@ class RestStep extends ExerciseStep {
   /// Rest [duration] in seconds
   final int duration;
 
-  const RestStep(this.duration);
+  RestStep(this.duration) {
+    if (duration is! int || duration <= 0) throw ArgumentError(duration);
+  }
 
   @override
   String toString() {
