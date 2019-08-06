@@ -3,29 +3,29 @@ import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
 
 class CurrentStepNotifier extends ChangeNotifier {
-  Level workout;
+  Level level;
   int _currentStepIndex = 0;
 
-  CurrentStepNotifier(Level workout) : this.workout = workout {
+  CurrentStepNotifier(Level workout) : this.level = workout {
     //check params
     if (workout is! Level) throw ArgumentError(workout);
   }
 
-  ExerciseStep get currentStep => workout.steps[_currentStepIndex];
+  ExerciseStep get currentStep => level.steps[_currentStepIndex];
 
   set currentStepIndex(int value) {
-    if (value >= workout.steps.length) throw IndexError(value, workout.steps);
+    if (value >= level.steps.length) throw IndexError(value, level.steps);
     _currentStepIndex = value;
     if (currentStep is FinishStep) {
       Repository.setWorkoutDate(
         Date.completed,
-        workout.id,
+        level.id,
         DateTime.now(),
       );
     } else if (currentStep is StartStep) {
       Repository.setWorkoutDate(
         Date.attempted,
-        workout.id,
+        level.id,
         DateTime.now(),
       );
     }

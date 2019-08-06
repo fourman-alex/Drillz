@@ -103,7 +103,7 @@ class WorkoutStepsBar extends StatelessWidget {
   Widget build(BuildContext context) {
     var workoutStepsWidgets = List<Widget>();
     var workoutSteps =
-        Provider.of<CurrentStepNotifier>(context, listen: false).workout.steps;
+        Provider.of<CurrentStepNotifier>(context, listen: false).level.steps;
 
     for (var i = 0; i < workoutSteps.length; ++i) {
       workoutStepsWidgets.add(Expanded(
