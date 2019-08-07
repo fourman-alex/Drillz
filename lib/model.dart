@@ -26,7 +26,8 @@ class Level {
   final DateTime dateCompleted;
 
   /// [dateCompleted] must come after [dateAttempted].
-  ///  [dateAttempted] can't be null if [dateCompleted] is not null.
+  ///
+  /// [dateAttempted] can't be null if [dateCompleted] is not null.
   Level(
     this.id,
     List<ExerciseStep> steps,
