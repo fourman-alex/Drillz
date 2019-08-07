@@ -25,16 +25,20 @@ class Level {
   final DateTime dateAttempted;
   final DateTime dateCompleted;
 
-  ///
-  /// [dateCompleted] must come after [dateAttempted]
+  /// [dateCompleted] must come after [dateAttempted].
+  ///  [dateAttempted] can't be null if [dateCompleted] is not null.
   Level(
     this.id,
     List<ExerciseStep> steps,
     this.dateAttempted,
     this.dateCompleted,
-  ) : _steps = steps{
+  ) : _steps = steps {
     if (id is! String) throw ArgumentError(id);
-    if (dateCompleted.isBefore(dateAttempted)) throw ArgumentError("dateCompleted must be after dateAttempted");
+    if (dateCompleted != null &&
+        dateAttempted != null &&
+        dateCompleted.isBefore(dateAttempted))
+      throw ArgumentError("dateCompleted must be after dateAttempted");
+    if (dateAttempted == null && dateCompleted != null) throw ArgumentError("dateAttempted can't be null while dateCompleted is not null");
   }
 
   UnmodifiableListView<ExerciseStep> get steps => UnmodifiableListView(_steps);
