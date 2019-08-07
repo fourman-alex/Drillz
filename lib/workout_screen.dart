@@ -60,25 +60,53 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: MultiProvider(
-        providers: [
-          ListenableProvider<ValueNotifier<int>>.value(
-            value: _currentStepIndexNotifier,
+      child: Stack(
+        children: <Widget>[
+          Positioned.directional(
+            textDirection: TextDirection.ltr,
+            bottom: 16.0,
+            start: 16.0,
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTapDown: (details) {
+                debugPrint(details.toString());
+              },
+              onTapUp: (details) {
+                debugPrint(details.toString());
+              },
+              child: Container(
+                decoration: ShapeDecoration.fromBoxDecoration(BoxDecoration(
+                  border: Border.all(),
+                  shape: BoxShape.circle,
+                )),
+                child: Padding(
+                  padding: const EdgeInsets.all(radius),
+                  child: Icon(Icons.close),
+                ),
+              ),
+            ),
           ),
-          Provider<Level>.value(value: widget.level)
+          MultiProvider(
+            providers: [
+              ListenableProvider<ValueNotifier<int>>.value(
+                value: _currentStepIndexNotifier,
+              ),
+              Provider<Level>.value(value: widget.level)
+            ],
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 8,
+                  child: StepSwitcher(),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: WorkoutStepsBar(),
+                ),
+              ],
+            ),
+          ),
         ],
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              flex: 8,
-              child: StepSwitcher(),
-            ),
-            Expanded(
-              flex: 1,
-              child: WorkoutStepsBar(),
-            ),
-          ],
-        ),
       ),
     );
   }
