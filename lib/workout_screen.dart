@@ -33,7 +33,8 @@ class WorkoutScreen extends StatefulWidget {
   }
 }
 
-class _WorkoutScreenState extends State<WorkoutScreen> {
+class _WorkoutScreenState extends State<WorkoutScreen>
+    with TickerProviderStateMixin<WorkoutScreen> {
   ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier(null);
 
   @override
@@ -66,24 +67,57 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             textDirection: TextDirection.ltr,
             bottom: 16.0,
             start: 16.0,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTapDown: (details) {
-                debugPrint(details.toString());
+            child: Builder(
+              builder: (context) {
+                var animController = AnimationController(
+                  vsync: this,
+                  duration: Duration(seconds: 5),
+                );
+                return GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTapDown: (details) {
+                    debugPrint(details.toString());
+                    animController.forward();
+                  },
+                  onTapCancel: () {
+                    debugPrint("tap canceled");
+                    animController.reset();
+                  },
+                  onTapUp: (details) {
+                    debugPrint(details.toString());
+                    if (animController.status == AnimationStatus.completed)
+                      debugPrint("animation completed at tap up");
+                    else
+                      animController.value = 0.0;
+                  },
+                  child: SizedBox(
+                    width: 50,
+                    height: 50,
+                    child: AnimatedBuilder(
+                      animation: animController,
+                      builder: (context, child) => Stack(
+                        alignment: Alignment.center,
+                        fit: StackFit.loose,
+                        children: <Widget>[
+                          Container(
+                            decoration:
+                                ShapeDecoration.fromBoxDecoration(BoxDecoration(
+                              border: Border.all(),
+                              shape: BoxShape.circle,
+                            )),
+                            child: Icon(Icons.close),
+                          ),
+                          SizedBox.expand(
+                            child: CircularProgressIndicator(
+                              value: animController.value,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
               },
-              onTapUp: (details) {
-                debugPrint(details.toString());
-              },
-              child: Container(
-                decoration: ShapeDecoration.fromBoxDecoration(BoxDecoration(
-                  border: Border.all(),
-                  shape: BoxShape.circle,
-                )),
-                child: Padding(
-                  padding: const EdgeInsets.all(radius),
-                  child: Icon(Icons.close),
-                ),
-              ),
             ),
           ),
           MultiProvider(
