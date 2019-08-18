@@ -61,7 +61,7 @@ class LevelSelectionScreen extends StatelessWidget {
           Expanded(
             child: PageView(
               scrollDirection: Axis.vertical,
-              controller: PageController(viewportFraction: 1.0),
+              controller: PageController(viewportFraction: 0.33),
               children: <Widget>[
                 if (lastWorkout != null)
                   GestureDetector(
@@ -112,6 +112,8 @@ class LevelPage extends StatelessWidget {
     final DateFormat dateFormat = DateFormat.yMEd();
 
     return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -132,7 +134,30 @@ class LevelPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 for (var step in workout.steps)
-                  if (step is WorkStep) Text(step.reps.toString())
+                  if (step is WorkStep)
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AspectRatio(
+                          aspectRatio: 1 / 1,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: SizedBox.expand(
+                              child: FittedBox(
+                                child: Text(
+                                  step.reps.toString(),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.0)),
+                                color: Colors.blue[300]),
+                          ),
+                        ),
+                      ),
+                    )
               ],
             ),
           ),
