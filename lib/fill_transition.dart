@@ -56,10 +56,16 @@ class FillTransition extends StatelessWidget {
                 children: <Widget>[
                   FadeTransition(
                     opacity: materialFadeAnimation,
-                    child: Material(),
+                    child: AnimatedBuilder(
+                        animation: animation,
+                        builder: (_, __) {
+                          return Material(
+                            color: colorTween.evaluate(animation),
+                          );
+                        }),
                   ),
                   FadeTransition(
-                    child: SafeArea(child: child),
+                    child: child,
                     opacity: fadeAnimation,
                   ),
                 ],

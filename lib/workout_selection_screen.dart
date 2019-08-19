@@ -23,31 +23,34 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             progressIndicator = Container();
 
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Center(
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    _WorkoutButton(
-                      text: "pushups",
-                      plan: model?.pushUpsPlan,
-                    ),
-                    _WorkoutButton(
-                      text: "pullups",
-                      plan: model?.pullUpsPlan,
-                    ),
-                    _WorkoutButton(
-                      text: "situps",
-                      plan: model?.sitUpsPlan,
-                    ),
-                    _WorkoutButton(
-                      text: "squats",
-                      plan: model?.squatsPlan,
-                    ),
-                  ],
-                ),
+              GridView.count(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                children: <Widget>[
+                  _WorkoutButton(
+                    text: "pushups",
+                    color: Colors.lightBlue,
+                    plan: model?.pushUpsPlan,
+                  ),
+                  _WorkoutButton(
+                    text: "pullups",
+                    color: Colors.indigo,
+                    plan: model?.pullUpsPlan,
+                  ),
+                  _WorkoutButton(
+                    text: "situps",
+                    color: Colors.lightGreen,
+                    plan: model?.sitUpsPlan,
+                  ),
+                  _WorkoutButton(
+                    text: "squats",
+                    color: Colors.amber,
+                    plan: model?.squatsPlan,
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8.0),
@@ -67,16 +70,19 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 class _WorkoutButton extends StatelessWidget {
   final String text;
   final List<Level> plan;
+  final Color color;
 
   const _WorkoutButton({
     Key key,
     this.text,
     this.plan,
+    this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: color,
       child: Builder(
         builder: (context) {
           var child = Center(child: Text(text));
@@ -87,7 +93,7 @@ class _WorkoutButton extends StatelessWidget {
               if (plan != null) {
                 Navigator.of(context)
                     .push(
-                  LevelSelectionScreen.route(context, plan),
+                  LevelSelectionScreen.route(context, plan, color),
                 )
                     .then((returnValue) {
                   debugPrint("LevelSelectionScreen popped");

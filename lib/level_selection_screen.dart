@@ -7,11 +7,13 @@ import 'package:pogo/workout_screen.dart';
 class LevelSelectionScreen extends StatelessWidget {
   final Rect sourceRect;
   final List<Level> workouts;
+  final Color color;
 
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
     this.workouts,
+    this.color,
   })  : assert(sourceRect != null),
         super(key: key);
 
@@ -20,6 +22,7 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route(
     BuildContext context,
     List<Level> workouts,
+    Color color,
   ) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
@@ -28,6 +31,7 @@ class LevelSelectionScreen extends StatelessWidget {
       pageBuilder: (BuildContext context, _, __) => LevelSelectionScreen(
         sourceRect: sourceRect,
         workouts: workouts,
+        color: color,
       ),
       transitionDuration: const Duration(milliseconds: 1000),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -48,29 +52,44 @@ class LevelSelectionScreen extends StatelessWidget {
     //find last completed
     var lastCompletedIndex =
         workouts.lastIndexWhere((workout) => workout.dateCompleted != null);
-    var lastWorkout =
-        lastCompletedIndex != -1 ? workouts[lastCompletedIndex] : null;
     var currentWorkout = lastCompletedIndex + 1 < workouts.length
         ? workouts[lastCompletedIndex + 1]
         : null;
 
+    List<Widget> completedList = lastCompletedIndex != -1
+        ? workouts.getRange(0, lastCompletedIndex + 1).map((level) {
+            return GestureDetector(
+              onTap: () => Navigator.push(context, WorkoutScreen.route(level)),
+              child: Opacity(
+                opacity: 0.7,
+                child: LevelPage(
+                  workout: level,
+                  text: "",
+                  color: color,
+                ),
+              ),
+            );
+          }).expand((widget) => [
+              widget,
+              SizedBox(
+                height: 20.0,
+                width: double.infinity,
+              )
+            ]).toList()
+        : null;
+
     return FillTransition(
+      fromColor: color,
+      toColor: color,
       source: sourceRect,
       child: Column(
         children: <Widget>[
           Expanded(
-            child: PageView(
+            child: ListView(
+              shrinkWrap: false,
               scrollDirection: Axis.vertical,
-              controller: PageController(viewportFraction: 0.33),
               children: <Widget>[
-                if (lastWorkout != null)
-                  GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    child: LevelPage(
-                      workout: lastWorkout,
-                      text: "Last",
-                    ),
-                  ),
+                ...?completedList,
                 GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
@@ -81,6 +100,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   child: LevelPage(
                     workout: currentWorkout,
                     text: "You have reached!",
+                    color: color,
                   ),
                 ),
               ],
@@ -102,9 +122,10 @@ class LevelSelectionScreen extends StatelessWidget {
 class LevelPage extends StatelessWidget {
   final Level workout;
   final String text;
+  final Color color;
   final void Function() onTap;
 
-  const LevelPage({Key key, this.workout, this.text, this.onTap})
+  const LevelPage({Key key, this.workout, this.text, this.color, this.onTap})
       : super(key: key);
 
   @override
@@ -112,8 +133,15 @@ class LevelPage extends StatelessWidget {
     final DateFormat dateFormat = DateFormat.yMEd();
 
     return Card(
+      margin: EdgeInsets.only(
+        left: 80.0,
+      ),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15.0),
+          bottomLeft: Radius.circular(15.0),
+        ),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -125,11 +153,12 @@ class LevelPage extends StatelessWidget {
             text ?? "",
             style: Theme.of(context).textTheme.headline,
           ),
-          if (workout.dateAttempted != null)
-            Text("Unlcoked on: ${dateFormat.format(workout.dateAttempted)}"),
-          if (workout.dateCompleted != null)
-            Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
+//          if (workout.dateAttempted != null)
+//            Text("Unlcoked on: ${dateFormat.format(workout.dateAttempted)}"),
+//          if (workout.dateCompleted != null)
+//            Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
           Expanded(
+            flex: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
@@ -151,9 +180,10 @@ class LevelPage extends StatelessWidget {
                               ),
                             ),
                             decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0)),
-                                color: Colors.blue[300]),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15.0)),
+                              border: Border.all(color: color, width: 4.0),
+                            ),
                           ),
                         ),
                       ),

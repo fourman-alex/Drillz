@@ -31,7 +31,6 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider.value(
       value: _modelValueNotifier,
       child: MaterialApp(
-        color: primaryColor,
         home: WorkoutSelectionScreen(),
       ),
     );
