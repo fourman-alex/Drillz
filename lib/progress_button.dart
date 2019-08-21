@@ -9,10 +9,12 @@ class ProgressButton extends StatefulWidget {
   final Color color;
   final Color startColor;
   final Color endColor;
+  final String text;
   final void Function() onPressCompleted;
 
   const ProgressButton({
     Key key,
+    this.text,
     this.width,
     this.height,
     this.duration = const Duration(seconds: 2),
@@ -55,6 +57,7 @@ class _ProgressButtonState extends State<ProgressButton>
       color: widget.color,
       endColor: widget.endColor,
       startColor: widget.startColor,
+      text: widget.text,
     );
   }
 }
@@ -66,16 +69,18 @@ class _InnerProgressButton extends AnimatedWidget {
   final Color startColor;
   final Color endColor;
   final Color color;
+  final String text;
 
-  _InnerProgressButton(
-      {Key key,
-      @required this.width,
-      @required this.height,
-      @required this.animationController,
-      @required this.color,
-      @required this.startColor,
-      @required this.endColor})
-      : super(key: key, listenable: animationController);
+  _InnerProgressButton({
+    Key key,
+    @required this.width,
+    @required this.height,
+    @required this.animationController,
+    @required this.color,
+    @required this.startColor,
+    @required this.endColor,
+    @required this.text,
+  }) : super(key: key, listenable: animationController);
 
   @override
   Widget build(BuildContext context) {
@@ -115,16 +120,30 @@ class _InnerProgressButton extends AnimatedWidget {
             elevation: 4.0,
             type: MaterialType.circle,
             color: color,
-            child: Padding(
-              padding: EdgeInsets.all(strokeWidth / 2),
-              child: SizedBox.expand(
-                child: CircularProgressIndicator(
-                  strokeWidth: strokeWidth,
-                  valueColor: ColorTween(begin: startColor, end: endColor)
-                      .animate(animationController),
-                  value: animationController.value,
+            child: Stack(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(strokeWidth / 2),
+                  child: SizedBox.expand(
+                    child: CircularProgressIndicator(
+                      strokeWidth: strokeWidth,
+                      valueColor: ColorTween(begin: startColor, end: endColor)
+                          .animate(animationController),
+                      value: animationController.value,
+                    ),
+                  ),
                 ),
-              ),
+                Align(
+                  child: SizedBox.expand(
+                    child: Padding(
+                      padding: EdgeInsets.all(strokeWidth),
+                      child: FittedBox(
+                        child: Text(text),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),

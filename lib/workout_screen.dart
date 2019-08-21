@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pogo/model.dart';
+import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
 import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
@@ -67,57 +68,14 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             textDirection: TextDirection.ltr,
             bottom: 16.0,
             start: 16.0,
-            child: Builder(
-              builder: (context) {
-                var animController = AnimationController(
-                  vsync: this,
-                  duration: Duration(seconds: 5),
-                );
-                return GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTapDown: (details) {
-                    debugPrint(details.toString());
-                    animController.forward();
-                  },
-                  onTapCancel: () {
-                    debugPrint("tap canceled");
-                    animController.reset();
-                  },
-                  onTapUp: (details) {
-                    debugPrint(details.toString());
-                    if (animController.status == AnimationStatus.completed)
-                      debugPrint("animation completed at tap up");
-                    else
-                      animController.value = 0.0;
-                  },
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: AnimatedBuilder(
-                      animation: animController,
-                      builder: (context, child) => Stack(
-                        alignment: Alignment.center,
-                        fit: StackFit.loose,
-                        children: <Widget>[
-                          Container(
-                            decoration:
-                                ShapeDecoration.fromBoxDecoration(BoxDecoration(
-                              border: Border.all(),
-                              shape: BoxShape.circle,
-                            )),
-                            child: Icon(Icons.close),
-                          ),
-                          SizedBox.expand(
-                            child: CircularProgressIndicator(
-                              value: animController.value,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
+            child: ProgressButton(
+              width: 80,
+              height: 80,
+              text: "BAIL",
+              startColor: Colors.redAccent,
+              endColor: Colors.red,
+              onPressCompleted: () => Navigator.of(context).pop(),
+              color: Theme.of(context).primaryColor,
             ),
           ),
           MultiProvider(
