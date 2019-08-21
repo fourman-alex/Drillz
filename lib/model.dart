@@ -35,10 +35,12 @@ class Level {
     this.dateCompleted,
   ) : _steps = steps {
     if (id is! String) throw ArgumentError(id);
-    if (dateCompleted != null &&
-        dateAttempted != null &&
-        dateCompleted.isBefore(dateAttempted))
-      throw ArgumentError("dateCompleted must be after dateAttempted");
+    //because we can redo levels now it is possible to have dateAttempted before dateCompleted. This will remain like this until dates will be
+    // a list like a log of all attempts and completes
+//    if (dateCompleted != null &&
+//        dateAttempted != null &&
+//        dateCompleted.isBefore(dateAttempted))
+//      throw ArgumentError("dateCompleted ($dateCompleted) must be after dateAttempted ($dateAttempted.");
     if (dateAttempted == null && dateCompleted != null) throw ArgumentError("dateAttempted can't be null while dateCompleted is not null");
   }
 
