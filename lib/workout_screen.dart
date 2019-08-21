@@ -14,12 +14,17 @@ class WorkoutScreen extends StatefulWidget {
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(Level level) {
+  static Route<dynamic> route(Level level, {Color primaryColor}) {
     return PageRouteBuilder<void>(
       pageBuilder: (context, _, __) {
-        return WorkoutScreen(
+        var workoutScreen = WorkoutScreen(
           level: level,
         );
+        return primaryColor != null
+            ? Theme(
+                data: Theme.of(context).copyWith(primaryColor: primaryColor),
+                child: workoutScreen)
+            : workoutScreen;
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(
@@ -64,20 +69,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
     return Material(
       child: Stack(
         children: <Widget>[
-          Positioned.directional(
-            textDirection: TextDirection.ltr,
-            bottom: 16.0,
-            start: 16.0,
-            child: ProgressButton(
-              width: 80,
-              height: 80,
-              text: "BAIL",
-              startColor: Colors.redAccent,
-              endColor: Colors.red,
-              onPressCompleted: () => Navigator.of(context).pop(),
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
           MultiProvider(
             providers: [
               ListenableProvider<ValueNotifier<int>>.value(
@@ -96,6 +87,20 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                   child: WorkoutStepsBar(),
                 ),
               ],
+            ),
+          ),
+          Positioned.directional(
+            textDirection: TextDirection.ltr,
+            bottom: 16.0,
+            start: 16.0,
+            child: ProgressButton(
+              width: 80,
+              height: 80,
+              text: "BAIL",
+              startColor: Colors.redAccent,
+              endColor: Colors.red,
+              onPressCompleted: () => Navigator.of(context).pop(),
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ],
@@ -173,8 +178,8 @@ class WorkoutStepsBar extends StatelessWidget {
               builder: (_, currentStepNotifier, __) {
                 return Container(
                   color: currentStepNotifier.value == i
-                      ? Colors.lime
-                      : Colors.lime[100],
+                      ? Theme.of(context).primaryColor
+                      : Theme.of(context).primaryColor.withOpacity(0.4),
                   child: GestureDetector(
                     child: FittedBox(
                       child: Text(workoutSteps[i].toString()),

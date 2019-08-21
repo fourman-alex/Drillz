@@ -67,7 +67,7 @@ class LevelSelectionScreen extends StatelessWidget {
             .map((level) {
               return GestureDetector(
                 onTap: () =>
-                    Navigator.push(context, WorkoutScreen.route(level)),
+                    Navigator.push(context, WorkoutScreen.route(level, primaryColor: color)),
                 child: Opacity(
                   opacity: 0.7,
                   child: LevelPage(
@@ -101,7 +101,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 onTap: () {
                   debugPrint("current workout tapped");
                   Navigator.push(
-                      context, WorkoutScreen.route(currentWorkout));
+                      context, WorkoutScreen.route(currentWorkout, primaryColor: color));
                 },
                 child: LevelPage(
                   workout: currentWorkout,
