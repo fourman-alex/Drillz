@@ -41,7 +41,12 @@ class LevelSelectionScreen extends StatelessWidget {
             begin: Offset.zero,
             end: Offset(-1.0, 0.0),
           ).animate(secondaryAnimation),
-          child: child,
+          child: FillTransition(
+            source: sourceRect,
+            child: child,
+            fromColor: color,
+            toColor: color,
+          ),
         );
       },
     );
@@ -57,64 +62,64 @@ class LevelSelectionScreen extends StatelessWidget {
         : null;
 
     List<Widget> completedList = lastCompletedIndex != -1
-        ? workouts.getRange(0, lastCompletedIndex + 1).map((level) {
-            return GestureDetector(
-              onTap: () => Navigator.push(context, WorkoutScreen.route(level)),
-              child: Opacity(
-                opacity: 0.7,
-                child: LevelPage(
-                  workout: level,
-                  text: "",
-                  color: color,
-                ),
-              ),
-            );
-          }).expand((widget) => [
-              widget,
-              SizedBox(
-                height: 20.0,
-                width: double.infinity,
-              )
-            ]).toList()
-        : null;
-
-    return FillTransition(
-      fromColor: color,
-      toColor: color,
-      source: sourceRect,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: ListView(
-              shrinkWrap: false,
-              scrollDirection: Axis.vertical,
-              children: <Widget>[
-                ...?completedList,
-                GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    debugPrint("current workout tapped");
-                    Navigator.push(
-                        context, WorkoutScreen.route(currentWorkout));
-                  },
+        ? workouts
+            .getRange(0, lastCompletedIndex + 1)
+            .map((level) {
+              return GestureDetector(
+                onTap: () =>
+                    Navigator.push(context, WorkoutScreen.route(level)),
+                child: Opacity(
+                  opacity: 0.7,
                   child: LevelPage(
-                    workout: currentWorkout,
-                    text: "You have reached!",
+                    workout: level,
+                    text: "",
                     color: color,
                   ),
                 ),
-              ],
-            ),
+              );
+            })
+            .expand((widget) => [
+                  widget,
+                  SizedBox(
+                    height: 20.0,
+                    width: double.infinity,
+                  )
+                ])
+            .toList()
+        : null;
+
+    return Column(
+      children: <Widget>[
+        Expanded(
+          child: ListView(
+            shrinkWrap: false,
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              ...?completedList,
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  debugPrint("current workout tapped");
+                  Navigator.push(
+                      context, WorkoutScreen.route(currentWorkout));
+                },
+                child: LevelPage(
+                  workout: currentWorkout,
+                  text: "You have reached!",
+                  color: color,
+                ),
+              ),
+            ],
           ),
-          Align(
-            alignment: AlignmentDirectional.bottomStart,
-            child: FlatButton.icon(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back),
-                label: SizedBox()),
-          ),
-        ],
-      ),
+        ),
+        Align(
+          alignment: AlignmentDirectional.bottomStart,
+          child: FlatButton.icon(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back),
+              label: SizedBox()),
+        ),
+      ],
     );
   }
 }
