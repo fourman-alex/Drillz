@@ -31,22 +31,22 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                 crossAxisCount: 2,
                 children: <Widget>[
                   _WorkoutButton(
-                    text: "pushups",
+                    text: "PUSHUPS",
                     color: Colors.lightBlue,
                     plan: model?.pushUpsPlan,
                   ),
                   _WorkoutButton(
-                    text: "pullups",
-                    color: Colors.indigo,
+                    text: "PULLUPS",
+                    color: Colors.indigo[400],
                     plan: model?.pullUpsPlan,
                   ),
                   _WorkoutButton(
-                    text: "situps",
+                    text: "SITUPS",
                     color: Colors.lightGreen,
                     plan: model?.sitUpsPlan,
                   ),
                   _WorkoutButton(
-                    text: "squats",
+                    text: "SQUATS",
                     color: Colors.amber,
                     plan: model?.squatsPlan,
                   ),
@@ -85,7 +85,12 @@ class _WorkoutButton extends StatelessWidget {
       color: color,
       child: Builder(
         builder: (context) {
-          var child = Center(child: Text(text));
+          var child = Center(
+            child: Text(
+              text,
+              style: TextStyle(fontSize: 35.0),
+            ),
+          );
           if (plan == null) return child;
           return InkWell(
             child: child,
