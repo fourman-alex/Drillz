@@ -14,17 +14,15 @@ class WorkoutScreen extends StatefulWidget {
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(Level level, {Color primaryColor}) {
+  static Route<dynamic> route(Level level, ThemeData themeData) {
     return PageRouteBuilder<void>(
       pageBuilder: (context, _, __) {
-        var workoutScreen = WorkoutScreen(
-          level: level,
+        return Theme(
+          data: themeData,
+          child: WorkoutScreen(
+            level: level,
+          ),
         );
-        return primaryColor != null
-            ? Theme(
-                data: Theme.of(context).copyWith(primaryColor: primaryColor),
-                child: workoutScreen)
-            : workoutScreen;
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         return SlideTransition(

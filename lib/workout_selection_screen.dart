@@ -37,7 +37,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                   ),
                   _WorkoutButton(
                     text: "PULLUPS",
-                    color: Colors.indigo[400],
+                    color: Colors.deepPurple,
                     plan: model?.pullUpsPlan,
                   ),
                   _WorkoutButton(

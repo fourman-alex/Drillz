@@ -7,13 +7,11 @@ import 'package:pogo/workout_screen.dart';
 class LevelSelectionScreen extends StatelessWidget {
   final Rect sourceRect;
   final List<Level> workouts;
-  final Color color;
 
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
     this.workouts,
-    this.color,
   })  : assert(sourceRect != null),
         super(key: key);
 
@@ -22,17 +20,21 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route(
     BuildContext context,
     List<Level> workouts,
-    Color color,
+    MaterialColor color,
   ) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
 
     return PageRouteBuilder<void>(
-      pageBuilder: (BuildContext context, _, __) => LevelSelectionScreen(
-        sourceRect: sourceRect,
-        workouts: workouts,
-        color: color,
-      ),
+      pageBuilder: (BuildContext context, _, __) {
+        return Theme(
+          data: ThemeData(primarySwatch: color, accentColor: color),
+          child: LevelSelectionScreen(
+            sourceRect: sourceRect,
+            workouts: workouts,
+          ),
+        );
+      },
       transitionDuration: const Duration(milliseconds: 1000),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         //uses secondaryAnimation to slide this screen out when a new one covers it
@@ -66,14 +68,18 @@ class LevelSelectionScreen extends StatelessWidget {
             .getRange(0, lastCompletedIndex + 1)
             .map((level) {
               return GestureDetector(
-                onTap: () =>
-                    Navigator.push(context, WorkoutScreen.route(level, primaryColor: color)),
+                onTap: () => Navigator.push(
+                  context,
+                  WorkoutScreen.route(
+                    level,
+                    Theme.of(context),
+                  ),
+                ),
                 child: Opacity(
                   opacity: 0.7,
                   child: LevelPage(
                     workout: level,
                     text: "",
-                    color: color,
                   ),
                 ),
               );
@@ -101,12 +107,15 @@ class LevelSelectionScreen extends StatelessWidget {
                 onTap: () {
                   debugPrint("current workout tapped");
                   Navigator.push(
-                      context, WorkoutScreen.route(currentWorkout, primaryColor: color));
+                      context,
+                      WorkoutScreen.route(
+                        currentWorkout,
+                        Theme.of(context),
+                      ));
                 },
                 child: LevelPage(
                   workout: currentWorkout,
                   text: "You have reached!",
-                  color: color,
                 ),
               ),
             ],
@@ -127,10 +136,9 @@ class LevelSelectionScreen extends StatelessWidget {
 class LevelPage extends StatelessWidget {
   final Level workout;
   final String text;
-  final Color color;
   final void Function() onTap;
 
-  const LevelPage({Key key, this.workout, this.text, this.color, this.onTap})
+  const LevelPage({Key key, this.workout, this.text, this.onTap})
       : super(key: key);
 
   @override
@@ -187,7 +195,9 @@ class LevelPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15.0)),
-                              border: Border.all(color: color, width: 4.0),
+                              border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 4.0),
                             ),
                           ),
                         ),
