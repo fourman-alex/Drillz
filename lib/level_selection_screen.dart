@@ -27,7 +27,10 @@ class LevelSelectionScreen extends StatelessWidget {
     return PageRouteBuilder<void>(
       pageBuilder: (BuildContext context, _, __) {
         return Theme(
-          data: ThemeData(primarySwatch: color, accentColor: color),
+          data: ThemeData(
+            primarySwatch: color,
+            accentColor: Colors.redAccent,
+          ),
           child: LevelSelectionScreen(
             sourceRect: sourceRect,
             workouts: workouts,
@@ -133,6 +136,7 @@ class LevelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Theme.of(context).accentColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15.0),
@@ -144,11 +148,7 @@ class LevelPage extends StatelessWidget {
         children: <Widget>[
           Text(
             workout.id,
-            style: Theme.of(context).textTheme.subhead,
-          ),
-          Text(
-            text ?? "",
-            style: Theme.of(context).textTheme.headline,
+            style: Theme.of(context).accentTextTheme.title,
           ),
           Expanded(
             flex: 0,
@@ -169,6 +169,8 @@ class LevelPage extends StatelessWidget {
                                 child: Text(
                                   step.reps.toString(),
                                   textAlign: TextAlign.center,
+                                  style:
+                                      Theme.of(context).accentTextTheme.body1,
                                 ),
                               ),
                             ),
@@ -176,8 +178,8 @@ class LevelPage extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15.0)),
                               border: Border.all(
-                                  color: Theme.of(context).primaryColor,
-                                  width: 4.0),
+                                  color: Colors.white,
+                                  width: 2.0),
                             ),
                           ),
                         ),

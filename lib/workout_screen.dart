@@ -64,6 +64,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Theme.of(context).primaryColorDark,
       child: Stack(
         children: <Widget>[
           MultiProvider(

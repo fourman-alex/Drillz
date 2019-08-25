@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
+import 'package:pogo/repository.dart';
 import 'package:provider/provider.dart';
 
 class StartTile extends StatelessWidget {
@@ -21,6 +21,7 @@ class StartTile extends StatelessWidget {
           onTap: _onPressed,
           child: Text(
             "Start",
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -45,6 +46,7 @@ class FinishTile extends StatelessWidget {
         child: FittedBox(
           child: Text(
             "Done!",
+            style: TextStyle(color: Colors.white),
           ),
         ),
       )),
@@ -68,6 +70,7 @@ class WorkTile extends StatelessWidget {
           onTap: _onPressed,
           child: Text(
             "Perform $_amount",
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
@@ -115,7 +118,7 @@ class _RestTileState extends State<RestTile>
               child: AnimatedContainer(
                 curve: Curves.elasticOut,
                 duration: Duration(milliseconds: 750),
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).accentColor,
                 height: _progressBarHeight,
               ),
             ),
@@ -128,12 +131,14 @@ class _RestTileState extends State<RestTile>
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     child: Text(
                       "Rest",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
                 FittedBox(
                   child: Text(
                     "${_timerString.toString().padLeft(2, '0')}:00",
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],

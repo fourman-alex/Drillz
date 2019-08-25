@@ -12,6 +12,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Colors.black,
       child: Consumer<ValueNotifier<Model>>(
         builder: (_, modelNotifier, __) {
           var model = modelNotifier.value;
