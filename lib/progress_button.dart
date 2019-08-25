@@ -9,7 +9,7 @@ class ProgressButton extends StatefulWidget {
   final Color color;
   final Color startColor;
   final Color endColor;
-  final String text;
+  final Text text;
   final void Function() onPressCompleted;
 
   const ProgressButton({
@@ -69,7 +69,7 @@ class _InnerProgressButton extends AnimatedWidget {
   final Color startColor;
   final Color endColor;
   final Color color;
-  final String text;
+  final Text text;
 
   _InnerProgressButton({
     Key key,
@@ -138,7 +138,7 @@ class _InnerProgressButton extends AnimatedWidget {
                     child: Padding(
                       padding: EdgeInsets.all(strokeWidth),
                       child: FittedBox(
-                        child: Text(text),
+                        child: text,
                       ),
                     ),
                   ),

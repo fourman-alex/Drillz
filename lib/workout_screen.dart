@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
@@ -75,9 +74,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               Provider<Level>.value(value: widget.level)
             ],
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Expanded(
-                  flex: 8,
+                  flex: 5,
                   child: StepSwitcher(),
                 ),
                 Expanded(
@@ -94,7 +94,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             child: ProgressButton(
               width: 80,
               height: 80,
-              text: "BAIL",
+              text: Text(
+                "BAIL",
+                style: TextStyle(color: Colors.white),
+              ),
               startColor: Colors.redAccent,
               endColor: Colors.red,
               onPressCompleted: () => Navigator.of(context).pop(),
@@ -155,7 +158,7 @@ class StepSwitcher extends StatelessWidget {
 
     return AnimatedSwitcher(
       child: center,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 250),
     );
   }
 }
@@ -167,37 +170,54 @@ class WorkoutStepsBar extends StatelessWidget {
     var workoutSteps = Provider.of<Level>(context, listen: false).steps;
 
     for (var i = 0; i < workoutSteps.length; ++i) {
-      workoutStepsWidgets.add(Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+      workoutStepsWidgets.add(
+        Flexible(
           child: AspectRatio(
             aspectRatio: 1 / 1,
             child: Consumer<ValueNotifier<int>>(
               builder: (_, currentStepNotifier, __) {
-                return Container(
-                  color: currentStepNotifier.value == i
-                      ? Theme.of(context).primaryColor
-                      : Theme.of(context).primaryColor.withOpacity(0.4),
-                  child: GestureDetector(
-                    child: FittedBox(
-                      child: Text(workoutSteps[i].toString()),
+                return GestureDetector(
+                  onTap: () {
+                    currentStepNotifier.value = i;
+                  },
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 250),
+                    margin: EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      color: currentStepNotifier.value == i
+                          ? Theme.of(context).primaryColorDark
+                          : Theme.of(context).primaryColor,
                     ),
-                    onTap: () {
-                      currentStepNotifier.value = i;
-                    },
+                    child: Center(
+                      child: Text(
+                        workoutSteps[i].toString(),
+                        maxLines: 1,
+                        style: TextStyle(
+                          color: currentStepNotifier.value == i
+                              ? Colors.white
+                              : Colors.white54,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
                   ),
                 );
               },
             ),
           ),
         ),
-      ));
+      );
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: workoutStepsWidgets,
+    return Container(
+      color: Theme.of(context).primaryColor,
+      padding: const EdgeInsets.only(top: 50.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: workoutStepsWidgets,
+      ),
     );
   }
 }

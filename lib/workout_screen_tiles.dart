@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pogo/repository.dart';
 import 'package:pogo/model.dart';
@@ -61,19 +62,15 @@ class WorkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        GestureDetector(
-          child: FittedBox(
-            child: Text(
-              "Do $_amount pushups!",
-            ),
-          ),
+    return SizedBox.expand(
+      child: FittedBox(
+        child: GestureDetector(
           onTap: _onPressed,
+          child: Text(
+            "Perform $_amount",
+          ),
         ),
-      ],
+      ),
     );
   }
 }
@@ -118,7 +115,7 @@ class _RestTileState extends State<RestTile>
               child: AnimatedContainer(
                 curve: Curves.elasticOut,
                 duration: Duration(milliseconds: 750),
-                color: const Color(0xff16e0c8),
+                color: Theme.of(context).primaryColorDark,
                 height: _progressBarHeight,
               ),
             ),

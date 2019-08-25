@@ -74,7 +74,7 @@ class RestStep extends ExerciseStep {
 
   @override
   String toString() {
-    return duration.toString();
+    return duration.toString()+"s";
   }
 }
 

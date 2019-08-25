@@ -88,11 +88,11 @@ class _WorkoutButton extends StatelessWidget {
           var child = Center(
             child: Text(
               text,
-              style: TextStyle(fontSize: 35.0),
+              style: TextStyle(fontSize: 35.0, color: Colors.white),
             ),
           );
           if (plan == null) return child;
-          return InkWell(
+          return GestureDetector(
             child: child,
             onTap: () {
               if (plan != null) {
