@@ -93,6 +93,7 @@ class _WorkoutButton extends StatelessWidget {
           );
           if (plan == null) return child;
           return GestureDetector(
+            behavior: HitTestBehavior.translucent,
             child: child,
             onTap: () {
               if (plan != null) {

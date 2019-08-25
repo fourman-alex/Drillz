@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:pogo/fill_transition.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
@@ -94,41 +93,31 @@ class LevelSelectionScreen extends StatelessWidget {
             .toList()
         : null;
 
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: ListView(
-            shrinkWrap: false,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              ...?completedList,
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  debugPrint("current workout tapped");
-                  Navigator.push(
-                      context,
-                      WorkoutScreen.route(
-                        currentWorkout,
-                        Theme.of(context),
-                      ));
-                },
-                child: LevelPage(
-                  workout: currentWorkout,
-                  text: "You have reached!",
-                ),
-              ),
-            ],
+    return DismissDetector(
+      child: ListView(
+        shrinkWrap: false,
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          ...?completedList,
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              debugPrint("current workout tapped");
+              Navigator.push(
+                  context,
+                  WorkoutScreen.route(
+                    currentWorkout,
+                    Theme.of(context),
+                  ));
+            },
+            child: LevelPage(
+              workout: currentWorkout,
+              text: "You have reached!",
+            ),
           ),
-        ),
-        Align(
-          alignment: AlignmentDirectional.bottomStart,
-          child: FlatButton.icon(
-              onPressed: () => Navigator.pop(context),
-              icon: Icon(Icons.arrow_back),
-              label: SizedBox()),
-        ),
-      ],
+        ],
+      ),
+      onDismiss: () => Navigator.of(context).pop(),
     );
   }
 }
@@ -143,12 +132,7 @@ class LevelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DateFormat dateFormat = DateFormat.yMEd();
-
     return Card(
-      margin: EdgeInsets.only(
-        left: 80.0,
-      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15.0),
@@ -166,10 +150,6 @@ class LevelPage extends StatelessWidget {
             text ?? "",
             style: Theme.of(context).textTheme.headline,
           ),
-//          if (workout.dateAttempted != null)
-//            Text("Unlcoked on: ${dateFormat.format(workout.dateAttempted)}"),
-//          if (workout.dateCompleted != null)
-//            Text("Completed on: ${dateFormat.format(workout.dateCompleted)}"),
           Expanded(
             flex: 0,
             child: Row(
@@ -208,6 +188,35 @@ class LevelPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Detects swipe right and "zoom out" gesture
+class DismissDetector extends StatelessWidget {
+  final Widget child;
+  final void Function() onDismiss;
+
+  const DismissDetector({
+    Key key,
+    this.child,
+    @required this.onDismiss,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: child,
+      onHorizontalDragUpdate: (details) {
+        if (details.primaryDelta > 10) {
+          onDismiss();
+        }
+      },
+      onScaleUpdate: (details) {
+        if (details.scale < 0.9) {
+          onDismiss();
+        }
+      },
     );
   }
 }
