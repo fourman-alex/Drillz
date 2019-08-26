@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pogo/audio.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
@@ -111,6 +112,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   }
 
   void _handleCurrentStepChanged() {
+    player.play("soft-bells.mp3");
     var currentStep = widget.level.steps[_currentStepIndexNotifier.value];
     if (currentStep is FinishStep) {
       Repository.setWorkoutDate(
