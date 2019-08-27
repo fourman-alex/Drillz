@@ -22,8 +22,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    //we need to load all workout data
-    Repository.modelAsync.then((model) => _modelValueNotifier.value = model);
     //load notification sound
     player.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
     player.load("soft-bells.mp3").then((file) => debugPrint("$file loaded"));

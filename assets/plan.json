@@ -1,0 +1,5442 @@
+[
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 1
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 2
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 4
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 6
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 14
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 13
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 12
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 16
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 11
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 9
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 8
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 19
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 7
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 18
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 17
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 3
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 35
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 35
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 35
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 40
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 35
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 40
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 40
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 45
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 40
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 45
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 45
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 50
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 45
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 55
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 45
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 60
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 40
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 65
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 35
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 70
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 30
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 75
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 25
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 80
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 20
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 85
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 15
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 90
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 10
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 95
+      },
+      {
+        "type": "rest",
+        "duration": 60
+      },
+      {
+        "type": "work",
+        "reps": 5
+      }
+    ]
+  },
+  {
+    "steps": [
+      {
+        "type": "work",
+        "reps": 100
+      }
+    ]
+  }
+]

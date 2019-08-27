@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pogo/level_selection_screen.dart';
 import 'package:pogo/model.dart';
+import 'package:pogo/repository.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutSelectionScreen extends StatefulWidget {
@@ -33,6 +34,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             //create indicator
             Widget progressIndicator;
             if (model == null) {
+              Repository.getModelAsync(context).then((model) {
+                modelNotifier.value = model;
+              });
               progressIndicator = CircularProgressIndicator();
             } else
               progressIndicator = Container();

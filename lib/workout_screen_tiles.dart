@@ -37,8 +37,8 @@ class FinishTile extends StatelessWidget {
         var workoutSelectionNotifier =
             Provider.of<ValueNotifier<Model>>(context, listen: false)
               ..value = null;
-        Repository.modelAsync
-            .then((model) => workoutSelectionNotifier.value = model);
+//        Repository.modelAsync
+//            .then((model) => workoutSelectionNotifier.value = model);
         Navigator.popUntil(context, ModalRoute.withName("/"));
       },
       child: Center(
