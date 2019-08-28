@@ -16,72 +16,112 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Colors.red[200],
-                Colors.red,
-              ],
+        Positioned.fill(
+          child: Image.asset(
+            "assets/athlete_background.png",
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
+          ),
+//          decoration: BoxDecoration(
+//            gradient: LinearGradient(
+//              begin: Alignment.topLeft,
+//              end: Alignment.bottomRight,
+//              colors: [
+//                Colors.white,
+//                Colors.white30,
+//              ],
+//            ),
+//          ),
+        ),
+        Positioned.fill(
+          child: BackdropFilter(
+            child: Container(
+              color: Colors.black.withOpacity(0.7),
+            ),
+            filter: ImageFilter.blur(
+              sigmaY: 5,
+              sigmaX: 5,
             ),
           ),
         ),
-        Consumer<ValueNotifier<Model>>(
-          builder: (_, modelNotifier, __) {
-            var model = modelNotifier.value;
-            //create indicator
-            Widget progressIndicator;
-            if (model == null) {
-              Repository.getModelAsync(context).then((model) {
-                modelNotifier.value = model;
-              });
-              progressIndicator = CircularProgressIndicator();
-            } else
-              progressIndicator = Container();
+        SafeArea(
+          child: Consumer<ValueNotifier<Model>>(
+            builder: (_, modelNotifier, __) {
+              var model = modelNotifier.value;
+              //create indicator
+              Widget progressIndicator;
+              if (model == null) {
+                Repository.getModelAsync(context).then((model) {
+                  modelNotifier.value = model;
+                });
+                progressIndicator = CircularProgressIndicator();
+              } else
+                progressIndicator = Container();
 
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                GridView.count(
-                  padding: EdgeInsets.symmetric(vertical: 4.0),
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    _WorkoutButton(
-                      text: "PUSHUPS",
-                      color: Colors.lightBlue,
-                      plan: model?.pushUpsPlan,
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: Material(
+                        child: FittedBox(
+                          child: Text(
+                            "PoGo",
+                            style: TextStyle(fontFamily: "Righteous"),
+                          ),
+                        ),
+                        type: MaterialType.transparency,
+                      ),
                     ),
-                    _WorkoutButton(
-                      text: "PULLUPS",
-                      color: Colors.deepPurple,
-                      plan: model?.pullUpsPlan,
-                    ),
-                    _WorkoutButton(
-                      text: "SITUPS",
-                      color: Colors.lightGreen,
-                      plan: model?.sitUpsPlan,
-                    ),
-                    _WorkoutButton(
-                      text: "SQUATS",
-                      color: Colors.amber,
-                      plan: model?.squatsPlan,
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: AnimatedSwitcher(
-                    duration: Duration(milliseconds: 250),
-                    child: progressIndicator,
+                    flex: 3,
                   ),
-                ),
-              ],
-            );
-          },
+                  Expanded(
+                    flex: 8,
+                    child: GridView.count(
+                      padding: EdgeInsets.symmetric(vertical: 4.0),
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      children: <Widget>[
+                        _WorkoutButton(
+                          text: "PUSHUPS",
+                          color: Colors.lightBlue,
+                          plan: model?.pushUpsPlan,
+                        ),
+                        _WorkoutButton(
+                          text: "PULLUPS",
+                          color: Colors.deepPurple,
+                          plan: model?.pullUpsPlan,
+                        ),
+                        _WorkoutButton(
+                          text: "SITUPS",
+                          color: Colors.lightGreen,
+                          plan: model?.sitUpsPlan,
+                        ),
+                        _WorkoutButton(
+                          text: "SQUATS",
+                          color: Colors.amber,
+                          plan: model?.squatsPlan,
+                        ),
+                      ],
+                      shrinkWrap: true,
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: AnimatedSwitcher(
+                        duration: Duration(milliseconds: 250),
+                        child: progressIndicator,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ],
     );
@@ -104,6 +144,8 @@ class _WorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: color,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15.0))),
       elevation: 4.0,
       child: Builder(
         builder: (context) {

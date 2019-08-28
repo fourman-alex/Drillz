@@ -43,9 +43,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Righteous
+      fonts:
+        - asset: assets/Righteous-Regular.ttf
+
   assets:
     - assets/plan.json
+    - assets/athlete_background.png
     - assets/soft-bells.mp3
+    - assets/Righteous-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
