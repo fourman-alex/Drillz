@@ -50,7 +50,6 @@ flutter:
 
   assets:
     - assets/plan.json
-    - assets/athlete_background.png
     - assets/soft-bells.mp3
     - assets/Righteous-Regular.ttf
     - assets/background.jpg
