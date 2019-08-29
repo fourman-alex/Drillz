@@ -29,7 +29,6 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
 //      theme: ThemeData.light(),
-      color: primaryColor,
       home: Material(
         child: SafeArea(
           child: Center(

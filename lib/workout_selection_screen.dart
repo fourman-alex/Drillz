@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:pogo/consts.dart' as Consts;
 import 'package:pogo/level_selection_screen.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/repository.dart';
@@ -62,7 +63,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .body1
-                                .copyWith(fontFamily: "Righteous", shadows: <Shadow>[
+                                .copyWith(fontFamily: Consts.righteousFont, shadows: <Shadow>[
                                   Shadow(blurRadius: 25.0, color: Theme.of(context).primaryColorLight)
                             ]),
                           ),
@@ -162,10 +163,11 @@ class _WorkoutButton extends StatelessWidget {
                 Navigator.of(context)
                     .push(
                   LevelSelectionScreen.route(
+                    title: text,
                     context: context,
                     workouts: plan,
                     fromColor: color,
-                    toColor: Colors.black,
+                    toColor: Colors.grey[850],
                     fromRadius: borderRadius,
                   ),
                 )

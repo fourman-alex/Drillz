@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pogo/consts.dart' as Consts;
 import 'package:pogo/fill_transition.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
@@ -6,11 +7,13 @@ import 'package:pogo/workout_screen.dart';
 class LevelSelectionScreen extends StatelessWidget {
   final Rect sourceRect;
   final List<Level> workouts;
+  final String title;
 
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
-    this.workouts,
+    @required this.workouts,
+    @required this.title,
   })  : assert(sourceRect != null),
         super(key: key);
 
@@ -18,6 +21,7 @@ class LevelSelectionScreen extends StatelessWidget {
   /// transition will visually fill
   static Route<void> route({
     @required BuildContext context,
+    @required String title,
     @required List<Level> workouts,
     @required MaterialColor fromColor,
     @required Color toColor,
@@ -32,10 +36,16 @@ class LevelSelectionScreen extends StatelessWidget {
         return Theme(
           data: ThemeData(
             primarySwatch: fromColor,
+            backgroundColor: toColor,
+            textTheme: Theme.of(context).textTheme,
+            primaryTextTheme: Theme.of(context).primaryTextTheme,
+            accentTextTheme: Theme.of(context).accentTextTheme,
+            dividerColor: Colors.white,
           ),
           child: LevelSelectionScreen(
             sourceRect: sourceRect,
             workouts: workouts,
+            title: title,
           ),
         );
       },
@@ -63,65 +73,67 @@ class LevelSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //find last completed
-    var lastCompletedIndex =
-        workouts.lastIndexWhere((workout) => workout.dateCompleted != null);
+    var lastCompletedIndex = workouts.lastIndexWhere((workout) {
+      return workout.dateCompleted != null;
+    });
     var currentWorkout = lastCompletedIndex + 1 < workouts.length
         ? workouts[lastCompletedIndex + 1]
         : null;
 
-    List<Widget> completedList = lastCompletedIndex != -1
-        ? workouts
-            .getRange(0, lastCompletedIndex + 1)
-            .map((level) {
-              return GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  WorkoutScreen.route(
-                    level,
-                    Theme.of(context),
-                  ),
-                ),
-                child: Opacity(
-                  opacity: 0.7,
-                  child: LevelPage(
-                    workout: level,
-                    text: "",
-                  ),
-                ),
-              );
-            })
-            .expand((widget) => [
-                  widget,
-                  SizedBox(
-                    height: 20.0,
-                    width: double.infinity,
-                  )
-                ])
-            .toList()
+    final completedList = lastCompletedIndex != -1
+        ? workouts.getRange(0, lastCompletedIndex + 1).toList()
         : null;
 
+    var widgets = List<Widget>();
+
+    void onTap() {
+      Navigator.push(
+          context,
+          WorkoutScreen.route(
+            currentWorkout,
+            Theme.of(context),
+          ));
+    }
+
+    if (completedList != null) {
+      for (var i = 0; i < completedList.length; i++) {
+        widgets.add(LevelPage(
+          onTap: onTap,
+          text: "Level ${i + 1}",
+          opacity: 0.7,
+          level: completedList[i],
+        ));
+      }
+    }
+
+    if (currentWorkout != null) {
+      widgets.add(LevelPage(
+        onTap: onTap,
+        text: "Level ${lastCompletedIndex + 2}",
+        opacity: 1.0,
+        level: currentWorkout,
+      ));
+    }
+
     return DismissDetector(
-      child: ListView(
-        shrinkWrap: false,
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          ...?completedList,
-          GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () {
-              debugPrint("current workout tapped");
-              Navigator.push(
-                  context,
-                  WorkoutScreen.route(
-                    currentWorkout,
-                    Theme.of(context),
-                  ));
-            },
-            child: LevelPage(
-              workout: currentWorkout,
-              text: "You have reached!",
+      child: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            floating: true,
+            automaticallyImplyLeading: false,
+            titleSpacing: 4.0,
+            backgroundColor: Theme.of(context).backgroundColor,
+            title: Center(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontFamily: Consts.righteousFont,
+                  fontSize: 40,
+                ),
+              ),
             ),
           ),
+          SliverList(delegate: SliverChildListDelegate(widgets)),
         ],
       ),
       onDismiss: () => Navigator.of(context).pop(),
@@ -130,68 +142,110 @@ class LevelSelectionScreen extends StatelessWidget {
 }
 
 class LevelPage extends StatelessWidget {
-  final Level workout;
+  final List<WorkStep> _steps;
+  final int _totalCount;
   final String text;
   final void Function() onTap;
+  final double opacity;
 
-  const LevelPage({Key key, this.workout, this.text, this.onTap})
-      : super(key: key);
+  LevelPage({Key key, Level level, this.text, this.opacity, this.onTap})
+      : _steps = level.steps
+            .where((step) => step is WorkStep)
+            .cast<WorkStep>()
+            .toList(),
+        _totalCount = level.steps
+            .where((step) => step is WorkStep)
+            .cast<WorkStep>()
+            .fold(0, (value, step) => value + step.reps),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).primaryColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15.0),
-          bottomLeft: Radius.circular(15.0),
-        ),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            workout.id,
-            style: Theme.of(context).accentTextTheme.title,
-          ),
-          Expanded(
-            flex: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                for (var step in workout.steps)
-                  if (step is WorkStep)
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AspectRatio(
-                          aspectRatio: 1 / 1,
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: SizedBox.expand(
-                              child: FittedBox(
-                                child: Text(
-                                  step.reps.toString(),
-                                  textAlign: TextAlign.center,
-                                  style:
-                                      Theme.of(context).accentTextTheme.body1,
+    return Material(
+      type: MaterialType.transparency,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Opacity(
+          opacity: opacity,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: RotatedBox(
+                  quarterTurns: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FittedBox(
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 9,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      //todo: build the steps in the init method
+                      for (var step in _steps)
+                        Expanded(
+                          flex: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: SizedBox.expand(
+                                  child: FittedBox(
+                                    child: Text(
+                                      step.reps.toString(),
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .accentTextTheme
+                                          .body1
+                                          .copyWith(
+                                              fontFamily: Consts.righteousFont),
+                                    ),
+                                  ),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white30,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(8.0)),
                                 ),
                               ),
                             ),
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15.0)),
-                              border:
-                                  Border.all(color: Colors.white, width: 2.0),
-                            ),
                           ),
                         ),
-                      ),
-                    )
-              ],
-            ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: FittedBox(
+                              child:
+                                  Text(_totalCount.toString().padLeft(2, '  '))),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
