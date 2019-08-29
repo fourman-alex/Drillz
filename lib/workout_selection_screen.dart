@@ -18,7 +18,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       children: <Widget>[
         Positioned.fill(
           child: Image.asset(
-            "assets/athlete_background.png",
+            "assets/background.jpg",
             fit: BoxFit.cover,
             alignment: Alignment.center,
           ),
@@ -36,7 +36,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
         Positioned.fill(
           child: BackdropFilter(
             child: Container(
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withOpacity(0.5),
             ),
             filter: ImageFilter.blur(
               sigmaY: 5,
