@@ -142,10 +142,11 @@ class _WorkoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final borderRadius = BorderRadius.circular(15.0);
+
     return Card(
       color: color,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15.0))),
+      shape: RoundedRectangleBorder(borderRadius: borderRadius),
       elevation: 4.0,
       child: Builder(
         builder: (context) {
@@ -163,7 +164,12 @@ class _WorkoutButton extends StatelessWidget {
               if (plan != null) {
                 Navigator.of(context)
                     .push(
-                  LevelSelectionScreen.route(context, plan, color),
+                  LevelSelectionScreen.route(
+                    context: context,
+                    workouts: plan,
+                    color: color,
+                    fromRadius: borderRadius,
+                  ),
                 )
                     .then((returnValue) {
                   debugPrint("LevelSelectionScreen popped");

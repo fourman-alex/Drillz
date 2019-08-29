@@ -16,11 +16,13 @@ class LevelSelectionScreen extends StatelessWidget {
 
   /// [context] must be the [BuildContext] of the widget from which the
   /// transition will visually fill
-  static Route<void> route(
-    BuildContext context,
-    List<Level> workouts,
+  static Route<void> route({
+    @required BuildContext context,
+    @required List<Level> workouts,
     MaterialColor color,
-  ) {
+    BorderRadius fromRadius,
+    BorderRadius toRadius,
+  }) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
 
@@ -50,6 +52,8 @@ class LevelSelectionScreen extends StatelessWidget {
             child: child,
             fromColor: color,
             toColor: color,
+            fromBorderRadius: fromRadius,
+            toBorderRadius: toRadius,
           ),
         );
       },
@@ -177,9 +181,8 @@ class LevelPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15.0)),
-                              border: Border.all(
-                                  color: Colors.white,
-                                  width: 2.0),
+                              border:
+                                  Border.all(color: Colors.white, width: 2.0),
                             ),
                           ),
                         ),

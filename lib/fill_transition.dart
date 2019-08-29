@@ -7,9 +7,15 @@ class FillTransition extends StatelessWidget {
     @required this.child,
     Color fromColor,
     Color toColor,
+    BorderRadius fromBorderRadius,
+    BorderRadius toBorderRadius,
   })  : colorTween = (fromColor != null && toColor != null)
             ? ColorTween(begin: fromColor, end: toColor)
             : null,
+        _borderRadiusTween = BorderRadiusTween(
+          begin: fromBorderRadius,
+          end: toBorderRadius,
+        ),
         assert(source != null),
         assert(child != null),
         super(key: key);
@@ -17,6 +23,7 @@ class FillTransition extends StatelessWidget {
   final Rect source;
   final Widget child;
   final ColorTween colorTween;
+  final BorderRadiusTween _borderRadiusTween;
 
   @override
   Widget build(BuildContext context) {
@@ -49,27 +56,32 @@ class FillTransition extends StatelessWidget {
 
         return Stack(
           children: <Widget>[
-            PositionedTransition(
-              rect: itemPosition,
-              child: Stack(
-                fit: StackFit.passthrough,
-                children: <Widget>[
-                  FadeTransition(
-                    opacity: materialFadeAnimation,
-                    child: AnimatedBuilder(
-                        animation: animation,
-                        builder: (_, __) {
-                          return Material(
-                            color: colorTween.evaluate(animation),
-                          );
-                        }),
+            AnimatedBuilder(
+              animation: animation,
+              builder: (_, __) {
+                return Positioned.fromRelativeRect(
+                  rect: itemPosition.value,
+                  child: Stack(
+                    fit: StackFit.passthrough,
+                    children: <Widget>[
+                      Opacity(
+                        opacity: materialFadeAnimation.value,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                _borderRadiusTween.evaluate(positionAnimation),
+                            color: colorTween.evaluate(positionAnimation),
+                          ),
+                        ),
+                      ),
+                      Opacity(
+                        child: child,
+                        opacity: fadeAnimation.value,
+                      ),
+                    ],
                   ),
-                  FadeTransition(
-                    child: child,
-                    opacity: fadeAnimation,
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ],
         );
