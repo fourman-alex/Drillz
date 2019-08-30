@@ -5,13 +5,11 @@ class FillTransition extends StatelessWidget {
     Key key,
     @required this.source,
     @required this.child,
-    Color fromColor,
-    Color toColor,
+    @required Color fromColor,
+    @required Color toColor,
     BorderRadius fromBorderRadius,
     BorderRadius toBorderRadius,
-  })  : colorTween = (fromColor != null && toColor != null)
-            ? ColorTween(begin: fromColor, end: toColor)
-            : null,
+  })  : colorTween = ColorTween(begin: fromColor, end: toColor),
         _borderRadiusTween = BorderRadiusTween(
           begin: fromBorderRadius,
           end: toBorderRadius,

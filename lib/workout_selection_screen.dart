@@ -167,7 +167,8 @@ class _WorkoutButton extends StatelessWidget {
                   LevelSelectionScreen.route(
                     context: context,
                     workouts: plan,
-                    color: color,
+                    fromColor: color,
+                    toColor: Colors.black,
                     fromRadius: borderRadius,
                   ),
                 )

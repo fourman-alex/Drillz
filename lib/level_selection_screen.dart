@@ -19,7 +19,8 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route({
     @required BuildContext context,
     @required List<Level> workouts,
-    MaterialColor color,
+    @required MaterialColor fromColor,
+    @required Color toColor,
     BorderRadius fromRadius,
     BorderRadius toRadius,
   }) {
@@ -30,8 +31,7 @@ class LevelSelectionScreen extends StatelessWidget {
       pageBuilder: (BuildContext context, _, __) {
         return Theme(
           data: ThemeData(
-            primarySwatch: color,
-            accentColor: Colors.redAccent,
+            primarySwatch: fromColor,
           ),
           child: LevelSelectionScreen(
             sourceRect: sourceRect,
@@ -50,8 +50,8 @@ class LevelSelectionScreen extends StatelessWidget {
           child: FillTransition(
             source: sourceRect,
             child: child,
-            fromColor: color,
-            toColor: color,
+            fromColor: fromColor,
+            toColor: toColor,
             fromBorderRadius: fromRadius,
             toBorderRadius: toRadius,
           ),
@@ -140,7 +140,7 @@ class LevelPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15.0),
