@@ -25,6 +25,8 @@ dependencies:
   #internatialization
   intl: ^0.15.8
   audioplayers: ^0.13.1
+  #keep screen on
+  wakelock: ^0.1.2+8
 
 dev_dependencies:
   mockito: ^4.1.0

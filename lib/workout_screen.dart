@@ -5,6 +5,7 @@ import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
 import 'package:pogo/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
+import 'package:wakelock/wakelock.dart';
 
 class WorkoutScreen extends StatefulWidget {
   final Level level;
@@ -45,12 +46,16 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   void initState() {
     _currentStepIndexNotifier.addListener(_handleCurrentStepChanged);
     _currentStepIndexNotifier.value = 0;
+    //keep screen on while in this screen
+    Wakelock.enable();
     super.initState();
   }
 
   @override
   void dispose() {
     _currentStepIndexNotifier.dispose();
+    //disable the wakelock that keeps the screen on
+    Wakelock.disable();
     super.dispose();
   }
 
