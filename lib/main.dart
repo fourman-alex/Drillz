@@ -2,11 +2,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pogo/audio.dart';
 import 'package:pogo/model.dart';
-import 'package:pogo/repository.dart';
 import 'package:pogo/workout_selection_screen.dart';
 import 'package:provider/provider.dart';
 //todo add keys to widget constructors
-
 
 void main() {
   runApp(MyApp());
@@ -30,10 +28,19 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = ThemeData(
+      primarySwatch: Colors.pink,
+    );
+    theme = theme.copyWith(
+      textTheme: theme.textTheme.merge(theme.typography.white),
+      primaryTextTheme: theme.primaryTextTheme.merge(theme.typography.white),
+      accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),
+    );
+
     return ChangeNotifierProvider.value(
       value: _modelValueNotifier,
       child: MaterialApp(
-        theme: ThemeData.dark(),
+        theme: theme,
         home: WorkoutSelectionScreen(),
       ),
     );

@@ -22,16 +22,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
             fit: BoxFit.cover,
             alignment: Alignment.center,
           ),
-//          decoration: BoxDecoration(
-//            gradient: LinearGradient(
-//              begin: Alignment.topLeft,
-//              end: Alignment.bottomRight,
-//              colors: [
-//                Colors.white,
-//                Colors.white30,
-//              ],
-//            ),
-//          ),
         ),
         Positioned.fill(
           child: BackdropFilter(
@@ -69,7 +59,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                         child: FittedBox(
                           child: Text(
                             "PoGo",
-                            style: TextStyle(fontFamily: "Righteous"),
+                            style: Theme.of(context)
+                                .textTheme
+                                .body1
+                                .copyWith(fontFamily: "Righteous"),
                           ),
                         ),
                         type: MaterialType.transparency,
@@ -86,26 +79,28 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                       children: <Widget>[
                         _WorkoutButton(
                           text: "PUSHUPS",
-                          color: Colors.lightBlue,
+                          color: Theme.of(context).primaryColor,
                           plan: model?.pushUpsPlan,
                         ),
                         _WorkoutButton(
                           text: "PULLUPS",
-                          color: Colors.deepPurple,
+                          color: Theme.of(context).primaryColor,
                           plan: model?.pullUpsPlan,
                         ),
                         _WorkoutButton(
                           text: "SITUPS",
-                          color: Colors.lightGreen,
+                          color: Theme.of(context).primaryColor,
                           plan: model?.sitUpsPlan,
                         ),
                         _WorkoutButton(
                           text: "SQUATS",
-                          color: Colors.amber,
+                          color: Theme.of(context).primaryColor,
                           plan: model?.squatsPlan,
                         ),
                       ],
                       shrinkWrap: true,
+                      mainAxisSpacing: 8.0,
+                      crossAxisSpacing: 8.0,
                     ),
                   ),
                   Expanded(
@@ -153,7 +148,7 @@ class _WorkoutButton extends StatelessWidget {
           var child = Center(
             child: Text(
               text,
-              style: TextStyle(fontSize: 35.0, color: Colors.white),
+              style: Theme.of(context).primaryTextTheme.body1.copyWith(fontSize: 35.0),
             ),
           );
           if (plan == null) return child;
