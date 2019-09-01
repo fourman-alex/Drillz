@@ -3,9 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/model.dart';
-import 'package:pogo/repository.dart';
-import 'package:provider/provider.dart';
+import 'package:pogo/consts.dart' as Consts;
 
 class StartTile extends StatelessWidget {
   final VoidCallback _onPressed;
@@ -14,18 +12,24 @@ class StartTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox.expand(
-      child: FittedBox(
-        child: GestureDetector(
-          onTap: _onPressed,
-          child: Text(
-            "Start",
-            style: TextStyle(color: Colors.white),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: _onPressed,
+      child: SizedBox.expand(
+        child: FittedBox(
+          child: RotatedBox(
+            quarterTurns: 1,
+            child: Text(
+              "GO",
+              style: Theme.of(context)
+                  .textTheme
+                  .body1
+                  .copyWith(fontFamily: Consts.righteousFont),
+            ),
           ),
         ),
       ),
-    ));
+    );
   }
 }
 
@@ -33,23 +37,25 @@ class FinishTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: () {
-        var workoutSelectionNotifier =
-            Provider.of<ValueNotifier<Model>>(context, listen: false)
-              ..value = null;
-//        Repository.modelAsync
-//            .then((model) => workoutSelectionNotifier.value = model);
         Navigator.popUntil(context, ModalRoute.withName("/"));
       },
-      child: Center(
-          child: SizedBox.expand(
-        child: FittedBox(
-          child: Text(
-            "Done!",
-            style: TextStyle(color: Colors.white),
+      child: RotatedBox(
+        quarterTurns: 1,
+        child: SizedBox.expand(
+          child: FittedBox(
+            child: Text(
+              "Finish",
+              textAlign: TextAlign.start,
+              style: Theme.of(context)
+                  .textTheme
+                  .body1
+                  .copyWith(fontFamily: Consts.righteousFont),
+            ),
           ),
         ),
-      )),
+      ),
     );
   }
 }
@@ -64,13 +70,18 @@ class WorkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: FittedBox(
-        child: GestureDetector(
-          onTap: _onPressed,
-          child: Text(
-            "Perform $_amount",
-            style: TextStyle(color: Colors.white),
+    return RotatedBox(
+      quarterTurns: 1,
+      child: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: _onPressed,
+        child: SizedBox.expand(
+          child: FittedBox(
+            child: Text("$_amount",
+                style: Theme.of(context)
+                    .textTheme
+                    .body1
+                    .copyWith(fontWeight: FontWeight.bold)),
           ),
         ),
       ),
@@ -109,42 +120,32 @@ class _RestTileState extends State<RestTile>
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _onTap,
-      child: Container(
-        alignment: Alignment.center,
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: AnimatedContainer(
-                curve: Curves.elasticOut,
-                duration: Duration(milliseconds: 750),
-                color: Theme.of(context).accentColor,
-                height: _progressBarHeight,
+      child: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topCenter,
+            child: AnimatedContainer(
+              curve: Curves.elasticOut,
+              duration: Duration(milliseconds: 750),
+              color: Theme.of(context).accentColor,
+              height: _progressBarHeight,
+            ),
+          ),
+          RotatedBox(
+            quarterTurns: 1,
+            child: SizedBox.expand(
+              child: FittedBox(
+                child: Text(
+                  "${_timerString.toString().padLeft(2, '0')}:00",
+                  style: Theme.of(context)
+                      .textTheme
+                      .body1
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      "Rest",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                FittedBox(
-                  child: Text(
-                    "${_timerString.toString().padLeft(2, '0')}:00",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
