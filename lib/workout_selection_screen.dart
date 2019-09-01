@@ -62,7 +62,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .body1
-                                .copyWith(fontFamily: "Righteous"),
+                                .copyWith(fontFamily: "Righteous", shadows: <Shadow>[
+                                  Shadow(blurRadius: 25.0, color: Theme.of(context).primaryColorLight)
+                            ]),
                           ),
                         ),
                         type: MaterialType.transparency,
