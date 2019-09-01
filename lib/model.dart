@@ -82,7 +82,7 @@ class StartStep extends ExerciseStep {
   const StartStep();
 
   @override
-  String toString() => "Start";
+  String toString() => "Go";
 
   @override
   bool operator ==(other) => other is StartStep;
@@ -95,7 +95,7 @@ class FinishStep extends ExerciseStep {
   const FinishStep();
 
   @override
-  String toString() => "Finish";
+  String toString() => "\u{1F3C1}";
 
   @override
   bool operator ==(other) => other is FinishStep;
