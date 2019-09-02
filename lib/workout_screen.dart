@@ -120,6 +120,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
         widget.level.id,
         DateTime.now(),
       );
+      //also reset model to null so that well have to load it and get
+      // the updated values
+      Provider.of<ValueNotifier<Model>>(context).value = null;
     } else if (currentStep is StartStep) {
       Repository.setWorkoutDate(
         Date.attempted,

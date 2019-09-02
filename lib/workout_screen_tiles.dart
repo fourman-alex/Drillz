@@ -166,7 +166,7 @@ class _RestTileState extends State<RestTile>
                 child: SizedBox.expand(
                   child: FittedBox(
                     child: Text(
-                      "${_timerString.toString().padLeft(2, '0')}",
+                      "${_timerString.toString()}",
                       style: Theme.of(context)
                           .textTheme
                           .body1
