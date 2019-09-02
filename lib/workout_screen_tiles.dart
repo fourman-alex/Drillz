@@ -127,22 +127,42 @@ class _RestTileState extends State<RestTile>
             child: AnimatedContainer(
               curve: Curves.elasticOut,
               duration: Duration(milliseconds: 750),
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).primaryColor,
               height: _progressBarHeight,
             ),
           ),
           RotatedBox(
             quarterTurns: 1,
-            child: SizedBox.expand(
-              child: FittedBox(
-                child: Text(
-                  "${_timerString.toString().padLeft(2, '0')}:00",
-                  style: Theme.of(context)
-                      .textTheme
-                      .body1
-                      .copyWith(fontWeight: FontWeight.bold),
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox.expand(
+                    child: FittedBox(
+                      child: Text(
+                        "Rest for",
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 4,
+                  child: SizedBox.expand(
+                    child: FittedBox(
+                      child: Text(
+                        "${_timerString.toString().padLeft(2, '0')}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

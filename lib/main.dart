@@ -30,6 +30,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     var theme = ThemeData(
       primarySwatch: Colors.pink,
+      accentColor: Colors.white,
     );
     theme = theme.copyWith(
       textTheme: theme.textTheme.merge(theme.typography.white),

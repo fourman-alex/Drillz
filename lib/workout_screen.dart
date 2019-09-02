@@ -70,7 +70,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).primaryColorDark,
       child: Stack(
         children: <Widget>[
           MultiProvider(
@@ -101,12 +100,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             child: ProgressButton(
               width: 80,
               height: 80,
-              text: Text(
-                "BAIL",
-                style: TextStyle(color: Colors.white),
-              ),
-              startColor: Colors.redAccent,
-              endColor: Colors.red,
+              child: Icon(Icons.close),
+              startColor: Theme.of(context).primaryColor,
+              endColor: Theme.of(context).accentColor,
               onPressCompleted: () => Navigator.of(context).pop(),
               color: Theme.of(context).primaryColor,
             ),

@@ -34,13 +34,12 @@ class LevelSelectionScreen extends StatelessWidget {
     return PageRouteBuilder<void>(
       pageBuilder: (BuildContext context, _, __) {
         return Theme(
-          data: ThemeData(
-            primarySwatch: fromColor,
+          data: Theme.of(context).copyWith(
+            primaryColor: fromColor,
             backgroundColor: toColor,
-            textTheme: Theme.of(context).textTheme,
-            primaryTextTheme: Theme.of(context).primaryTextTheme,
-            accentTextTheme: Theme.of(context).accentTextTheme,
+            canvasColor: toColor,
             dividerColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
           ),
           child: LevelSelectionScreen(
             sourceRect: sourceRect,
@@ -190,7 +189,7 @@ class LevelPage extends StatelessWidget {
                 flex: 9,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0),
@@ -235,8 +234,8 @@ class LevelPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: FittedBox(
-                              child:
-                                  Text(_totalCount.toString().padLeft(2, '  '))),
+                              child: Text(
+                                  _totalCount.toString().padLeft(2, '  '))),
                         ),
                       )
                     ],

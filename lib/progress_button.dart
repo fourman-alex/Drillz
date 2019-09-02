@@ -9,12 +9,12 @@ class ProgressButton extends StatefulWidget {
   final Color color;
   final Color startColor;
   final Color endColor;
-  final Text text;
+  final Widget child;
   final void Function() onPressCompleted;
 
   const ProgressButton({
     Key key,
-    this.text,
+    this.child,
     this.width,
     this.height,
     this.duration = const Duration(seconds: 2),
@@ -57,7 +57,7 @@ class _ProgressButtonState extends State<ProgressButton>
       color: widget.color,
       endColor: widget.endColor,
       startColor: widget.startColor,
-      text: widget.text,
+      child: widget.child,
     );
   }
 }
@@ -69,7 +69,7 @@ class _InnerProgressButton extends AnimatedWidget {
   final Color startColor;
   final Color endColor;
   final Color color;
-  final Text text;
+  final Widget child;
 
   _InnerProgressButton({
     Key key,
@@ -79,7 +79,7 @@ class _InnerProgressButton extends AnimatedWidget {
     @required this.color,
     @required this.startColor,
     @required this.endColor,
-    @required this.text,
+    @required this.child,
   }) : super(key: key, listenable: animationController);
 
   @override
@@ -138,7 +138,7 @@ class _InnerProgressButton extends AnimatedWidget {
                     child: Padding(
                       padding: EdgeInsets.all(strokeWidth),
                       child: FittedBox(
-                        child: text,
+                        child: child,
                       ),
                     ),
                   ),
