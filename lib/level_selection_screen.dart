@@ -32,8 +32,8 @@ class LevelSelectionScreen extends StatelessWidget {
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
 
     return PageRouteBuilder<void>(
-      pageBuilder: (BuildContext context, _, __) {
-        return Theme(
+      pageBuilder: (BuildContext context, _, secondaryAnimation) {
+        var pageContent = Theme(
           data: Theme.of(context).copyWith(
             primaryColor: fromColor,
             backgroundColor: toColor,
@@ -47,10 +47,7 @@ class LevelSelectionScreen extends StatelessWidget {
             title: title,
           ),
         );
-      },
-      transitionDuration: const Duration(milliseconds: 1000),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        //uses secondaryAnimation to slide this screen out when a new one covers it
+        //The animation part
         return SlideTransition(
           position: Tween<Offset>(
             begin: Offset.zero,
@@ -58,7 +55,7 @@ class LevelSelectionScreen extends StatelessWidget {
           ).animate(secondaryAnimation),
           child: FillTransition(
             source: sourceRect,
-            child: child,
+            child: pageContent,
             fromColor: fromColor,
             toColor: toColor,
             fromBorderRadius: fromRadius,
@@ -66,6 +63,7 @@ class LevelSelectionScreen extends StatelessWidget {
           ),
         );
       },
+      transitionDuration: const Duration(milliseconds: 1000),
     );
   }
 
