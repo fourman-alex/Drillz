@@ -21,8 +21,8 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     //load notification sound
-    player.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
-    player.load("soft-bells.mp3").then((file) => debugPrint("$file loaded"));
+    audioPlayer.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
+    audioPlayer.load("soft-bells.mp3").then((file) => debugPrint("$file loaded"));
     super.initState();
   }
 

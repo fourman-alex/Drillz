@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pogo/consts.dart' as Consts;
+import 'package:pogo/consts.dart';
 import 'package:pogo/fill_transition.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';

@@ -113,7 +113,6 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   }
 
   void _handleCurrentStepChanged() {
-    player.play("soft-bells.mp3");
     var currentStep = widget.level.steps[_currentStepIndexNotifier.value];
     if (currentStep is FinishStep) {
       Repository.setWorkoutDate(

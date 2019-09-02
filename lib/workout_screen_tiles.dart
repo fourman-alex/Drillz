@@ -3,7 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/consts.dart' as Consts;
+import 'package:pogo/audio.dart';
+import 'package:pogo/consts.dart';
 
 class StartTile extends StatelessWidget {
   final VoidCallback _onPressed;
@@ -184,6 +185,7 @@ class _RestTileState extends State<RestTile>
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       print(timer.tick);
       if (timer.tick > duration) {
+        audioPlayer.play(Consts.bellsAudio);
         timer.cancel();
         widget._onDone();
       } else {

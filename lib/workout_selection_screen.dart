@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pogo/consts.dart' as Consts;
+import 'package:pogo/consts.dart';
 import 'package:pogo/level_selection_screen.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/repository.dart';
