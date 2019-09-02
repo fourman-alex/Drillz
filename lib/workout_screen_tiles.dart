@@ -140,7 +140,7 @@ class _RestTileState extends State<RestTile>
           child: AnimatedContainer(
             curve: Curves.elasticOut,
             duration: Duration(milliseconds: 750),
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorDark,
             height: _progressBarHeight,
           ),
         ),
