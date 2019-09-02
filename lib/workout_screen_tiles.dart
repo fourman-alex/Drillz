@@ -113,74 +113,7 @@ class _RestTileState extends State<RestTile>
   void initState() {
     super.initState();
     _timerString = widget.duration;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: _onTap,
-      child: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: AnimatedContainer(
-              curve: Curves.elasticOut,
-              duration: Duration(milliseconds: 750),
-              color: Theme.of(context).primaryColor,
-              height: _progressBarHeight,
-            ),
-          ),
-          RotatedBox(
-            quarterTurns: 1,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: SizedBox.expand(
-                    child: FittedBox(
-                      child: Text(
-                        "Rest for",
-                        style: Theme.of(context)
-                            .textTheme
-                            .body1
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: SizedBox.expand(
-                    child: FittedBox(
-                      child: Text(
-                        "${_timerString.toString().padLeft(2, '0')}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .body1
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
-  void _onTap() {
-    //makes tap do nothing after timer has started
-    if (_timer != null && _timer.isActive) return;
-
+    //start timer when created
     var duration = _timerString;
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       print(timer.tick);
@@ -195,6 +128,64 @@ class _RestTileState extends State<RestTile>
         });
       }
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Stack(
+      children: <Widget>[
+        Align(
+          alignment: Alignment.topCenter,
+          child: AnimatedContainer(
+            curve: Curves.elasticOut,
+            duration: Duration(milliseconds: 750),
+            color: Theme.of(context).primaryColor,
+            height: _progressBarHeight,
+          ),
+        ),
+        RotatedBox(
+          quarterTurns: 1,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: SizedBox.expand(
+                  child: FittedBox(
+                    child: Text(
+                      "Rest for",
+                      style: Theme.of(context)
+                          .textTheme
+                          .body1
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: SizedBox.expand(
+                  child: FittedBox(
+                    child: Text(
+                      "${_timerString.toString().padLeft(2, '0')}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .body1
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
