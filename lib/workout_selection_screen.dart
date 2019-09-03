@@ -84,12 +84,12 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                       children: <Widget>[
                         _WorkoutButton(
                           text: "PUSHUPS",
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.green,
                           plan: model?.pushUpsPlan,
                         ),
                         _WorkoutButton(
                           text: "PULLUPS",
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.deepOrange,
                           plan: model?.pullUpsPlan,
                         ),
                         _WorkoutButton(
@@ -99,8 +99,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                         ),
                         _WorkoutButton(
                           text: "SQUATS",
-                          color: Theme.of(context).primaryColor,
                           plan: model?.squatsPlan,
+                          color: Colors.indigo,
                         ),
                       ],
                       shrinkWrap: true,

@@ -36,6 +36,7 @@ class LevelSelectionScreen extends StatelessWidget {
     final pageContent = Theme(
       data: Theme.of(context).copyWith(
         primaryColor: fromColor,
+        primaryColorDark: fromColor.shade800,
         backgroundColor: toColor,
         canvasColor: toColor,
         dividerColor: Colors.white,
