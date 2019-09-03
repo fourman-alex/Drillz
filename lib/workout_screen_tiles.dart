@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pogo/audio.dart';
 import 'package:pogo/consts.dart';
 
@@ -40,7 +39,9 @@ class FinishTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        Navigator.popUntil(context, ModalRoute.withName("/"));
+        final navigator = Navigator.of(context);
+        navigator.removeRouteBelow(ModalRoute.of(context));
+        navigator.pop();
       },
       child: RotatedBox(
         quarterTurns: 1,
