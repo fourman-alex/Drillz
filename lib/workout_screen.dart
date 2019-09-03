@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pogo/audio.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
@@ -9,29 +8,36 @@ import 'package:wakelock/wakelock.dart';
 
 class WorkoutScreen extends StatefulWidget {
   final Level level;
+  final Animation<double> animation;
 
-  WorkoutScreen({Key key, @required this.level}) : super(key: key);
+  WorkoutScreen({Key key, @required this.level, this.animation})
+      : super(key: key);
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
   static Route<dynamic> route(Level level, ThemeData themeData) {
     return PageRouteBuilder<void>(
-      pageBuilder: (context, _, __) {
-        return Theme(
-          data: themeData,
-          child: WorkoutScreen(
-            level: level,
-          ),
-        );
-      },
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      transitionDuration: Duration(milliseconds: 500),
+      pageBuilder: (context, animation, __) {
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(1.0, 0.0),
             end: Offset.zero,
-          ).animate(animation),
-          child: child,
+          ).animate(CurvedAnimation(
+            parent: animation,
+            curve: Interval(0.0, 0.5),
+          )),
+          child: Theme(
+            data: themeData,
+            child: WorkoutScreen(
+              level: level,
+              animation: CurvedAnimation(
+                parent: animation,
+                curve: Interval(0.6, 1.0),
+              ),
+            ),
+          ),
         );
       },
     );
@@ -70,44 +76,47 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: <Widget>[
-          MultiProvider(
-            providers: [
-              ListenableProvider<ValueNotifier<int>>.value(
-                value: _currentStepIndexNotifier,
-              ),
-              Provider<Level>.value(value: widget.level)
-            ],
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: StepSwitcher(),
+      child: FadeTransition(
+        opacity: widget.animation,
+        child: Stack(
+          children: <Widget>[
+            MultiProvider(
+              providers: [
+                ListenableProvider<ValueNotifier<int>>.value(
+                  value: _currentStepIndexNotifier,
                 ),
-                Expanded(
-                  flex: 1,
-                  child: WorkoutStepsBar(),
-                ),
+                Provider<Level>.value(value: widget.level)
               ],
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    flex: 5,
+                    child: StepSwitcher(),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: WorkoutStepsBar(),
+                  ),
+                ],
+              ),
             ),
-          ),
-          Positioned.directional(
-            textDirection: TextDirection.ltr,
-            bottom: 16.0,
-            start: 16.0,
-            child: ProgressButton(
-              width: 80,
-              height: 80,
-              child: Icon(Icons.close),
-              startColor: Theme.of(context).primaryColor,
-              endColor: Theme.of(context).accentColor,
-              onPressCompleted: () => Navigator.of(context).pop(),
-              color: Theme.of(context).primaryColor,
+            Positioned.directional(
+              textDirection: TextDirection.ltr,
+              bottom: 16.0,
+              start: 16.0,
+              child: ProgressButton(
+                width: 80,
+                height: 80,
+                child: Icon(Icons.close),
+                startColor: Theme.of(context).primaryColor,
+                endColor: Theme.of(context).accentColor,
+                onPressCompleted: () => Navigator.of(context).pop(),
+                color: Theme.of(context).primaryColor,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

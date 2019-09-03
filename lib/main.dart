@@ -4,6 +4,7 @@ import 'package:pogo/audio.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_selection_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 //todo add keys to widget constructors
 
 void main() {
@@ -23,6 +24,8 @@ class _MyAppState extends State<MyApp> {
     //load notification sound
     audioPlayer.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
     audioPlayer.load("soft-bells.mp3").then((file) => debugPrint("$file loaded"));
+    //load the stupid shared pref
+    SharedPreferences.getInstance();
     super.initState();
   }
 

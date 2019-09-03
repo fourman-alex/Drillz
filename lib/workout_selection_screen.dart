@@ -60,12 +60,14 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                         child: FittedBox(
                           child: Text(
                             "PoGo",
-                            style: Theme.of(context)
-                                .textTheme
-                                .body1
-                                .copyWith(fontFamily: Consts.righteousFont, shadows: <Shadow>[
-                                  Shadow(blurRadius: 25.0, color: Theme.of(context).primaryColorLight)
-                            ]),
+                            style: Theme.of(context).textTheme.body1.copyWith(
+                                fontFamily: Consts.righteousFont,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                      blurRadius: 25.0,
+                                      color:
+                                          Theme.of(context).primaryColorLight)
+                                ]),
                           ),
                         ),
                         type: MaterialType.transparency,
@@ -151,7 +153,10 @@ class _WorkoutButton extends StatelessWidget {
           var child = Center(
             child: Text(
               text,
-              style: Theme.of(context).primaryTextTheme.body1.copyWith(fontSize: 35.0),
+              style: Theme.of(context)
+                  .primaryTextTheme
+                  .body1
+                  .copyWith(fontSize: 35.0),
             ),
           );
           if (plan == null) return child;
@@ -160,20 +165,30 @@ class _WorkoutButton extends StatelessWidget {
             child: child,
             onTap: () {
               if (plan != null) {
-                Navigator.of(context)
-                    .push(
+                //find all completed and the first uncompleted level
+                final levels = List<Level>();
+                final lastCompletedIndex = plan.lastIndexWhere((workout) {
+                  return workout.dateCompleted != null;
+                });
+                if (lastCompletedIndex != -1) {
+                  levels.addAll(plan.getRange(0, lastCompletedIndex + 1));
+                }
+
+                final currentWorkout = (lastCompletedIndex + 1 < plan.length)
+                    ? plan[lastCompletedIndex + 1]
+                    : null;
+
+                Navigator.of(context).push(
                   LevelSelectionScreen.route(
                     title: text,
                     context: context,
-                    workouts: plan,
+                    workouts: levels,
+                    currentWorkout: currentWorkout,
                     fromColor: color,
                     toColor: Colors.grey[850],
                     fromRadius: borderRadius,
                   ),
-                )
-                    .then((returnValue) {
-                  debugPrint("LevelSelectionScreen popped");
-                });
+                );
               }
             },
           );

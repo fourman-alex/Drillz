@@ -7,12 +7,14 @@ import 'package:pogo/workout_screen.dart';
 class LevelSelectionScreen extends StatelessWidget {
   final Rect sourceRect;
   final List<Level> workouts;
+  final Level currentWorkout;
   final String title;
 
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
-    @required this.workouts,
+    this.workouts,
+    this.currentWorkout,
     @required this.title,
   })  : assert(sourceRect != null),
         super(key: key);
@@ -22,7 +24,8 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route({
     @required BuildContext context,
     @required String title,
-    @required List<Level> workouts,
+     List<Level> workouts,
+    Level currentWorkout,
     @required MaterialColor fromColor,
     @required Color toColor,
     BorderRadius fromRadius,
@@ -30,38 +33,33 @@ class LevelSelectionScreen extends StatelessWidget {
   }) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
-
+    final pageContent = Theme(
+      data: Theme.of(context).copyWith(
+        primaryColor: fromColor,
+        backgroundColor: toColor,
+        canvasColor: toColor,
+        dividerColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+      ),
+      child: LevelSelectionScreen(
+        sourceRect: sourceRect,
+        workouts: workouts,
+        currentWorkout: currentWorkout,
+        title: title,
+      ),
+    );
+    final fillTransition = FillTransition(
+      source: sourceRect,
+      child: pageContent,
+      fromColor: fromColor,
+      toColor: toColor,
+      fromBorderRadius: fromRadius,
+      toBorderRadius: toRadius,
+    );
     return PageRouteBuilder<void>(
+      maintainState: false,
       pageBuilder: (BuildContext context, _, secondaryAnimation) {
-        var pageContent = Theme(
-          data: Theme.of(context).copyWith(
-            primaryColor: fromColor,
-            backgroundColor: toColor,
-            canvasColor: toColor,
-            dividerColor: Colors.white,
-            iconTheme: IconThemeData(color: Colors.white),
-          ),
-          child: LevelSelectionScreen(
-            sourceRect: sourceRect,
-            workouts: workouts,
-            title: title,
-          ),
-        );
-        //The animation part
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: Offset.zero,
-            end: Offset(-1.0, 0.0),
-          ).animate(secondaryAnimation),
-          child: FillTransition(
-            source: sourceRect,
-            child: pageContent,
-            fromColor: fromColor,
-            toColor: toColor,
-            fromBorderRadius: fromRadius,
-            toBorderRadius: toRadius,
-          ),
-        );
+        return fillTransition;
       },
       transitionDuration: const Duration(milliseconds: 1000),
     );
@@ -70,43 +68,37 @@ class LevelSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //find last completed
-    var lastCompletedIndex = workouts.lastIndexWhere((workout) {
-      return workout.dateCompleted != null;
-    });
-    var currentWorkout = lastCompletedIndex + 1 < workouts.length
-        ? workouts[lastCompletedIndex + 1]
-        : null;
-
-    final completedList = lastCompletedIndex != -1
-        ? workouts.getRange(0, lastCompletedIndex + 1).toList()
-        : null;
-
     var widgets = List<Widget>();
 
-    void onTap() {
-      Navigator.push(
-          context,
-          WorkoutScreen.route(
-            currentWorkout,
-            Theme.of(context),
-          ));
-    }
-
-    if (completedList != null) {
-      for (var i = 0; i < completedList.length; i++) {
+    if (workouts != null) {
+      for (var i = 0; i < workouts.length; i++) {
         widgets.add(LevelPage(
-          onTap: onTap,
+          onTap: () {
+            Navigator.push(
+                context,
+                WorkoutScreen.route(
+                  workouts[i],
+                  Theme.of(context),
+                ));
+          },
           text: "Level ${i + 1}",
           opacity: 0.7,
-          level: completedList[i],
+          level: workouts[i],
         ));
       }
     }
 
     if (currentWorkout != null) {
       widgets.add(LevelPage(
-        onTap: onTap,
-        text: "Level ${lastCompletedIndex + 2}",
+        onTap: () {
+          Navigator.push(
+              context,
+              WorkoutScreen.route(
+                currentWorkout,
+                Theme.of(context),
+              ));
+        },
+        text: "Level ${(workouts?.length ?? 0) + 1}",
         opacity: 1.0,
         level: currentWorkout,
       ));
