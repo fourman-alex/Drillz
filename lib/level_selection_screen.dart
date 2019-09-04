@@ -1,3 +1,4 @@
+import 'package:clippy_flutter/chevron.dart';
 import 'package:flutter/material.dart';
 import 'package:pogo/consts.dart';
 import 'package:pogo/fill_transition.dart';
@@ -24,7 +25,7 @@ class LevelSelectionScreen extends StatelessWidget {
   static Route<void> route({
     @required BuildContext context,
     @required String title,
-     List<Level> workouts,
+    List<Level> workouts,
     Level currentWorkout,
     @required MaterialColor fromColor,
     @required Color toColor,
@@ -82,7 +83,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   Theme.of(context),
                 ));
           },
-          text: "Level ${i + 1}",
+          text: "Lvl ${i + 1}",
           opacity: 0.7,
           level: workouts[i],
         ));
@@ -99,7 +100,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 Theme.of(context),
               ));
         },
-        text: "Level ${(workouts?.length ?? 0) + 1}",
+        text: "Lvl ${(workouts?.length ?? 0) + 1}",
         opacity: 1.0,
         level: currentWorkout,
       ));
@@ -118,7 +119,7 @@ class LevelSelectionScreen extends StatelessWidget {
                 title,
                 style: TextStyle(
                   fontFamily: Consts.righteousFont,
-                  fontSize: 40,
+                  fontSize: 30,
                 ),
               ),
             ),
@@ -151,89 +152,104 @@ class LevelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      type: MaterialType.transparency,
-      child: GestureDetector(
-        onTap: onTap,
-        child: Opacity(
-          opacity: opacity,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: RotatedBox(
-                  quarterTurns: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FittedBox(
-                      child: Text(
-                        text,
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 9,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      //todo: build the steps in the init method
-                      for (var step in _steps)
-                        Expanded(
-                          flex: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: SizedBox.expand(
-                                  child: FittedBox(
-                                    child: Text(
-                                      step.reps.toString(),
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .accentTextTheme
-                                          .body1
-                                          .copyWith(
-                                              fontFamily: Consts.righteousFont),
-                                    ),
-                                  ),
-                                ),
-                                decoration: BoxDecoration(
-                                  color: Colors.white30,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(8.0)),
-                                ),
+    final theme = Theme.of(context);
+    return Padding(
+      padding: const EdgeInsets.only(right: 16, left: 16, bottom: 8),
+      child: Material(
+        type: MaterialType.transparency,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Opacity(
+            opacity: opacity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 7 / 1,
+                        child: SizedBox.expand(
+                          child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              text,
+                              style: theme.textTheme.body1.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: Consts.righteousFont,
                               ),
                             ),
                           ),
                         ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
+                      ),
+                    ),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 9 / 1,
+                        child: SizedBox.expand(
                           child: FittedBox(
-                              child: Text(
-                                  _totalCount.toString().padLeft(2, '  '))),
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              "Total of $_totalCount",
+                              style: theme.textTheme.body1.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontFamily: Consts.righteousFont,
+                              ),
+                            ),
+                          ),
                         ),
-                      )
-                    ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        for (var step in _steps)
+                          Expanded(
+                            flex: 2,
+                            child: AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: Chevron(
+                                triangleHeight: 10,
+                                child: Container(
+                                  padding: EdgeInsets.all(12),
+                                  alignment: Alignment.center,
+                                  child: SizedBox.expand(
+                                    child: FittedBox(
+                                      child: Text(
+                                        step.reps.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: theme.accentTextTheme.body1
+                                            .copyWith(
+                                                fontFamily: Consts.righteousFont),
+                                      ),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white30,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
