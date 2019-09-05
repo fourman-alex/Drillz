@@ -79,35 +79,44 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                     ),
                     Expanded(
                       flex: 8,
-                      child: GridView.count(
-                        padding: EdgeInsets.symmetric(vertical: 4.0),
-                        physics: NeverScrollableScrollPhysics(),
-                        crossAxisCount: 2,
-                        children: <Widget>[
-                          _WorkoutButton(
-                            text: "PUSHUPS",
-                            color: Colors.green,
-                            plan: model?.pushUpsPlan,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Flexible(
+                            child: Row(
+                              children: [
+                                _WorkoutButton(
+                                  text: "PUSHUPS",
+                                  color: Colors.green,
+                                  plan: model?.pushUpsPlan,
+                                ),
+                                _WorkoutButton(
+                                  text: "PULLUPS",
+                                  color: Colors.deepOrange,
+                                  plan: model?.pullUpsPlan,
+                                ),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ),
                           ),
-                          _WorkoutButton(
-                            text: "PULLUPS",
-                            color: Colors.deepOrange,
-                            plan: model?.pullUpsPlan,
-                          ),
-                          _WorkoutButton(
-                            text: "SITUPS",
-                            color: Theme.of(context).primaryColor,
-                            plan: model?.sitUpsPlan,
-                          ),
-                          _WorkoutButton(
-                            text: "SQUATS",
-                            plan: model?.squatsPlan,
-                            color: Colors.indigo,
+                          Flexible(
+                            child: Row(
+                              children: [
+                                _WorkoutButton(
+                                  text: "SITUPS",
+                                  color: Theme.of(context).primaryColor,
+                                  plan: model?.sitUpsPlan,
+                                ),
+                                _WorkoutButton(
+                                  text: "SQUATS",
+                                  plan: model?.squatsPlan,
+                                  color: Colors.indigo,
+                                ),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            ),
                           ),
                         ],
-                        shrinkWrap: true,
-                        mainAxisSpacing: 16.0,
-                        crossAxisSpacing: 16.0,
                       ),
                     ),
                     Expanded(
@@ -147,56 +156,70 @@ class _WorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(15.0);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: borderRadius,
-      ),
-      child: Builder(
-        builder: (context) {
-          var child = Center(
-            child: Text(
-              text,
-              style: Theme.of(context)
-                  .primaryTextTheme
-                  .body1
-                  .copyWith(fontSize: 30.0),
-            ),
-          );
-          if (plan == null) return child;
-          return GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            child: child,
-            onTap: () {
-              if (plan != null) {
-                //find all completed and the first uncompleted level
-                final levels = List<Level>();
-                final lastCompletedIndex = plan.lastIndexWhere((workout) {
-                  return workout.dateCompleted != null;
-                });
-                if (lastCompletedIndex != -1) {
-                  levels.addAll(plan.getRange(0, lastCompletedIndex + 1));
-                }
+    return Flexible(
+      child: AspectRatio(
+        aspectRatio: 1 / 1,
+        child: Container(
+          margin: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: borderRadius,
+          ),
+          child: Builder(
+            builder: (context) {
+              final child = Center(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    //makes sure that the font size fills the container
+                    //AND is the same for all the buttons
+                    final fontSize = constraints.biggest.width/5;
+                    return Text(
+                      text,
+                      style: Theme.of(context).primaryTextTheme.body1.copyWith(
+                            fontSize: fontSize,
+                            fontFamily: Consts.righteousFont,
+                          ),
+                    );
+                  },
+                ),
+              );
+              if (plan == null) return child;
+              return GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                child: child,
+                onTap: () {
+                  if (plan != null) {
+                    //find all completed and the first uncompleted level
+                    final levels = List<Level>();
+                    final lastCompletedIndex = plan.lastIndexWhere((workout) {
+                      return workout.dateCompleted != null;
+                    });
+                    if (lastCompletedIndex != -1) {
+                      levels.addAll(plan.getRange(0, lastCompletedIndex + 1));
+                    }
 
-                final currentWorkout = (lastCompletedIndex + 1 < plan.length)
-                    ? plan[lastCompletedIndex + 1]
-                    : null;
+                    final currentWorkout =
+                        (lastCompletedIndex + 1 < plan.length)
+                            ? plan[lastCompletedIndex + 1]
+                            : null;
 
-                Navigator.of(context).push(
-                  LevelSelectionScreen.route(
-                    title: text,
-                    context: context,
-                    workouts: levels,
-                    currentWorkout: currentWorkout,
-                    fromColor: color,
-                    toColor: Colors.grey[850],
-                    fromRadius: borderRadius,
-                  ),
-                );
-              }
+                    Navigator.of(context).push(
+                      LevelSelectionScreen.route(
+                        title: text,
+                        context: context,
+                        workouts: levels,
+                        currentWorkout: currentWorkout,
+                        fromColor: color,
+                        toColor: Colors.grey[850],
+                        fromRadius: borderRadius,
+                      ),
+                    );
+                  }
+                },
+              );
             },
-          );
-        },
+          ),
+        ),
       ),
     );
   }
