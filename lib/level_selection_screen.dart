@@ -6,11 +6,6 @@ import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
-  final Rect sourceRect;
-  final List<Level> workouts;
-  final Level currentWorkout;
-  final String title;
-
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
@@ -19,6 +14,11 @@ class LevelSelectionScreen extends StatelessWidget {
     @required this.title,
   })  : assert(sourceRect != null),
         super(key: key);
+
+  final Rect sourceRect;
+  final List<Level> workouts;
+  final Level currentWorkout;
+  final String title;
 
   /// [context] must be the [BuildContext] of the widget from which the
   /// transition will visually fill
@@ -34,7 +34,7 @@ class LevelSelectionScreen extends StatelessWidget {
   }) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
-    final pageContent = Theme(
+    final Theme pageContent = Theme(
       data: Theme.of(context).copyWith(
         primaryColor: fromColor,
         primaryColorDark: fromColor.shade800,
@@ -50,7 +50,7 @@ class LevelSelectionScreen extends StatelessWidget {
         title: title,
       ),
     );
-    final fillTransition = FillTransition(
+    final FillTransition fillTransition = FillTransition(
       source: sourceRect,
       child: pageContent,
       fromColor: fromColor,
@@ -60,7 +60,7 @@ class LevelSelectionScreen extends StatelessWidget {
     );
     return PageRouteBuilder<void>(
       maintainState: false,
-      pageBuilder: (BuildContext context, _, secondaryAnimation) {
+      pageBuilder: (_, __, ___) {
         return fillTransition;
       },
       transitionDuration: const Duration(milliseconds: 1000),
@@ -70,20 +70,20 @@ class LevelSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //find last completed
-    var widgets = List<Widget>();
+    final List<Widget> widgets = <Widget>[];
 
     if (workouts != null) {
-      for (var i = 0; i < workouts.length; i++) {
+      for (int i = 0; i < workouts.length; i++) {
         widgets.add(LevelPage(
           onTap: () {
-            Navigator.push(
+            Navigator.push<void>(
                 context,
                 WorkoutScreen.route(
                   workouts[i],
                   Theme.of(context),
                 ));
           },
-          text: "Lvl ${i + 1}",
+          text: 'Lvl ${i + 1}',
           opacity: 0.7,
           level: workouts[i],
         ));
@@ -93,14 +93,14 @@ class LevelSelectionScreen extends StatelessWidget {
     if (currentWorkout != null) {
       widgets.add(LevelPage(
         onTap: () {
-          Navigator.push(
+          Navigator.push<void>(
               context,
               WorkoutScreen.route(
                 currentWorkout,
                 Theme.of(context),
               ));
         },
-        text: "Lvl ${(workouts?.length ?? 0) + 1}",
+        text: 'Lvl ${(workouts?.length ?? 0) + 1}',
         opacity: 1.0,
         level: currentWorkout,
       ));
@@ -133,26 +133,22 @@ class LevelSelectionScreen extends StatelessWidget {
 }
 
 class LevelPage extends StatelessWidget {
+  LevelPage({Key key, Level level, this.text, this.opacity, this.onTap})
+      : _steps = level.steps.whereType<WorkStep>().toList(),
+        _totalCount = level.steps
+            .whereType<WorkStep>()
+            .fold(0, (int value, WorkStep step) => value + step.reps),
+        super(key: key);
+
   final List<WorkStep> _steps;
   final int _totalCount;
   final String text;
   final void Function() onTap;
   final double opacity;
 
-  LevelPage({Key key, Level level, this.text, this.opacity, this.onTap})
-      : _steps = level.steps
-            .where((step) => step is WorkStep)
-            .cast<WorkStep>()
-            .toList(),
-        _totalCount = level.steps
-            .where((step) => step is WorkStep)
-            .cast<WorkStep>()
-            .fold(0, (value, step) => value + step.reps),
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 8),
       child: Material(
@@ -191,7 +187,7 @@ class LevelPage extends StatelessWidget {
                           child: FittedBox(
                             alignment: Alignment.bottomRight,
                             child: Text(
-                              "Total of $_totalCount",
+                              'Total of $_totalCount',
                               style: theme.textTheme.body1.copyWith(
                                 fontWeight: FontWeight.w500,
                                 fontFamily: Consts.righteousFont,
@@ -206,17 +202,18 @@ class LevelPage extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     color: theme.primaryColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(15),
                       bottomRight: Radius.circular(15),
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        for (var step in _steps)
+                        for (WorkStep step in _steps)
                           Expanded(
                             flex: 2,
                             child: AspectRatio(
@@ -224,7 +221,7 @@ class LevelPage extends StatelessWidget {
                               child: Chevron(
                                 triangleHeight: 10,
                                 child: Container(
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                   alignment: Alignment.center,
                                   child: SizedBox.expand(
                                     child: FittedBox(
@@ -233,7 +230,8 @@ class LevelPage extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                         style: theme.accentTextTheme.body1
                                             .copyWith(
-                                                fontFamily: Consts.righteousFont),
+                                                fontFamily:
+                                                    Consts.righteousFont),
                                       ),
                                     ),
                                   ),
@@ -259,25 +257,25 @@ class LevelPage extends StatelessWidget {
 
 /// Detects swipe right and "zoom out" gesture
 class DismissDetector extends StatelessWidget {
-  final Widget child;
-  final void Function() onDismiss;
-
   const DismissDetector({
     Key key,
     this.child,
     @required this.onDismiss,
   }) : super(key: key);
 
+  final Widget child;
+  final void Function() onDismiss;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: child,
-      onHorizontalDragUpdate: (details) {
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
         if (details.primaryDelta > 10) {
           onDismiss();
         }
       },
-      onScaleUpdate: (details) {
+      onScaleUpdate: (ScaleUpdateDetails details) {
         if (details.scale < 0.9) {
           onDismiss();
         }

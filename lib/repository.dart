@@ -7,27 +7,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
   static Future<Model> getModelAsync(BuildContext context) async {
-    List<Level> pushupLevels = List<Level>();
-    List<Level> pullupLevels = List<Level>();
-    List<Level> squatLevels = List<Level>();
-    List<Level> situpLevels = List<Level>();
-    String data =
-        await DefaultAssetBundle.of(context).loadString("assets/plan.json");
-    List json = jsonDecode(data);
+    final List<Level> pushupLevels = <Level>[];
+    final List<Level> pullupLevels = <Level>[];
+    final List<Level> squatLevels = <Level>[];
+    final List<Level> situpLevels = <Level>[];
+    final String data =
+        await DefaultAssetBundle.of(context).loadString('assets/plan.json');
+    final List<dynamic> json = jsonDecode(data);
     for (int i = 0; i < json.length; i++) {
-      var rawLevel = json[i];
-      List rawSteps = rawLevel["steps"];
-      List<ExerciseStep> steps = List<ExerciseStep>();
-      steps.add(StartStep());
-      for (var rawStep in rawSteps) {
-        if (rawStep["type"] == "work") {
-          steps.add(WorkStep(rawStep["reps"]));
+      final Map<String, dynamic> rawLevel = json[i];
+      final List<dynamic> rawSteps = rawLevel['steps'];
+      final List<ExerciseStep> steps = <ExerciseStep>[];
+      steps.add(const StartStep());
+      for (Map<String, dynamic> rawStep in rawSteps) {
+        if (rawStep['type'] == 'work') {
+          steps.add(WorkStep(rawStep['reps']));
         }
-        if (rawStep["type"] == "rest") {
-          steps.add(RestStep(rawStep["duration"]));
+        if (rawStep['type'] == 'rest') {
+          steps.add(RestStep(rawStep['duration']));
         }
       }
-      steps.add(FinishStep());
+      steps.add(const FinishStep());
 
       Future<Level> buildLevel(String id) async {
         return Level(
@@ -38,13 +38,13 @@ class Repository {
         );
       }
 
-      var pushupsID = "pushups $i";
+      final String pushupsID = 'pushups $i';
       pushupLevels.add(await buildLevel(pushupsID));
-      var pullupsID = "pullups $i";
+      final String pullupsID = 'pullups $i';
       pullupLevels.add(await buildLevel(pullupsID));
-      var squatID = "squats $i";
+      final String squatID = 'squats $i';
       squatLevels.add(await buildLevel(squatID));
-      var situpsID = "situps $i";
+      final String situpsID = 'situps $i';
       situpLevels.add(await buildLevel(situpsID));
     }
 
@@ -54,21 +54,23 @@ class Repository {
   static String _key(Date dateType, String id) => dateType.toString() + id;
 
   static Future<DateTime> _getWorkoutDate(Date dateType, String id) async {
-    var prefs = await SharedPreferences.getInstance();
-    var dateTimeString = prefs.getString(_key(dateType, id));
-    if (dateTimeString != null) return DateTime.parse(dateTimeString);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String dateTimeString = prefs.getString(_key(dateType, id));
+    if (dateTimeString != null) {
+      return DateTime.parse(dateTimeString);
+    }
     return null;
   }
 
-  static void setWorkoutDate(
+  static Future<void> setWorkoutDate(
     Date dateType,
     String id,
     DateTime completedDate,
   ) async {
-    var prefs = await SharedPreferences.getInstance();
-    var key = _key(dateType, id);
-    var res = await prefs.setString(key, completedDate.toIso8601String());
-    debugPrint("set $completedDate on key:$key is:$res");
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String key = _key(dateType, id);
+    final bool res = await prefs.setString(key, completedDate.toIso8601String());
+    debugPrint('set $completedDate on key:$key is:$res');
   }
 }
 

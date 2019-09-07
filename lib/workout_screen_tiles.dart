@@ -6,9 +6,9 @@ import 'package:pogo/audio.dart';
 import 'package:pogo/consts.dart';
 
 class StartTile extends StatelessWidget {
-  final VoidCallback _onPressed;
+  const StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;
 
-  StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;
+  final VoidCallback _onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class StartTile extends StatelessWidget {
           child: RotatedBox(
             quarterTurns: 1,
             child: Text(
-              "GO",
+              'GO',
               style: Theme.of(context)
                   .textTheme
                   .body1
@@ -39,7 +39,7 @@ class FinishTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        final navigator = Navigator.of(context);
+        final NavigatorState navigator = Navigator.of(context);
         navigator.removeRouteBelow(ModalRoute.of(context));
         navigator.pop();
       },
@@ -48,7 +48,7 @@ class FinishTile extends StatelessWidget {
         child: SizedBox.expand(
           child: FittedBox(
             child: Text(
-              "Finish",
+              'Finish',
               textAlign: TextAlign.start,
               style: Theme.of(context)
                   .textTheme
@@ -63,12 +63,12 @@ class FinishTile extends StatelessWidget {
 }
 
 class WorkTile extends StatelessWidget {
-  final int _amount;
-  final VoidCallback _onPressed;
-
-  WorkTile({@required int reps, @required VoidCallback onPressed})
+  const WorkTile({@required int reps, @required VoidCallback onPressed})
       : _onPressed = onPressed,
         _amount = reps;
+
+  final int _amount;
+  final VoidCallback _onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class WorkTile extends StatelessWidget {
         onTap: _onPressed,
         child: SizedBox.expand(
           child: FittedBox(
-            child: Text("$_amount",
+            child: Text('$_amount',
                 style: Theme.of(context)
                     .textTheme
                     .body1
@@ -92,15 +92,16 @@ class WorkTile extends StatelessWidget {
 }
 
 class RestTile extends StatefulWidget {
+  const RestTile(
+      {Key key, @required this.duration, @required VoidCallback onDone})
+      : _onDone = onDone,
+        super(key: key);
+
   final int duration;
   final VoidCallback _onDone;
 
   @override
   _RestTileState createState() => _RestTileState();
-
-  RestTile({Key key, @required this.duration, @required VoidCallback onDone})
-      : _onDone = onDone,
-        super(key: key);
 }
 
 class _RestTileState extends State<RestTile>
@@ -115,8 +116,8 @@ class _RestTileState extends State<RestTile>
     super.initState();
     _timerString = widget.duration;
     //start timer when created
-    var duration = _timerString;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    final int duration = _timerString;
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       print(timer.tick);
       if (timer.tick > duration) {
         audioPlayer.play(Consts.bellsAudio);
@@ -125,7 +126,7 @@ class _RestTileState extends State<RestTile>
       } else {
         setState(() {
           _progressBarHeight = context.size.height * (timer.tick / duration);
-          _timerString = (duration - timer.tick);
+          _timerString = duration - timer.tick;
         });
       }
     });
@@ -153,7 +154,7 @@ class _RestTileState extends State<RestTile>
                 child: SizedBox.expand(
                   child: FittedBox(
                     child: Text(
-                      "Rest for",
+                      'Rest for',
                       style: Theme.of(context)
                           .textTheme
                           .body1
@@ -167,7 +168,7 @@ class _RestTileState extends State<RestTile>
                 child: SizedBox.expand(
                   child: FittedBox(
                     child: Text(
-                      "${_timerString.toString()}",
+                      '${_timerString.toString()}',
                       style: Theme.of(context)
                           .textTheme
                           .body1

@@ -1,11 +1,5 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:pogo/consts.dart';
 import 'package:pogo/progress_button.dart';
-import 'dart:convert';
-
-import 'package:pogo/repository.dart';
 //todo add keys to widget constructors
 
 void main() {
@@ -18,13 +12,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
-
   @override
-  initState() {
-    // TODO: implement initState
+  void initState() {
+    // TODO(alex): implement initState
     super.initState();
     loadJson();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,7 +31,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
               width: 150,
               color: Colors.orange,
               duration: Duration(seconds: 3),
-              onPressCompleted: () => debugPrint("completed long press!"),
+              onPressCompleted: () => debugPrint('completed long press!'),
             ),
           ),
         ),
@@ -45,8 +39,8 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
     );
   }
 
-  void loadJson() async {
-    var model = await Repository.getModelAsync(context);
-    print(("json decoded"));
+  Future<void> loadJson() async {
+//    final Model model = await Repository.getModelAsync(context);
+    print('json decoded');
   }
 }

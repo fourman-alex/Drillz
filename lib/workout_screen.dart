@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/progress_button.dart';
@@ -7,19 +9,19 @@ import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
 class WorkoutScreen extends StatefulWidget {
+  const WorkoutScreen({Key key, @required this.level, this.animation})
+      : super(key: key);
+
   final Level level;
   final Animation<double> animation;
-
-  WorkoutScreen({Key key, @required this.level, this.animation})
-      : super(key: key);
 
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static Route<dynamic> route(Level level, ThemeData themeData) {
+  static PageRouteBuilder<void> route(Level level, ThemeData themeData) {
     return PageRouteBuilder<void>(
-      transitionDuration: Duration(milliseconds: 500),
-      pageBuilder: (context, animation, __) {
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (_, Animation<double> animation, __) {
         return SlideTransition(
           position: Tween<Offset>(
             begin: const Offset(1.0, 0.0),
@@ -46,7 +48,7 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen>
     with TickerProviderStateMixin<WorkoutScreen> {
-  ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier(null);
+  final ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier<int>(null);
 
   @override
   void initState() {
@@ -81,7 +83,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
         child: Stack(
           children: <Widget>[
             MultiProvider(
-              providers: [
+              providers: <SingleChildCloneableWidget>[
                 ListenableProvider<ValueNotifier<int>>.value(
                   value: _currentStepIndexNotifier,
                 ),
@@ -122,7 +124,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   }
 
   void _handleCurrentStepChanged() {
-    var currentStep = widget.level.steps[_currentStepIndexNotifier.value];
+    final ExerciseStep currentStep =
+        widget.level.steps[_currentStepIndexNotifier.value];
     if (currentStep is FinishStep) {
       Repository.setWorkoutDate(
         Date.completed,
@@ -145,9 +148,11 @@ class _WorkoutScreenState extends State<WorkoutScreen>
 class StepSwitcher extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var level = Provider.of<Level>(context, listen: false);
-    var currentStepIndexNotifier = Provider.of<ValueNotifier<int>>(context);
-    var currentStep = level.steps[currentStepIndexNotifier.value];
+    final Level level = Provider.of<Level>(context, listen: false);
+    final ValueNotifier<int> currentStepIndexNotifier =
+        Provider.of<ValueNotifier<int>>(context);
+    final ExerciseStep currentStep =
+        level.steps[currentStepIndexNotifier.value];
     Widget center;
     if (currentStep is StartStep) {
       center = StartTile(
@@ -157,7 +162,7 @@ class StepSwitcher extends StatelessWidget {
       center = FinishTile();
     } else if (currentStep is RestStep) {
       center = RestTile(
-        key: ValueKey(currentStepIndexNotifier.value),
+        key: ValueKey<int>(currentStepIndexNotifier.value),
         duration: currentStep.duration,
         onDone: () => currentStepIndexNotifier.value++,
       );
@@ -173,7 +178,7 @@ class StepSwitcher extends StatelessWidget {
 
     return AnimatedSwitcher(
       child: center,
-      duration: Duration(milliseconds: 250),
+      duration: const Duration(milliseconds: 250),
     );
   }
 }
@@ -181,25 +186,26 @@ class StepSwitcher extends StatelessWidget {
 class WorkoutStepsBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var workoutStepsWidgets = List<Widget>();
-    var workoutSteps = Provider.of<Level>(context, listen: false).steps;
+    final List<Widget> workoutStepsWidgets = <Widget>[];
+    final UnmodifiableListView<ExerciseStep> workoutSteps = Provider.of<Level>(context, listen: false).steps;
 
-    for (var i = 0; i < workoutSteps.length; ++i) {
+    for (int i = 0; i < workoutSteps.length; ++i) {
       workoutStepsWidgets.add(
         Flexible(
           child: AspectRatio(
             aspectRatio: 1 / 1,
             child: Consumer<ValueNotifier<int>>(
-              builder: (_, currentStepNotifier, __) {
+              builder: (_, ValueNotifier<int> currentStepNotifier, __) {
                 return GestureDetector(
                   onTap: () {
                     currentStepNotifier.value = i;
                   },
                   child: AnimatedContainer(
-                    duration: Duration(milliseconds: 250),
-                    margin: EdgeInsets.all(4.0),
+                    duration: const Duration(milliseconds: 250),
+                    margin: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(10.0)),
                       color: currentStepNotifier.value == i
                           ? Theme.of(context).primaryColorDark
                           : Theme.of(context).primaryColor,

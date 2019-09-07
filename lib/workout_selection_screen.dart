@@ -19,7 +19,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
       children: <Widget>[
         Positioned.fill(
           child: Image.asset(
-            "assets/background.jpg",
+            // TODO(alex): move to consts
+            'assets/background.jpg',
             fit: BoxFit.cover,
             alignment: Alignment.center,
           ),
@@ -37,15 +38,15 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
         ),
         SafeArea(
           child: Consumer<ValueNotifier<Model>>(
-            builder: (_, modelNotifier, __) {
-              var model = modelNotifier.value;
+            builder: (_, ValueNotifier<Model> modelNotifier, __) {
+              final Model model = modelNotifier.value;
               //create indicator
               Widget progressIndicator;
               if (model == null) {
-                Repository.getModelAsync(context).then((model) {
+                Repository.getModelAsync(context).then((Model model) {
                   modelNotifier.value = model;
                 });
-                progressIndicator = CircularProgressIndicator();
+                progressIndicator = const CircularProgressIndicator();
               } else
                 progressIndicator = Container();
 
@@ -61,7 +62,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                         child: Material(
                           child: FittedBox(
                             child: Text(
-                              "PoGo",
+                              'PoGo',
                               style: Theme.of(context).textTheme.body1.copyWith(
                                   fontFamily: Consts.righteousFont,
                                   shadows: <Shadow>[
@@ -81,17 +82,17 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                       flex: 8,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
+                        children: <Widget>[
                           Flexible(
                             child: Row(
-                              children: [
+                              children: <Widget>[
                                 _WorkoutButton(
-                                  text: "PUSHUPS",
+                                  text: 'PUSHUPS',
                                   color: Colors.green,
                                   plan: model?.pushUpsPlan,
                                 ),
                                 _WorkoutButton(
-                                  text: "PULLUPS",
+                                  text: 'PULLUPS',
                                   color: Colors.deepOrange,
                                   plan: model?.pullUpsPlan,
                                 ),
@@ -101,14 +102,14 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                           ),
                           Flexible(
                             child: Row(
-                              children: [
+                              children: <Widget>[
                                 _WorkoutButton(
-                                  text: "SITUPS",
+                                  text: 'SITUPS',
                                   color: Theme.of(context).primaryColor,
                                   plan: model?.sitUpsPlan,
                                 ),
                                 _WorkoutButton(
-                                  text: "SQUATS",
+                                  text: 'SQUATS',
                                   plan: model?.squatsPlan,
                                   color: Colors.indigo,
                                 ),
@@ -141,10 +142,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
 }
 
 class _WorkoutButton extends StatelessWidget {
-  final String text;
-  final List<Level> plan;
-  final Color color;
-
   const _WorkoutButton({
     Key key,
     this.text,
@@ -152,27 +149,31 @@ class _WorkoutButton extends StatelessWidget {
     this.color,
   }) : super(key: key);
 
+  final String text;
+  final List<Level> plan;
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(15.0);
+    final BorderRadius borderRadius = BorderRadius.circular(15.0);
 
     return Flexible(
       child: AspectRatio(
         aspectRatio: 1 / 1,
         child: Container(
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           decoration: BoxDecoration(
             color: color,
             borderRadius: borderRadius,
           ),
           child: Builder(
-            builder: (context) {
-              final child = Center(
+            builder: (BuildContext context) {
+              final Center child = Center(
                 child: LayoutBuilder(
-                  builder: (context, constraints) {
+                  builder: (BuildContext context, BoxConstraints constraints) {
                     //makes sure that the font size fills the container
                     //AND is the same for all the buttons
-                    final fontSize = constraints.biggest.width/5;
+                    final double fontSize = constraints.biggest.width / 5;
                     return Text(
                       text,
                       style: Theme.of(context).primaryTextTheme.body1.copyWith(
@@ -183,22 +184,26 @@ class _WorkoutButton extends StatelessWidget {
                   },
                 ),
               );
-              if (plan == null) return child;
+              if (plan == null) {
+                return child;
+              }
+
               return GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 child: child,
                 onTap: () {
                   if (plan != null) {
                     //find all completed and the first uncompleted level
-                    final levels = List<Level>();
-                    final lastCompletedIndex = plan.lastIndexWhere((workout) {
+                    final List<Level> levels = <Level>[];
+                    final int lastCompletedIndex =
+                        plan.lastIndexWhere((Level workout) {
                       return workout.dateCompleted != null;
                     });
                     if (lastCompletedIndex != -1) {
                       levels.addAll(plan.getRange(0, lastCompletedIndex + 1));
                     }
 
-                    final currentWorkout =
+                    final Level currentWorkout =
                         (lastCompletedIndex + 1 < plan.length)
                             ? plan[lastCompletedIndex + 1]
                             : null;

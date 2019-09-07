@@ -57,7 +57,7 @@ class FillTransition extends StatelessWidget {
             AnimatedBuilder(
               child: child,
               animation: animation,
-              builder: (_, child) {
+              builder: (_, Widget child) {
                 return Positioned.fromRelativeRect(
                   rect: itemPosition.value,
                   child: Stack(

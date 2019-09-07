@@ -1,17 +1,8 @@
-import 'dart:math' as Math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 class ProgressButton extends StatefulWidget {
-  final Duration duration;
-  final double width;
-  final double height;
-  final Color color;
-  final Color startColor;
-  final Color endColor;
-  final Widget child;
-  final void Function() onPressCompleted;
-
   const ProgressButton({
     Key key,
     this.child,
@@ -23,6 +14,15 @@ class ProgressButton extends StatefulWidget {
     this.startColor,
     this.endColor,
   }) : super(key: key);
+
+  final Duration duration;
+  final double width;
+  final double height;
+  final Color color;
+  final Color startColor;
+  final Color endColor;
+  final Widget child;
+  final void Function() onPressCompleted;
 
   @override
   _ProgressButtonState createState() => _ProgressButtonState();
@@ -37,7 +37,9 @@ class _ProgressButtonState extends State<ProgressButton>
     _animationController =
         AnimationController(vsync: this, duration: widget.duration);
     _animationController.addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.completed) widget.onPressCompleted();
+      if (status == AnimationStatus.completed) {
+        widget.onPressCompleted();
+      }
     });
     super.initState();
   }
@@ -63,15 +65,7 @@ class _ProgressButtonState extends State<ProgressButton>
 }
 
 class _InnerProgressButton extends AnimatedWidget {
-  final AnimationController animationController;
-  final double width;
-  final double height;
-  final Color startColor;
-  final Color endColor;
-  final Color color;
-  final Widget child;
-
-  _InnerProgressButton({
+  const _InnerProgressButton({
     Key key,
     @required this.width,
     @required this.height,
@@ -82,32 +76,43 @@ class _InnerProgressButton extends AnimatedWidget {
     @required this.child,
   }) : super(key: key, listenable: animationController);
 
+  final AnimationController animationController;
+  final double width;
+  final double height;
+  final Color startColor;
+  final Color endColor;
+  final Color color;
+
+  final Widget child;
+
   @override
   Widget build(BuildContext context) {
-    var strokeWidth = Math.max(height, width) / 10;
+    final double strokeWidth = math.max(height, width) / 10;
     return Listener(
       behavior: HitTestBehavior.opaque,
-      onPointerCancel: (details) {
-        debugPrint("onPointerCancel");
+      onPointerCancel: (PointerCancelEvent details) {
+        debugPrint('onPointerCancel');
         animationController.reset();
       },
-      onPointerMove: (details) {
+      onPointerMove: (PointerMoveEvent details) {
         //check if the pointer is outside of the button boundaries
         // this does ignore it being circular
         final RenderBox box = context.findRenderObject();
         if (details.localPosition.dx > box.size.width ||
             details.localPosition.dy > box.size.height ||
             details.localPosition.dx < 0 ||
-            details.localPosition.dy < 0) animationController.reset();
+            details.localPosition.dy < 0) {
+          animationController.reset();
+        }
       },
-      onPointerDown: (details) {
+      onPointerDown: (PointerDownEvent details) {
         debugPrint(details.toString());
         animationController.forward();
       },
-      onPointerUp: (details) {
+      onPointerUp: (PointerUpEvent details) {
         debugPrint(details.toString());
         if (animationController.status == AnimationStatus.completed)
-          debugPrint("animation completed at tap up");
+          debugPrint('animation completed at tap up');
         else
           animationController.reset();
       },

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pogo/audio.dart';
@@ -17,13 +19,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ValueNotifier<Model> _modelValueNotifier = ValueNotifier(null);
+  final ValueNotifier<Model> _modelValueNotifier = ValueNotifier<Model>(null);
 
   @override
   void initState() {
     //load notification sound
     audioPlayer.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
-    audioPlayer.load("soft-bells.mp3").then((file) => debugPrint("$file loaded"));
+    audioPlayer
+        .load('soft-bells.mp3')
+        .then((File file) => debugPrint('$file loaded'));
     //load the stupid shared pref
     SharedPreferences.getInstance();
     super.initState();
@@ -31,7 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = ThemeData(
+    ThemeData theme = ThemeData(
       primarySwatch: Colors.pink,
       accentColor: Colors.white,
     );
@@ -41,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),
     );
 
-    return ChangeNotifierProvider.value(
+    return ChangeNotifierProvider<ValueNotifier<Model>>.value(
       value: _modelValueNotifier,
       child: MaterialApp(
         theme: theme,
