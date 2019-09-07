@@ -1,13 +1,11 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ProgressButton extends StatefulWidget {
   const ProgressButton({
     Key key,
     this.child,
-    this.width,
-    this.height,
+    this.size,
     this.duration = const Duration(seconds: 2),
     @required this.onPressCompleted,
     @required this.color,
@@ -16,8 +14,7 @@ class ProgressButton extends StatefulWidget {
   }) : super(key: key);
 
   final Duration duration;
-  final double width;
-  final double height;
+  final double size;
   final Color color;
   final Color startColor;
   final Color endColor;
@@ -53,8 +50,7 @@ class _ProgressButtonState extends State<ProgressButton>
   @override
   Widget build(BuildContext context) {
     return _InnerProgressButton(
-      width: widget.width,
-      height: widget.height,
+      size: widget.size,
       animationController: _animationController,
       color: widget.color,
       endColor: widget.endColor,
@@ -67,27 +63,25 @@ class _ProgressButtonState extends State<ProgressButton>
 class _InnerProgressButton extends AnimatedWidget {
   const _InnerProgressButton({
     Key key,
-    @required this.width,
-    @required this.height,
+    @required this.size,
     @required this.animationController,
     @required this.color,
     @required this.startColor,
     @required this.endColor,
     @required this.child,
-  }) : super(key: key, listenable: animationController);
+  })  : strokeWidth = size / 10,
+        super(key: key, listenable: animationController);
 
   final AnimationController animationController;
-  final double width;
-  final double height;
+  final double size;
+  final double strokeWidth;
   final Color startColor;
   final Color endColor;
   final Color color;
-
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final double strokeWidth = math.max(height, width) / 10;
     return Listener(
       behavior: HitTestBehavior.opaque,
       onPointerCancel: (PointerCancelEvent details) {
@@ -117,40 +111,30 @@ class _InnerProgressButton extends AnimatedWidget {
           animationController.reset();
       },
       child: SizedBox(
-        height: height,
-        width: width,
-        child: AspectRatio(
-          aspectRatio: 1 / 1,
-          child: Material(
-            elevation: 4.0,
-            type: MaterialType.circle,
-            color: color,
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.all(strokeWidth / 2),
-                  child: SizedBox.expand(
-                    child: CircularProgressIndicator(
-                      strokeWidth: strokeWidth,
-                      valueColor: ColorTween(begin: startColor, end: endColor)
-                          .animate(animationController),
-                      value: animationController.value,
-                    ),
-                  ),
-                ),
-                Align(
-                  child: SizedBox.expand(
-                    child: Padding(
-                      padding: EdgeInsets.all(strokeWidth),
-                      child: FittedBox(
-                        child: child,
-                      ),
-                    ),
-                  ),
-                )
-              ],
+        height: size,
+        width: size,
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: Material(
+                type: MaterialType.circle,
+                color: color,
+                child: child,
+              ),
             ),
-          ),
+            OverflowBox(
+              minHeight: size + 22,
+              maxHeight: size + 22,
+              minWidth: size + 22,
+              maxWidth: size + 22,
+              child: CircularProgressIndicator(
+                strokeWidth: strokeWidth,
+                valueColor: ColorTween(begin: startColor, end: endColor)
+                    .animate(animationController),
+                value: animationController.value,
+              ),
+            ),
+          ],
         ),
       ),
     );

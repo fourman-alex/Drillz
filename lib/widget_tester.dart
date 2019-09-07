@@ -27,8 +27,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
         child: SafeArea(
           child: Center(
             child: ProgressButton(
-              height: 150,
-              width: 150,
+              size: 56,
               color: Colors.orange,
               duration: Duration(seconds: 3),
               onPressCompleted: () => debugPrint('completed long press!'),

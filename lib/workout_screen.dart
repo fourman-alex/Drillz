@@ -100,8 +100,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             bottom: 16.0,
             start: 16.0,
             child: ProgressButton(
-              width: 80,
-              height: 80,
+              size: 56,
               child: Icon(Icons.close),
               startColor: Theme.of(context).primaryColor,
               endColor: Theme.of(context).accentColor,
