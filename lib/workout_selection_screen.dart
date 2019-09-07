@@ -125,7 +125,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 250),
+                          duration: const Duration(milliseconds: 250),
                           child: progressIndicator,
                         ),
                       ),
