@@ -70,7 +70,7 @@ class LevelSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //find last completed
-    final List<Widget> widgets = <Widget>[];
+    List<Widget> widgets = <Widget>[];
 
     if (workouts != null) {
       for (int i = 0; i < workouts.length; i++) {
@@ -105,6 +105,8 @@ class LevelSelectionScreen extends StatelessWidget {
         level: currentWorkout,
       ));
     }
+
+    widgets = widgets.reversed.toList();
 
     return DismissDetector(
       child: CustomScrollView(
