@@ -18,7 +18,7 @@ class WorkoutScreen extends StatefulWidget {
 
   static PageRouteBuilder<void> route(Level level, ThemeData themeData) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 1000),
+      transitionDuration: const Duration(milliseconds: 500),
       pageBuilder: (_, Animation<double> animation, __) {
         return SlideTransition(
           position: Tween<Offset>(

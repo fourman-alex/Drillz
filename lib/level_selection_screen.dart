@@ -63,7 +63,7 @@ class LevelSelectionScreen extends StatelessWidget {
       pageBuilder: (_, __, ___) {
         return fillTransition;
       },
-      transitionDuration: const Duration(milliseconds: 1000),
+      transitionDuration: const Duration(milliseconds: 500),
     );
   }
 
