@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:pogo/fill_transition.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/progress_button.dart';
 import 'package:pogo/repository.dart';
@@ -16,20 +17,18 @@ class WorkoutScreen extends StatefulWidget {
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static PageRouteBuilder<void> route(Level level, ThemeData themeData) {
+  static PageRouteBuilder<void> route(Level level,Rect sourceRect, BorderRadius fromBorderRadius, ThemeData themeData) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 650),
       pageBuilder: (_, Animation<double> animation, __) {
-        return SlideTransition(
-          position: Tween<Offset>(
-            begin: const Offset(1.0, 0.0),
-            end: Offset.zero,
-          ).animate(CurvedAnimation(
-            parent: animation,
-            curve: Interval(0.0, 0.5),
-          )),
-          child: Theme(
-            data: themeData,
+        return Theme(
+          data: themeData,
+          child: FillTransition(
+            toColor: themeData.canvasColor,
+            fromColor: themeData.primaryColor,
+            source: sourceRect,
+            toBorderRadius: BorderRadius.zero,
+            fromBorderRadius: fromBorderRadius,
             child: WorkoutScreen(
               level: level,
             ),
@@ -40,6 +39,7 @@ class WorkoutScreen extends StatefulWidget {
   }
 }
 
+// TODO(alex): change to stateless. the notifier can go to a provider on top of this widget
 class _WorkoutScreenState extends State<WorkoutScreen>
     with TickerProviderStateMixin<WorkoutScreen> {
   final ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier<int>(null);

@@ -2,6 +2,7 @@ import 'package:clippy_flutter/chevron.dart';
 import 'package:flutter/material.dart';
 import 'package:pogo/consts.dart';
 import 'package:pogo/fill_transition.dart';
+import 'package:pogo/main.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
 
@@ -34,36 +35,39 @@ class LevelSelectionScreen extends StatelessWidget {
   }) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
-    final Theme pageContent = Theme(
-      data: Theme.of(context).copyWith(
-        primaryColor: fromColor,
-        primaryColorDark: fromColor.shade800,
-        backgroundColor: toColor,
-        canvasColor: toColor,
-        dividerColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.white),
-      ),
-      child: LevelSelectionScreen(
-        sourceRect: sourceRect,
-        workouts: workouts,
-        currentWorkout: currentWorkout,
-        title: title,
-      ),
-    );
-    final FillTransition fillTransition = FillTransition(
-      source: sourceRect,
-      child: pageContent,
-      fromColor: fromColor,
-      toColor: toColor,
-      fromBorderRadius: fromRadius,
-      toBorderRadius: toRadius,
-    );
     return PageRouteBuilder<void>(
       maintainState: false,
       pageBuilder: (_, __, ___) {
-        return fillTransition;
+        return FillTransition(
+          source: sourceRect,
+          child: Theme(
+            data: Theme.of(context).copyWith(
+              primaryColor: fromColor,
+              primaryColorDark: fromColor.shade800,
+              backgroundColor: toColor,
+              canvasColor: toColor,
+              dividerColor: Colors.white,
+              iconTheme: IconThemeData(color: Colors.white),
+            ),
+            child: WillPopScope(
+              onWillPop: () async {
+                return !popAnimationObserver.isAnimating;
+              },
+              child: LevelSelectionScreen(
+                sourceRect: sourceRect,
+                workouts: workouts,
+                currentWorkout: currentWorkout,
+                title: title,
+              ),
+            ),
+          ),
+          fromColor: fromColor,
+          toColor: toColor,
+          fromBorderRadius: fromRadius,
+          toBorderRadius: toRadius,
+        );
       },
-      transitionDuration: const Duration(milliseconds: 500),
+      transitionDuration: const Duration(milliseconds: 650),
     );
   }
 
@@ -74,32 +78,18 @@ class LevelSelectionScreen extends StatelessWidget {
 
     if (workouts != null) {
       for (int i = 0; i < workouts.length; i++) {
-        widgets.add(LevelPage(
-          onTap: () {
-            Navigator.push<void>(
-                context,
-                WorkoutScreen.route(
-                  workouts[i],
-                  Theme.of(context),
-                ));
-          },
-          text: 'Lvl ${i + 1}',
-          opacity: 0.7,
-          level: workouts[i],
+        widgets.add(Builder(
+          builder: (BuildContext context) => LevelPage(
+            text: 'Lvl ${i + 1}',
+            opacity: 0.7,
+            level: workouts[i],
+          ),
         ));
       }
     }
 
     if (currentWorkout != null) {
       widgets.add(LevelPage(
-        onTap: () {
-          Navigator.push<void>(
-              context,
-              WorkoutScreen.route(
-                currentWorkout,
-                Theme.of(context),
-              ));
-        },
         text: 'Lvl ${(workouts?.length ?? 0) + 1}',
         opacity: 1.0,
         level: currentWorkout,
@@ -135,18 +125,22 @@ class LevelSelectionScreen extends StatelessWidget {
 }
 
 class LevelPage extends StatelessWidget {
-  LevelPage({Key key, Level level, this.text, this.opacity, this.onTap})
+  LevelPage({Key key, this.level, this.text, this.opacity})
       : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.steps
             .whereType<WorkStep>()
             .fold(0, (int value, WorkStep step) => value + step.reps),
         super(key: key);
 
+  final Level level;
   final List<WorkStep> _steps;
   final int _totalCount;
   final String text;
-  final void Function() onTap;
   final double opacity;
+  final BorderRadius _borderRadius = const BorderRadius.only(
+    bottomLeft: Radius.circular(15),
+    bottomRight: Radius.circular(15),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -155,101 +149,112 @@ class LevelPage extends StatelessWidget {
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 8),
       child: Material(
         type: MaterialType.transparency,
-        child: GestureDetector(
-          onTap: onTap,
-          child: Opacity(
-            opacity: opacity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    Expanded(
-                      child: AspectRatio(
-                        aspectRatio: 7 / 1,
-                        child: SizedBox.expand(
-                          child: FittedBox(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              text,
-                              style: theme.textTheme.body1.copyWith(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: Consts.righteousFont,
-                              ),
+        child: Opacity(
+          opacity: opacity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 7 / 1,
+                      child: SizedBox.expand(
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            text,
+                            style: theme.textTheme.body1.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: Consts.righteousFont,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: AspectRatio(
-                        aspectRatio: 9 / 1,
-                        child: SizedBox.expand(
-                          child: FittedBox(
-                            alignment: Alignment.bottomRight,
-                            child: Text(
-                              'Total of $_totalCount',
-                              style: theme.textTheme.body1.copyWith(
-                                fontWeight: FontWeight.w500,
-                                fontFamily: Consts.righteousFont,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: theme.primaryColor,
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15),
                     ),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        for (WorkStep step in _steps)
-                          Expanded(
-                            flex: 2,
-                            child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: Chevron(
-                                triangleHeight: 10,
-                                child: Container(
-                                  padding: const EdgeInsets.all(12),
-                                  alignment: Alignment.center,
-                                  child: SizedBox.expand(
-                                    child: FittedBox(
-                                      child: Text(
-                                        step.reps.toString(),
-                                        textAlign: TextAlign.center,
-                                        style: theme.accentTextTheme.body1
-                                            .copyWith(
-                                                fontFamily:
-                                                    Consts.righteousFont),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 9 / 1,
+                      child: SizedBox.expand(
+                        child: FittedBox(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Total of $_totalCount',
+                            style: theme.textTheme.body1.copyWith(
+                              fontWeight: FontWeight.w500,
+                              fontFamily: Consts.righteousFont,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Builder(
+                builder: (BuildContext context) => GestureDetector(
+                  onTap: () {
+                    final RenderBox renderBox = context.findRenderObject();
+                    final Rect sourceRect =
+                        renderBox.localToGlobal(Offset.zero) & renderBox.size;
+                    Navigator.push<void>(
+                        context,
+                        WorkoutScreen.route(
+                          level,
+                          sourceRect,
+                          _borderRadius,
+                          Theme.of(context),
+                        ));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.primaryColor,
+                      borderRadius: _borderRadius,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          for (WorkStep step in _steps)
+                            Expanded(
+                              flex: 2,
+                              child: AspectRatio(
+                                aspectRatio: 1 / 1,
+                                child: Chevron(
+                                  triangleHeight: 10,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    alignment: Alignment.center,
+                                    child: SizedBox.expand(
+                                      child: FittedBox(
+                                        child: Text(
+                                          step.reps.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: theme.accentTextTheme.body1
+                                              .copyWith(
+                                                  fontFamily:
+                                                      Consts.righteousFont),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white30,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white30,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

@@ -50,7 +50,31 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         theme: theme,
         home: WorkoutSelectionScreen(),
+        navigatorObservers: <NavigatorObserver>[popAnimationObserver],
       ),
     );
+  }
+}
+
+final _PopAnimationObserver popAnimationObserver = _PopAnimationObserver();
+
+///Use [isAnimating] to query whether a pop animation is in progress.
+///
+///This is used to disable rapid back press during the somewhat slow pop animation
+class _PopAnimationObserver extends NavigatorObserver {
+  bool _isAnimating;
+
+  bool get isAnimating => _isAnimating ?? false;
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
+    if (route is ModalRoute) {
+      _isAnimating = true;
+      debugPrint('isAnimating: TRUE');
+      route.completed.then((dynamic _) {
+        debugPrint('isAnimating: FALSE');
+        return _isAnimating = false;
+      });
+    }
   }
 }

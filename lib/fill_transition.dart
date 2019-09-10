@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class FillTransition extends StatelessWidget {
   FillTransition({
     Key key,
+    // TODO(alex): there should be an easier way to calculate the sorce documented here. maybe add a utility method or convert this to statefull and calculate it yourslef
     @required this.source,
     @required this.child,
     @required Color fromColor,
     @required Color toColor,
     BorderRadius fromBorderRadius,
+    // TODO(alex): toBorderRadius should default to a square
     BorderRadius toBorderRadius,
   })  : colorTween = ColorTween(begin: fromColor, end: toColor),
         _borderRadiusTween = BorderRadiusTween(
@@ -30,7 +32,7 @@ class FillTransition extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         final Animation<double> positionAnimation = CurvedAnimation(
           parent: animation,
-          curve: Interval(0.2, 0.7, curve: Curves.easeInOut),
+          curve: Interval(0.1, 0.75, curve: Curves.easeInOutSine),
         );
 
         final Animation<RelativeRect> itemPosition = RelativeRectTween(
@@ -44,12 +46,12 @@ class FillTransition extends StatelessWidget {
 
         final Animation<double> materialFadeAnimation = CurvedAnimation(
           parent: animation,
-          curve: Interval(0.0, 0.2),
+          curve: Interval(0.0, 0.1),
         );
 
         final Animation<double> fadeAnimation = CurvedAnimation(
           parent: animation,
-          curve: Interval(0.7, 1.0, curve: Curves.easeInOut),
+          curve: Interval(0.75, 1.0),
         );
 
         return Stack(
@@ -68,8 +70,8 @@ class FillTransition extends StatelessWidget {
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius:
-                                _borderRadiusTween.evaluate(positionAnimation),
-                            color: colorTween.evaluate(positionAnimation),
+                                _borderRadiusTween.evaluate(animation),
+                            color: colorTween.evaluate(animation),
                           ),
                         ),
                       ),
