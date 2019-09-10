@@ -81,7 +81,7 @@ class LevelSelectionScreen extends StatelessWidget {
         widgets.add(Builder(
           builder: (BuildContext context) => LevelPage(
             text: 'Lvl ${i + 1}',
-            opacity: 0.7,
+            opacity: 0.5,
             level: workouts[i],
           ),
         ));
@@ -149,113 +149,116 @@ class LevelPage extends StatelessWidget {
       padding: const EdgeInsets.only(right: 16, left: 16, bottom: 8),
       child: Material(
         type: MaterialType.transparency,
-        child: Opacity(
-          opacity: opacity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 7 / 1,
-                      child: SizedBox.expand(
-                        child: FittedBox(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            text,
-                            style: theme.textTheme.body1.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: Consts.righteousFont,
-                            ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 7 / 1,
+                    child: SizedBox.expand(
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          text,
+                          style: theme.textTheme.body1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: Consts.righteousFont,
+                            color: theme.textTheme.body1.color.withOpacity(opacity),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: AspectRatio(
-                      aspectRatio: 9 / 1,
-                      child: SizedBox.expand(
-                        child: FittedBox(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            'Total of $_totalCount',
-                            style: theme.textTheme.body1.copyWith(
-                              fontWeight: FontWeight.w500,
-                              fontFamily: Consts.righteousFont,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Builder(
-                builder: (BuildContext context) => GestureDetector(
-                  onTap: () {
-                    final RenderBox renderBox = context.findRenderObject();
-                    final Rect sourceRect =
-                        renderBox.localToGlobal(Offset.zero) & renderBox.size;
-                    Navigator.push<void>(
-                        context,
-                        WorkoutScreen.route(
-                          level,
-                          sourceRect,
-                          _borderRadius,
-                          Theme.of(context),
-                        ));
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: theme.primaryColor,
-                      borderRadius: _borderRadius,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          for (WorkStep step in _steps)
-                            Expanded(
-                              flex: 2,
-                              child: AspectRatio(
-                                aspectRatio: 1 / 1,
-                                child: Chevron(
-                                  triangleHeight: 10,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(12),
-                                    alignment: Alignment.center,
-                                    child: SizedBox.expand(
-                                      child: FittedBox(
-                                        child: Text(
-                                          step.reps.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: theme.accentTextTheme.body1
-                                              .copyWith(
-                                                  fontFamily:
-                                                      Consts.righteousFont),
-                                        ),
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white30,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                        ],
                       ),
                     ),
                   ),
                 ),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 9 / 1,
+                    child: SizedBox.expand(
+                      child: FittedBox(
+                        alignment: Alignment.bottomRight,
+                        child: Text(
+                          'Total of $_totalCount',
+                          style: theme.textTheme.body1.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontFamily: Consts.righteousFont,
+                            color: theme.textTheme.body1.color.withOpacity(opacity),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Builder(
+              builder: (BuildContext context) => GestureDetector(
+                onTap: () {
+                  final RenderBox renderBox = context.findRenderObject();
+                  final Rect sourceRect =
+                      renderBox.localToGlobal(Offset.zero) & renderBox.size;
+                  Navigator.push<void>(
+                      context,
+                      WorkoutScreen.route(
+                        level,
+                        sourceRect,
+                        _borderRadius,
+                        Theme.of(context),
+                      ));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: theme.primaryColor.withOpacity(opacity),
+                    borderRadius: _borderRadius,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        for (WorkStep step in _steps)
+                          Expanded(
+                            flex: 2,
+                            child: AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: Chevron(
+                                triangleHeight: 10,
+                                child: Container(
+                                  padding: const EdgeInsets.all(12),
+                                  alignment: Alignment.center,
+                                  child: SizedBox.expand(
+                                    child: FittedBox(
+                                      child: Text(
+                                        step.reps.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: theme.accentTextTheme.body1
+                                            .copyWith(
+                                                color: theme
+                                                    .accentTextTheme.body1.color
+                                                    .withOpacity(opacity),
+                                                fontFamily:
+                                                    Consts.righteousFont),
+                                      ),
+                                    ),
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(
+                                        opacity * 0.3),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
