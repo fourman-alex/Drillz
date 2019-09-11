@@ -7,12 +7,7 @@ import 'package:pogo/model.dart';
 import 'package:pogo/repository.dart';
 import 'package:provider/provider.dart';
 
-class WorkoutSelectionScreen extends StatefulWidget {
-  @override
-  _WorkoutSelectionScreenState createState() => _WorkoutSelectionScreenState();
-}
-
-class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
+class WorkoutSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
