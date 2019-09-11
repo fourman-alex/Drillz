@@ -17,24 +17,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Positioned.fill(
-          child: Image.asset(
-            // TODO(alex): move to consts
-            'assets/background.jpg',
-            fit: BoxFit.cover,
-            alignment: Alignment.center,
-          ),
-        ),
-        Positioned.fill(
-          child: BackdropFilter(
-            child: Container(
-              color: Colors.black.withOpacity(0.5),
-            ),
-            filter: ImageFilter.blur(
-              sigmaY: 5,
-              sigmaX: 5,
-            ),
-          ),
+        Container(
+          color: Theme.of(context).canvasColor,
         ),
         SafeArea(
           child: Consumer<ValueNotifier<Model>>(
@@ -105,7 +89,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                               children: <Widget>[
                                 _WorkoutButton(
                                   text: 'SITUPS',
-                                  color: Theme.of(context).primaryColor,
+                                  color: Colors.pink,
                                   plan: model?.sitUpsPlan,
                                 ),
                                 _WorkoutButton(
@@ -215,7 +199,7 @@ class _WorkoutButton extends StatelessWidget {
                         workouts: levels,
                         currentWorkout: currentWorkout,
                         fromColor: color,
-                        toColor: Colors.grey[850],
+                        toColor: Theme.of(context).canvasColor,
                         fromRadius: borderRadius,
                       ),
                     );
