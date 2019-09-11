@@ -27,7 +27,10 @@ dependencies:
   audioplayers: ^0.13.1
   #keep screen on
   wakelock: ^0.1.2+8
+  #clips the work steps in the level selection screen
   clippy_flutter: ^1.1.0
+  #to darken the completed levels in the level selection screen
+  tinycolor: ^1.0.2
 
 dev_dependencies:
   mockito: ^4.1.0

@@ -5,6 +5,7 @@ import 'package:pogo/fill_transition.dart';
 import 'package:pogo/main.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_screen.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({
@@ -36,7 +37,7 @@ class LevelSelectionScreen extends StatelessWidget {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
     return PageRouteBuilder<void>(
-      maintainState: false,
+      maintainState: true,
       pageBuilder: (_, __, ___) {
         return FillTransition(
           source: sourceRect,
@@ -75,15 +76,24 @@ class LevelSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //find last completed
     List<Widget> widgets = <Widget>[];
+    final ThemeData theme = Theme.of(context);
+    final Color textColorOfCompleted =
+        TinyColor(theme.textTheme.body1.color).darken(40).color;
+    final Color cardColorOfCompleted =
+        TinyColor(theme.primaryColor).darken(20).color;
 
     if (workouts != null) {
       for (int i = 0; i < workouts.length; i++) {
         widgets.add(Builder(
-          builder: (BuildContext context) => LevelPage(
-            text: 'Lvl ${i + 1}',
-            opacity: 0.5,
-            level: workouts[i],
-          ),
+          builder: (BuildContext context) {
+            ;
+            return LevelPage(
+              text: 'Lvl ${i + 1}',
+              textColor: textColorOfCompleted,
+              cardColor: cardColorOfCompleted,
+              level: workouts[i],
+            );
+          },
         ));
       }
     }
@@ -91,8 +101,9 @@ class LevelSelectionScreen extends StatelessWidget {
     if (currentWorkout != null) {
       widgets.add(LevelPage(
         text: 'Lvl ${(workouts?.length ?? 0) + 1}',
-        opacity: 1.0,
         level: currentWorkout,
+        textColor: theme.textTheme.body1.color,
+        cardColor: theme.primaryColor,
       ));
     }
 
@@ -105,7 +116,7 @@ class LevelSelectionScreen extends StatelessWidget {
             floating: true,
             automaticallyImplyLeading: false,
             titleSpacing: 4.0,
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: theme.backgroundColor,
             title: Center(
               child: Text(
                 title,
@@ -125,8 +136,13 @@ class LevelSelectionScreen extends StatelessWidget {
 }
 
 class LevelPage extends StatelessWidget {
-  LevelPage({Key key, this.level, this.text, this.opacity})
-      : _steps = level.steps.whereType<WorkStep>().toList(),
+  LevelPage({
+    Key key,
+    @required this.level,
+    @required this.text,
+    @required this.textColor,
+    @required this.cardColor,
+  })  : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.steps
             .whereType<WorkStep>()
             .fold(0, (int value, WorkStep step) => value + step.reps),
@@ -136,11 +152,12 @@ class LevelPage extends StatelessWidget {
   final List<WorkStep> _steps;
   final int _totalCount;
   final String text;
-  final double opacity;
   final BorderRadius _borderRadius = const BorderRadius.only(
     bottomLeft: Radius.circular(15),
     bottomRight: Radius.circular(15),
   );
+  final Color textColor;
+  final Color cardColor;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +183,7 @@ class LevelPage extends StatelessWidget {
                           style: theme.textTheme.body1.copyWith(
                             fontWeight: FontWeight.w500,
                             fontFamily: Consts.righteousFont,
-                            color: theme.textTheme.body1.color.withOpacity(opacity),
+                            color: textColor,
                           ),
                         ),
                       ),
@@ -184,7 +201,7 @@ class LevelPage extends StatelessWidget {
                           style: theme.textTheme.body1.copyWith(
                             fontWeight: FontWeight.w500,
                             fontFamily: Consts.righteousFont,
-                            color: theme.textTheme.body1.color.withOpacity(opacity),
+                            color: textColor,
                           ),
                         ),
                       ),
@@ -194,69 +211,70 @@ class LevelPage extends StatelessWidget {
               ],
             ),
             Builder(
-              builder: (BuildContext context) => GestureDetector(
-                onTap: () {
-                  final RenderBox renderBox = context.findRenderObject();
-                  final Rect sourceRect =
-                      renderBox.localToGlobal(Offset.zero) & renderBox.size;
-                  Navigator.push<void>(
+              builder: (BuildContext context) {
+                return GestureDetector(
+                  onTap: () {
+                    final RenderBox renderBox = context.findRenderObject();
+                    final Rect sourceRect =
+                        renderBox.localToGlobal(Offset.zero) & renderBox.size;
+                    Navigator.push<void>(
                       context,
                       WorkoutScreen.route(
-                        level,
-                        sourceRect,
-                        _borderRadius,
-                        Theme.of(context),
-                      ));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: theme.primaryColor.withOpacity(opacity),
-                    borderRadius: _borderRadius,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        for (WorkStep step in _steps)
-                          Expanded(
-                            flex: 2,
-                            child: AspectRatio(
-                              aspectRatio: 1 / 1,
-                              child: Chevron(
-                                triangleHeight: 10,
-                                child: Container(
-                                  padding: const EdgeInsets.all(12),
-                                  alignment: Alignment.center,
-                                  child: SizedBox.expand(
-                                    child: FittedBox(
-                                      child: Text(
-                                        step.reps.toString(),
-                                        textAlign: TextAlign.center,
-                                        style: theme.accentTextTheme.body1
-                                            .copyWith(
-                                                color: theme
-                                                    .accentTextTheme.body1.color
-                                                    .withOpacity(opacity),
-                                                fontFamily:
-                                                    Consts.righteousFont),
+                        level: level,
+                        sourceRect: sourceRect,
+                        fromBorderRadius: _borderRadius,
+                        theme: Theme.of(context),
+                        fromColor: cardColor,
+                      ),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: cardColor,
+                      borderRadius: _borderRadius,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          for (WorkStep step in _steps)
+                            Expanded(
+                              flex: 2,
+                              child: AspectRatio(
+                                aspectRatio: 1 / 1,
+                                child: Chevron(
+                                  triangleHeight: 10,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    alignment: Alignment.center,
+                                    child: SizedBox.expand(
+                                      child: FittedBox(
+                                        child: Text(
+                                          step.reps.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: theme.accentTextTheme.body1
+                                              .copyWith(
+                                                  color: textColor,
+                                                  fontFamily:
+                                                      Consts.righteousFont),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(
-                                        opacity * 0.3),
+                                    decoration: BoxDecoration(
+                                      color: textColor.withOpacity(0.3),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
             ),
           ],
         ),

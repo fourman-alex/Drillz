@@ -17,15 +17,21 @@ class WorkoutScreen extends StatefulWidget {
   @override
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
-  static PageRouteBuilder<void> route(Level level,Rect sourceRect, BorderRadius fromBorderRadius, ThemeData themeData) {
+  static PageRouteBuilder<void> route({
+    @required Level level,
+    @required Rect sourceRect,
+    @required BorderRadius fromBorderRadius,
+    @required ThemeData theme,
+    Color fromColor,
+  }) {
     return PageRouteBuilder<void>(
       transitionDuration: const Duration(milliseconds: 650),
       pageBuilder: (_, Animation<double> animation, __) {
         return Theme(
-          data: themeData,
+          data: theme,
           child: FillTransition(
-            toColor: themeData.canvasColor,
-            fromColor: themeData.primaryColor,
+            toColor: theme.canvasColor,
+            fromColor: fromColor ?? theme.primaryColor,
             source: sourceRect,
             toBorderRadius: BorderRadius.zero,
             fromBorderRadius: fromBorderRadius,
