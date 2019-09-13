@@ -58,7 +58,6 @@ flutter:
     - assets/plan.json
     - assets/soft-bells.mp3
     - assets/Righteous-Regular.ttf
-    - assets/background.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
