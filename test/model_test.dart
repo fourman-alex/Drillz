@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pogo/model.dart';
+import 'package:drillz/model.dart';
 
 void main() {
   final List<ExerciseStep> dummySteps = <ExerciseStep>[

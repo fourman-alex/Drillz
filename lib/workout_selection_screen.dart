@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pogo/consts.dart';
-import 'package:pogo/level_selection_screen.dart';
-import 'package:pogo/model.dart';
-import 'package:pogo/repository.dart';
+import 'package:drillz/consts.dart';
+import 'package:drillz/level_selection_screen.dart';
+import 'package:drillz/model.dart';
+import 'package:drillz/repository.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
@@ -41,7 +41,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
                         child: Material(
                           child: FittedBox(
                             child: Text(
-                              'PoGo',
+                              'Drillz',
                               style: Theme.of(context).textTheme.body1.copyWith(
                                   fontFamily: Consts.righteousFont,
                                   shadows: <Shadow>[

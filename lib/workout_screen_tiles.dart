@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pogo/audio.dart';
-import 'package:pogo/consts.dart';
+import 'package:drillz/audio.dart';
+import 'package:drillz/consts.dart';
 
 class StartTile extends StatelessWidget {
   const StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;

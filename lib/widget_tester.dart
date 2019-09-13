@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pogo/progress_button.dart';
+import 'package:drillz/progress_button.dart';
 //todo add keys to widget constructors
 
 void main() {

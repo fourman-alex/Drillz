@@ -1,11 +1,11 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:pogo/fill_transition.dart';
-import 'package:pogo/model.dart';
-import 'package:pogo/progress_button.dart';
-import 'package:pogo/repository.dart';
-import 'package:pogo/workout_screen_tiles.dart';
+import 'package:drillz/fill_transition.dart';
+import 'package:drillz/model.dart';
+import 'package:drillz/progress_button.dart';
+import 'package:drillz/repository.dart';
+import 'package:drillz/workout_screen_tiles.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 

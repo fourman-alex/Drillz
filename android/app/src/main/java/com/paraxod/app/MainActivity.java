@@ -1,4 +1,4 @@
-package com.paraxod.pogo;
+package com.paraxod.drillz;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

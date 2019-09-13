@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pogo/audio.dart';
-import 'package:pogo/model.dart';
-import 'package:pogo/workout_selection_screen.dart';
+import 'package:drillz/audio.dart';
+import 'package:drillz/model.dart';
+import 'package:drillz/workout_selection_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //todo add keys to widget constructors

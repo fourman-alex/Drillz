@@ -1,10 +1,10 @@
 import 'package:clippy_flutter/chevron.dart';
 import 'package:flutter/material.dart';
-import 'package:pogo/consts.dart';
-import 'package:pogo/fill_transition.dart';
-import 'package:pogo/main.dart';
-import 'package:pogo/model.dart';
-import 'package:pogo/workout_screen.dart';
+import 'package:drillz/consts.dart';
+import 'package:drillz/fill_transition.dart';
+import 'package:drillz/main.dart';
+import 'package:drillz/model.dart';
+import 'package:drillz/workout_screen.dart';
 import 'package:tinycolor/tinycolor.dart';
 
 class LevelSelectionScreen extends StatelessWidget {

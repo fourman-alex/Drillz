@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pogo/model.dart';
+import 'package:drillz/model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository {
