@@ -17,15 +17,12 @@ class StartTile extends StatelessWidget {
       onTap: _onPressed,
       child: SizedBox.expand(
         child: FittedBox(
-          child: RotatedBox(
-            quarterTurns: 1,
-            child: Text(
-              'GO',
-              style: Theme.of(context)
-                  .textTheme
-                  .body1
-                  .copyWith(fontFamily: Consts.righteousFont),
-            ),
+          child: Text(
+            'GO',
+            style: Theme.of(context)
+                .textTheme
+                .body1
+                .copyWith(fontFamily: Consts.righteousFont),
           ),
         ),
       ),
@@ -43,18 +40,15 @@ class FinishTile extends StatelessWidget {
         navigator.removeRouteBelow(ModalRoute.of(context));
         navigator.pop();
       },
-      child: RotatedBox(
-        quarterTurns: 1,
-        child: SizedBox.expand(
-          child: FittedBox(
-            child: Text(
-              'Finish',
-              textAlign: TextAlign.start,
-              style: Theme.of(context)
-                  .textTheme
-                  .body1
-                  .copyWith(fontFamily: Consts.righteousFont),
-            ),
+      child: SizedBox.expand(
+        child: FittedBox(
+          child: Text(
+            'Finish',
+            textAlign: TextAlign.start,
+            style: Theme.of(context)
+                .textTheme
+                .body1
+                .copyWith(fontFamily: Consts.righteousFont),
           ),
         ),
       ),
@@ -72,19 +66,16 @@ class WorkTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RotatedBox(
-      quarterTurns: 1,
-      child: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: _onPressed,
-        child: SizedBox.expand(
-          child: FittedBox(
-            child: Text('$_amount',
-                style: Theme.of(context)
-                    .textTheme
-                    .body1
-                    .copyWith(fontWeight: FontWeight.bold)),
-          ),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: _onPressed,
+      child: SizedBox.expand(
+        child: FittedBox(
+          child: Text('$_amount',
+              style: Theme.of(context)
+                  .textTheme
+                  .body1
+                  .copyWith(fontWeight: FontWeight.bold)),
         ),
       ),
     );
@@ -135,52 +126,68 @@ class _RestTileState extends State<RestTile>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Stack(
-      children: <Widget>[
-        Align(
-          alignment: Alignment.topCenter,
-          child: AnimatedContainer(
-            curve: Curves.elasticOut,
-            duration: Duration(milliseconds: 750),
-            color: Theme.of(context).primaryColorDark,
-            height: _progressBarHeight,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Rest'),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.topCenter,
+            child: AnimatedContainer(
+              curve: Curves.elasticOut,
+              duration: Duration(milliseconds: 750),
+              color: Theme.of(context).primaryColorDark,
+              height: _progressBarHeight,
+            ),
           ),
-        ),
-        RotatedBox(
-          quarterTurns: 1,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                child: SizedBox.expand(
-                  child: FittedBox(
-                    child: Text(
-                      'Rest for',
-                      style: Theme.of(context)
-                          .textTheme
-                          .body1
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
+          SizedBox.expand(
+            child: FittedBox(
+              child: Text(
+                '${_timerString.toString()}',
+                style: Theme.of(context)
+                    .textTheme
+                    .body1
+                    .copyWith(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
-              Expanded(
-                flex: 4,
-                child: SizedBox.expand(
-                  child: FittedBox(
-                    child: Text(
-                      '${_timerString.toString()}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .body1
-                          .copyWith(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+//        Column(
+//          children: <Widget>[
+//            Expanded(
+//              child: SizedBox.expand(
+//                child: FittedBox(
+//                  child: Text(
+//                    'Rest',
+//                    style: Theme.of(context).textTheme.body1.copyWith(
+//                          fontWeight: FontWeight.bold,
+//                          fontFamily: Consts.righteousFont,
+//                        ),
+//                  ),
+//                ),
+//              ),
+//            ),
+//            Expanded(
+//              flex: 4,
+//              child: SizedBox.expand(
+//                child: FittedBox(
+//                  child: Text(
+//                    '${_timerString.toString()}',
+//                    style: Theme.of(context)
+//                        .textTheme
+//                        .body1
+//                        .copyWith(fontWeight: FontWeight.bold),
+//                    textAlign: TextAlign.center,
+//                  ),
+//                ),
+//              ),
+//            ),
+//          ],
+//        ),
+        ],
+      ),
     );
   }
 

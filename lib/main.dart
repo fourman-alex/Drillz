@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pogo/audio.dart';
 import 'package:pogo/model.dart';
 import 'package:pogo/workout_selection_screen.dart';
@@ -30,6 +31,11 @@ class _MyAppState extends State<MyApp> {
         .then((File file) => debugPrint('$file loaded'));
     //load the stupid shared pref
     SharedPreferences.getInstance();
+    //lock screen orientation
+    SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
     super.initState();
   }
 
