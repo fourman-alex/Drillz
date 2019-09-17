@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:drillz/audio.dart';
 import 'package:drillz/consts.dart';
+import 'package:flutter/material.dart';
 
 class StartTile extends StatelessWidget {
   const StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;
@@ -37,7 +37,6 @@ class FinishTile extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         final NavigatorState navigator = Navigator.of(context);
-        navigator.removeRouteBelow(ModalRoute.of(context));
         navigator.pop();
       },
       child: SizedBox.expand(
