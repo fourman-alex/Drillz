@@ -19,6 +19,7 @@ class StartTile extends StatelessWidget {
         child: FittedBox(
           child: Text(
             'GO',
+            textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
                 .body1
@@ -68,14 +69,32 @@ class WorkTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _onPressed,
-      child: SizedBox.expand(
-        child: FittedBox(
-          child: Text('$_amount',
-              style: Theme.of(context)
-                  .textTheme
-                  .body1
-                  .copyWith(fontWeight: FontWeight.bold)),
-        ),
+      child: Stack(
+        children: <Widget>[
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                'Perform',
+                style: Theme.of(context).textTheme.display1.copyWith(
+                      fontFamily: Consts.righteousFont,
+                    ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: SizedBox.expand(
+              child: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Text(
+                  '$_amount',
+                  style: Theme.of(context).textTheme.body1,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -125,68 +144,41 @@ class _RestTileState extends State<RestTile>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Rest'),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topCenter,
-            child: AnimatedContainer(
-              curve: Curves.elasticOut,
-              duration: Duration(milliseconds: 750),
-              color: Theme.of(context).primaryColorDark,
-              height: _progressBarHeight,
+    return Stack(
+      children: <Widget>[
+        Align(
+          alignment: Alignment.topCenter,
+          child: AnimatedContainer(
+            curve: Curves.elasticOut,
+            duration: Duration(milliseconds: 750),
+            color: Theme.of(context).primaryColorDark,
+            height: _progressBarHeight,
+          ),
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: SafeArea(
+            child: Text(
+              'Rest',
+              style: Theme.of(context).textTheme.display1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontFamily: Consts.righteousFont,
+                  ),
             ),
           ),
-          SizedBox.expand(
-            child: FittedBox(
-              child: Text(
-                '${_timerString.toString()}',
-                style: Theme.of(context)
-                    .textTheme
-                    .body1
-                    .copyWith(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-            ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Text(
+            '${_timerString.toString()}',
+            style: Theme.of(context)
+                .textTheme
+                .body1
+                .copyWith(fontFamily: Consts.righteousFont, fontSize: 220),
+            textAlign: TextAlign.center,
           ),
-//        Column(
-//          children: <Widget>[
-//            Expanded(
-//              child: SizedBox.expand(
-//                child: FittedBox(
-//                  child: Text(
-//                    'Rest',
-//                    style: Theme.of(context).textTheme.body1.copyWith(
-//                          fontWeight: FontWeight.bold,
-//                          fontFamily: Consts.righteousFont,
-//                        ),
-//                  ),
-//                ),
-//              ),
-//            ),
-//            Expanded(
-//              flex: 4,
-//              child: SizedBox.expand(
-//                child: FittedBox(
-//                  child: Text(
-//                    '${_timerString.toString()}',
-//                    style: Theme.of(context)
-//                        .textTheme
-//                        .body1
-//                        .copyWith(fontWeight: FontWeight.bold),
-//                    textAlign: TextAlign.center,
-//                  ),
-//                ),
-//              ),
-//            ),
-//          ],
-//        ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
