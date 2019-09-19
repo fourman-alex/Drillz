@@ -15,17 +15,13 @@ class StartTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _onPressed,
-      child: SizedBox.expand(
-        child: FittedBox(
-          child: Text(
-            'GO',
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .body1
-                .copyWith(fontFamily: Consts.righteousFont),
-          ),
-        ),
+      child: Text(
+        'GO',
+        textAlign: TextAlign.center,
+        style: Theme.of(context)
+            .textTheme
+            .display4
+            .copyWith(fontFamily: Consts.righteousFont),
       ),
     );
   }
@@ -40,17 +36,13 @@ class FinishTile extends StatelessWidget {
         final NavigatorState navigator = Navigator.of(context);
         navigator.pop();
       },
-      child: SizedBox.expand(
-        child: FittedBox(
-          child: Text(
-            'Finish',
-            textAlign: TextAlign.start,
-            style: Theme.of(context)
-                .textTheme
-                .body1
-                .copyWith(fontFamily: Consts.righteousFont),
-          ),
-        ),
+      child: Text(
+        'End',
+        textAlign: TextAlign.start,
+        style: Theme.of(context)
+            .textTheme
+            .display4
+            .copyWith(fontFamily: Consts.righteousFont),
       ),
     );
   }
@@ -71,7 +63,8 @@ class WorkTile extends StatelessWidget {
       onTap: _onPressed,
       child: Stack(
         children: <Widget>[
-          SafeArea(
+          Padding(
+            padding: const EdgeInsets.only(top: 180.0),
             child: Align(
               alignment: Alignment.topCenter,
               child: Text(
@@ -82,16 +75,13 @@ class WorkTile extends StatelessWidget {
               ),
             ),
           ),
-          Positioned.fill(
-            child: SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: Text(
-                  '$_amount',
-                  style: Theme.of(context).textTheme.body1,
-                  textAlign: TextAlign.center,
-                ),
+          Center(
+            child: Text(
+              '$_amount',
+              style: Theme.of(context).textTheme.display4.copyWith(
+                fontFamily: Consts.righteousFont,
               ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -155,13 +145,13 @@ class _RestTileState extends State<RestTile>
             height: _progressBarHeight,
           ),
         ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: SafeArea(
+        Padding(
+          padding: const EdgeInsets.only(top: 180),
+          child: Align(
+            alignment: Alignment.topCenter,
             child: Text(
               'Rest',
               style: Theme.of(context).textTheme.display1.copyWith(
-                    fontWeight: FontWeight.bold,
                     fontFamily: Consts.righteousFont,
                   ),
             ),
@@ -173,8 +163,8 @@ class _RestTileState extends State<RestTile>
             '${_timerString.toString()}',
             style: Theme.of(context)
                 .textTheme
-                .body1
-                .copyWith(fontFamily: Consts.righteousFont, fontSize: 220),
+                .display4
+                .copyWith(fontFamily: Consts.righteousFont),
             textAlign: TextAlign.center,
           ),
         ),

@@ -78,43 +78,37 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: <Widget>[
-          MultiProvider(
-            providers: <SingleChildCloneableWidget>[
-              ListenableProvider<ValueNotifier<int>>.value(
-                value: _currentStepIndexNotifier,
-              ),
-              Provider<Level>.value(value: widget.level)
-            ],
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  flex: 5,
-                  child: StepSwitcher(),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: WorkoutStepsBar(),
-                ),
-              ],
-            ),
+      child: MultiProvider(
+        providers: <SingleChildCloneableWidget>[
+          ListenableProvider<ValueNotifier<int>>.value(
+            value: _currentStepIndexNotifier,
           ),
-          Positioned.directional(
-            textDirection: TextDirection.ltr,
-            bottom: 16.0,
-            start: 16.0,
-            child: ProgressButton(
-              size: 56,
-              child: Icon(Icons.close),
-              startColor: Theme.of(context).primaryColor,
-              endColor: Theme.of(context).accentColor,
-              onPressCompleted: () => Navigator.of(context).pop(),
-              color: Theme.of(context).primaryColor,
-            ),
-          ),
+          Provider<Level>.value(value: widget.level)
         ],
+        child: Stack(
+          children: <Widget>[
+            Positioned.fill(
+              child: StepSwitcher(),
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: WorkoutStepsBar(),
+            ),
+            Positioned.directional(
+              textDirection: TextDirection.ltr,
+              bottom: 16.0,
+              end: 16.0,
+              child: ProgressButton(
+                size: 56,
+                child: Icon(Icons.close),
+                startColor: Theme.of(context).primaryColor,
+                endColor: Theme.of(context).accentColor,
+                onPressCompleted: () => Navigator.of(context).pop(),
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -189,6 +183,7 @@ class WorkoutStepsBar extends StatelessWidget {
     for (int i = 0; i < workoutSteps.length; ++i) {
       workoutStepsWidgets.add(
         Flexible(
+          flex: 3,
           child: AspectRatio(
             aspectRatio: 1 / 1,
             child: Consumer<ValueNotifier<int>>(
@@ -201,11 +196,12 @@ class WorkoutStepsBar extends StatelessWidget {
                     duration: const Duration(milliseconds: 250),
                     margin: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white12),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(10.0)),
                       color: currentStepNotifier.value == i
-                          ? Theme.of(context).primaryColorDark
-                          : Theme.of(context).primaryColor,
+                          ? Theme.of(context).primaryColor
+                          : Colors.transparent,
                     ),
                     child: Center(
                       child: Text(
@@ -226,11 +222,15 @@ class WorkoutStepsBar extends StatelessWidget {
           ),
         ),
       );
+      if (i + 1 < workoutSteps.length)
+        workoutStepsWidgets.add(
+          const Flexible(
+            child: VerticalDivider(width: 1),
+          ),
+        );
     }
 
-    return Container(
-      color: Theme.of(context).primaryColor,
-      padding: const EdgeInsets.only(top: 50.0),
+    return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
