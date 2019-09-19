@@ -28,10 +28,15 @@ class WorkoutScreen extends StatefulWidget {
       pageBuilder: (_, Animation<double> animation, __) {
         return Theme(
           data: theme,
-          child: FadeTransition(
-            opacity: animation,
-            child: WorkoutScreen(
-              level: level,
+          child: SlideTransition(
+            position:
+                Tween<Offset>(begin: const Offset(0.1, 0.0), end: Offset.zero)
+                    .animate(animation),
+            child: FadeTransition(
+              opacity: animation,
+              child: WorkoutScreen(
+                level: level,
+              ),
             ),
           ),
         );
