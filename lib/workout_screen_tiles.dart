@@ -34,7 +34,7 @@ class FinishTile extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: () {
         final NavigatorState navigator = Navigator.of(context);
-        navigator.pop();
+        navigator.popUntil(ModalRoute.withName('/'));
       },
       child: Text(
         'End',
