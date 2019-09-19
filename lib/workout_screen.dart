@@ -1,11 +1,10 @@
 import 'dart:collection';
 
-import 'package:flutter/material.dart';
-import 'package:drillz/fill_transition.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/progress_button.dart';
 import 'package:drillz/repository.dart';
 import 'package:drillz/workout_screen_tiles.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
@@ -25,16 +24,12 @@ class WorkoutScreen extends StatefulWidget {
     Color fromColor,
   }) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 650),
+      transitionDuration: const Duration(milliseconds: 150),
       pageBuilder: (_, Animation<double> animation, __) {
         return Theme(
           data: theme,
-          child: FillTransition(
-            toColor: theme.canvasColor,
-            fromColor: fromColor ?? theme.primaryColor,
-            source: sourceRect,
-            toBorderRadius: BorderRadius.zero,
-            fromBorderRadius: fromBorderRadius,
+          child: FadeTransition(
+            opacity: animation,
             child: WorkoutScreen(
               level: level,
             ),
