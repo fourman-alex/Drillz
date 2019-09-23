@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:drillz/consts.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/progress_button.dart';
 import 'package:drillz/repository.dart';
@@ -92,7 +93,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
             ),
             Align(
               alignment: Alignment.topLeft,
-              child: WorkoutStepsBar(),
+              child: Padding(
+                padding: const EdgeInsets.all(4),
+                child: WorkoutStepsBar(),
+              ),
             ),
             Positioned.directional(
               textDirection: TextDirection.ltr,
@@ -185,7 +189,7 @@ class WorkoutStepsBar extends StatelessWidget {
         Flexible(
           flex: 3,
           child: AspectRatio(
-            aspectRatio: 1 / 1,
+            aspectRatio: 1.3 / 1,
             child: Consumer<ValueNotifier<int>>(
               builder: (_, ValueNotifier<int> currentStepNotifier, __) {
                 return GestureDetector(
@@ -194,7 +198,6 @@ class WorkoutStepsBar extends StatelessWidget {
                   },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
-                    margin: const EdgeInsets.all(4.0),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.white12),
                       borderRadius:
@@ -207,11 +210,12 @@ class WorkoutStepsBar extends StatelessWidget {
                       child: Text(
                         workoutSteps[i].toString(),
                         maxLines: 1,
-                        style: TextStyle(
+                        style: Theme.of(context).textTheme.body1.copyWith(
                           color: currentStepNotifier.value == i
                               ? Colors.white
                               : Colors.white54,
                           fontSize: 18.0,
+                          fontFamily: Consts.righteousFont,
                         ),
                       ),
                     ),

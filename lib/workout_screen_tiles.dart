@@ -68,7 +68,7 @@ class WorkTile extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Text(
-                'Perform',
+                'PERFORM',
                 style: Theme.of(context).textTheme.display1.copyWith(
                       fontFamily: Consts.righteousFont,
                     ),
@@ -150,7 +150,7 @@ class _RestTileState extends State<RestTile>
           child: Align(
             alignment: Alignment.topCenter,
             child: Text(
-              'Rest',
+              'REST',
               style: Theme.of(context).textTheme.display1.copyWith(
                     fontFamily: Consts.righteousFont,
                   ),

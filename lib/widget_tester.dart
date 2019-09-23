@@ -1,5 +1,6 @@
+import 'package:drillz/model.dart';
+import 'package:drillz/workout_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:drillz/progress_button.dart';
 //todo add keys to widget constructors
 
 void main() {
@@ -13,33 +14,30 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> with TickerProviderStateMixin<MyApp> {
   @override
-  void initState() {
-    // TODO(alex): implement initState
-    super.initState();
-    loadJson();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-//      theme: ThemeData.light(),
+      theme: ThemeData.dark(),
       home: Material(
-        child: SafeArea(
-          child: Center(
-            child: ProgressButton(
-              size: 56,
-              color: Colors.orange,
-              duration: Duration(seconds: 3),
-              onPressCompleted: () => debugPrint('completed long press!'),
-            ),
-          ),
-        ),
+        child: WorkoutScreen(level: _level),
       ),
     );
   }
-
-  Future<void> loadJson() async {
-//    final Model model = await Repository.getModelAsync(context);
-    print('json decoded');
-  }
 }
+
+final List<ExerciseStep> _steps = <ExerciseStep>[
+  StartStep(),
+  WorkStep(16),
+  RestStep(60),
+  WorkStep(13),
+  RestStep(60),
+  WorkStep(11),
+  RestStep(60),
+  WorkStep(10),
+  RestStep(60),
+  WorkStep(9),
+  RestStep(60),
+  WorkStep(8),
+  FinishStep(),
+];
+
+final Level _level = Level('level id', _steps, null, null);
