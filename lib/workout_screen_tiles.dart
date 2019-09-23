@@ -15,13 +15,16 @@ class StartTile extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: _onPressed,
-      child: Text(
-        'GO',
-        textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .display4
-            .copyWith(fontFamily: Consts.righteousFont),
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          'GO',
+          textAlign: TextAlign.center,
+          style: Theme.of(context)
+              .textTheme
+              .display4
+              .copyWith(fontFamily: Consts.righteousFont),
+        ),
       ),
     );
   }
@@ -36,13 +39,16 @@ class FinishTile extends StatelessWidget {
         final NavigatorState navigator = Navigator.of(context);
         navigator.popUntil(ModalRoute.withName('/'));
       },
-      child: Text(
-        'End',
-        textAlign: TextAlign.start,
-        style: Theme.of(context)
-            .textTheme
-            .display4
-            .copyWith(fontFamily: Consts.righteousFont),
+      child: Container(
+        alignment: Alignment.center,
+        child: Text(
+          'End',
+          textAlign: TextAlign.start,
+          style: Theme.of(context)
+              .textTheme
+              .display4
+              .copyWith(fontFamily: Consts.righteousFont),
+        ),
       ),
     );
   }
