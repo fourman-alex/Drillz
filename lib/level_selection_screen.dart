@@ -114,16 +114,14 @@ class LevelSelectionScreen extends StatelessWidget {
         slivers: <Widget>[
           SliverAppBar(
             floating: true,
-            automaticallyImplyLeading: false,
+            automaticallyImplyLeading: true,
             titleSpacing: 4.0,
             backgroundColor: theme.backgroundColor,
-            title: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  fontFamily: Consts.righteousFont,
-                  fontSize: 30,
-                ),
+            title: Text(
+              title,
+              style: TextStyle(
+                fontFamily: Consts.righteousFont,
+                fontSize: 30,
               ),
             ),
           ),
