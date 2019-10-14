@@ -152,7 +152,7 @@ class _WorkoutButton extends StatelessWidget {
                   builder: (BuildContext context, BoxConstraints constraints) {
                     //makes sure that the font size fills the container
                     //AND is the same for all the buttons
-                    final double fontSize = constraints.biggest.width / 5;
+                    final double fontSize = constraints.biggest.width / 5.5;
                     return Text(
                       text,
                       style: Theme.of(context).primaryTextTheme.body1.copyWith(
