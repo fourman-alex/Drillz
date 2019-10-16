@@ -47,6 +47,7 @@ class _MyAppState extends State<MyApp> {
       primarySwatch: Colors.pink,
       accentColor: Colors.white,
       canvasColor: Colors.grey[850],
+      iconTheme: IconThemeData(color: Colors.white),
     );
     theme = theme.copyWith(
       textTheme: theme.textTheme.merge(theme.typography.white),

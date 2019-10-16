@@ -1,10 +1,10 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:drillz/consts.dart';
 import 'package:drillz/level_selection_screen.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/repository.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WorkoutSelectionScreen extends StatelessWidget {
@@ -29,88 +29,106 @@ class WorkoutSelectionScreen extends StatelessWidget {
               } else
                 progressIndicator = Container();
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        child: Material(
-                          child: FittedBox(
-                            child: Text(
-                              'Drillz',
-                              style: Theme.of(context).textTheme.body1.copyWith(
-                                  fontFamily: Consts.righteousFont,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                        blurRadius: 25.0,
-                                        color:
-                                            Theme.of(context).primaryColorLight)
-                                  ]),
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Stack(
+                      children: <Widget>[
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Material(
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.menu,
+                              ),
+                              onPressed: () {},
                             ),
                           ),
-                          type: MaterialType.transparency,
                         ),
-                      ),
-                      flex: 3,
-                    ),
-                    Expanded(
-                      flex: 8,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Flexible(
-                            child: Row(
-                              children: <Widget>[
-                                _WorkoutButton(
-                                  text: 'PUSHUPS',
-                                  color: Colors.green,
-                                  plan: model?.pushUpsPlan,
+                        Positioned.fill(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(vertical: 16.0),
+                            child: Material(
+                              child: FittedBox(
+                                child: Text(
+                                  'Drillz',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .body1
+                                      .copyWith(
+                                          fontFamily: Consts.righteousFont,
+                                          shadows: <Shadow>[
+                                        Shadow(
+                                            blurRadius: 25.0,
+                                            color: Theme.of(context)
+                                                .primaryColorLight)
+                                      ]),
                                 ),
-                                _WorkoutButton(
-                                  text: 'PULLUPS',
-                                  color: Colors.deepOrange,
-                                  plan: model?.pullUpsPlan,
-                                ),
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              ),
+                              type: MaterialType.transparency,
                             ),
                           ),
-                          Flexible(
-                            child: Row(
-                              children: <Widget>[
-                                _WorkoutButton(
-                                  text: 'SITUPS',
-                                  color: Colors.pink,
-                                  plan: model?.sitUpsPlan,
-                                ),
-                                _WorkoutButton(
-                                  text: 'SQUATS',
-                                  plan: model?.squatsPlan,
-                                  color: Colors.indigo,
-                                ),
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.center,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          child: progressIndicator,
                         ),
+                      ],
+                    ),
+                    flex: 3,
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Flexible(
+                          child: Row(
+                            children: <Widget>[
+                              _WorkoutButton(
+                                text: 'PUSHUPS',
+                                color: Colors.green,
+                                plan: model?.pushUpsPlan,
+                              ),
+                              _WorkoutButton(
+                                text: 'PULLUPS',
+                                color: Colors.deepOrange,
+                                plan: model?.pullUpsPlan,
+                              ),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          ),
+                        ),
+                        Flexible(
+                          child: Row(
+                            children: <Widget>[
+                              _WorkoutButton(
+                                text: 'SITUPS',
+                                color: Colors.pink,
+                                plan: model?.sitUpsPlan,
+                              ),
+                              _WorkoutButton(
+                                text: 'SQUATS',
+                                plan: model?.squatsPlan,
+                                color: Colors.indigo,
+                              ),
+                            ],
+                            mainAxisAlignment: MainAxisAlignment.center,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: progressIndicator,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
