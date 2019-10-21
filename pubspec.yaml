@@ -55,6 +55,7 @@ flutter:
         - asset: assets/Righteous-Regular.ttf
 
   assets:
+    - assets/icon.png
     - assets/plan.json
     - assets/soft-bells.mp3
     - assets/Righteous-Regular.ttf

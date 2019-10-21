@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:drillz/audio.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/workout_selection_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 //todo add keys to widget constructors
@@ -44,12 +44,15 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     ThemeData theme = ThemeData(
-      primarySwatch: Colors.pink,
+      brightness: Brightness.dark,
+      primaryColor: Colors.grey[850],
       accentColor: Colors.white,
       canvasColor: Colors.grey[850],
       iconTheme: IconThemeData(color: Colors.white),
     );
     theme = theme.copyWith(
+      buttonTheme: ButtonThemeData(
+          colorScheme: ColorScheme.dark().copyWith(secondary: Colors.white)),
       textTheme: theme.textTheme.merge(theme.typography.white),
       primaryTextTheme: theme.primaryTextTheme.merge(theme.typography.white),
       accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),

@@ -7,133 +7,219 @@ import 'package:drillz/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+const String _disclaimerText =
+    'The information in this app is for general information purposes only. \nWhile a lot of thought and research has been put into the information provided, it does not substitue for personal professional advice.\n\nAny reliance you place on the information in this app is therefore strictly at your own risk.';
+
 class WorkoutSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Container(
-          color: Theme.of(context).canvasColor,
-        ),
-        SafeArea(
-          child: Consumer<ValueNotifier<Model>>(
-            builder: (_, ValueNotifier<Model> modelNotifier, __) {
-              final Model model = modelNotifier.value;
-              //create indicator
-              Widget progressIndicator;
-              if (model == null) {
-                Repository.getModelAsync(context).then((Model model) {
-                  modelNotifier.value = model;
-                });
-                progressIndicator = const CircularProgressIndicator();
-              } else
-                progressIndicator = Container();
-
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Expanded(
-                    child: Stack(
-                      children: <Widget>[
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Material(
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.menu,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ),
-                        Positioned.fill(
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(vertical: 16.0),
-                            child: Material(
-                              child: FittedBox(
-                                child: Text(
-                                  'Drillz',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .body1
-                                      .copyWith(
-                                          fontFamily: Consts.righteousFont,
-                                          shadows: <Shadow>[
-                                        Shadow(
-                                            blurRadius: 25.0,
-                                            color: Theme.of(context)
-                                                .primaryColorLight)
-                                      ]),
-                                ),
-                              ),
-                              type: MaterialType.transparency,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    flex: 3,
+                  Text(
+                    'Drillz',
+                    style: Theme.of(context)
+                        .textTheme
+                        .display2
+                        .copyWith(fontFamily: Consts.righteousFont),
                   ),
-                  Expanded(
-                    flex: 8,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Flexible(
-                          child: Row(
-                            children: <Widget>[
-                              _WorkoutButton(
-                                text: 'PUSHUPS',
-                                color: Colors.green,
-                                plan: model?.pushUpsPlan,
-                              ),
-                              _WorkoutButton(
-                                text: 'PULLUPS',
-                                color: Colors.deepOrange,
-                                plan: model?.pullUpsPlan,
-                              ),
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.center,
-                          ),
-                        ),
-                        Flexible(
-                          child: Row(
-                            children: <Widget>[
-                              _WorkoutButton(
-                                text: 'SITUPS',
-                                color: Colors.pink,
-                                plan: model?.sitUpsPlan,
-                              ),
-                              _WorkoutButton(
-                                text: 'SQUATS',
-                                plan: model?.squatsPlan,
-                                color: Colors.indigo,
-                              ),
-                            ],
-                            mainAxisAlignment: MainAxisAlignment.center,
-                          ),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    '100 challenge',
+                    style: Theme.of(context).textTheme.display1,
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: progressIndicator,
-                      ),
+                ],
+              ),
+            ),
+            ListTile(
+              title: const Text('Disclaimer'),
+              onTap: () {
+                showDialog<SimpleDialog>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        actions: <Widget>[
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('CLOSE'))
+                        ],
+                        contentPadding: const EdgeInsets.all(16.0),
+                        content: SingleChildScrollView(
+                          child: const Text(_disclaimerText),
+                        ),
+                      );
+                    });
+              },
+            ),
+            Theme(
+              data: () {
+                ThemeData theme = ThemeData.dark();
+                theme = theme.copyWith(
+                  buttonTheme: ButtonThemeData(
+                      colorScheme:
+                          ColorScheme.dark().copyWith(secondary: Colors.white)),
+                );
+                return theme;
+              }(),
+              child: AboutListTile(
+                icon: null,
+                applicationName: Consts.drillz,
+                applicationLegalese: 'Copyright © Alex Fourman 2019',
+                applicationIcon: const Image(
+                  image: AssetImage('assets/icon.png'),
+                  width: 70,
+                  height: 70,
+                ),
+                aboutBoxChildren: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(
+                      Consts.contactEmail,
+                      style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                 ],
-              );
-            },
-          ),
+              ),
+            ),
+          ],
         ),
-      ],
+      ),
+      body: Builder(
+        builder: (BuildContext context) => Stack(
+          children: <Widget>[
+            Container(
+              color: Theme.of(context).canvasColor,
+            ),
+            SafeArea(
+              child: Consumer<ValueNotifier<Model>>(
+                builder: (_, ValueNotifier<Model> modelNotifier, __) {
+                  final Model model = modelNotifier.value;
+                  //create indicator
+                  Widget progressIndicator;
+                  if (model == null) {
+                    Repository.getModelAsync(context).then((Model model) {
+                      modelNotifier.value = model;
+                    });
+                    progressIndicator = const CircularProgressIndicator();
+                  } else
+                    progressIndicator = Container();
+
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: Stack(
+                          children: <Widget>[
+                            Positioned.fill(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
+                                child: Material(
+                                  child: FittedBox(
+                                    child: Text(
+                                      'Drillz',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .body1
+                                          .copyWith(
+                                              fontFamily: Consts.righteousFont,
+                                              shadows: <Shadow>[
+                                            Shadow(
+                                                blurRadius: 25.0,
+                                                color: Theme.of(context)
+                                                    .primaryColorLight)
+                                          ]),
+                                    ),
+                                  ),
+                                  type: MaterialType.transparency,
+                                ),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: Material(
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.menu,
+                                  ),
+                                  onPressed: () {
+                                    print('menu');
+                                    Scaffold.of(context).openDrawer();
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        flex: 3,
+                      ),
+                      Expanded(
+                        flex: 8,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Flexible(
+                              child: Row(
+                                children: <Widget>[
+                                  _WorkoutButton(
+                                    text: 'PUSHUPS',
+                                    color: Colors.green,
+                                    plan: model?.pushUpsPlan,
+                                  ),
+                                  _WorkoutButton(
+                                    text: 'PULLUPS',
+                                    color: Colors.deepOrange,
+                                    plan: model?.pullUpsPlan,
+                                  ),
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.center,
+                              ),
+                            ),
+                            Flexible(
+                              child: Row(
+                                children: <Widget>[
+                                  _WorkoutButton(
+                                    text: 'SITUPS',
+                                    color: Colors.pink,
+                                    plan: model?.sitUpsPlan,
+                                  ),
+                                  _WorkoutButton(
+                                    text: 'SQUATS',
+                                    plan: model?.squatsPlan,
+                                    color: Colors.indigo,
+                                  ),
+                                ],
+                                mainAxisAlignment: MainAxisAlignment.center,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 250),
+                            child: progressIndicator,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
