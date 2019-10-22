@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:drillz/consts.dart';
@@ -5,12 +6,15 @@ import 'package:drillz/level_selection_screen.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 const String _disclaimerText =
     'The information in this app is for general information purposes only. \nWhile a lot of thought and research has been put into the information provided, it does not substitue for personal professional advice.\n\nAny reliance you place on the information in this app is therefore strictly at your own risk.';
 
 class WorkoutSelectionScreen extends StatelessWidget {
+  static const MethodChannel _platform = MethodChannel('drillz.com/rate');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +38,16 @@ class WorkoutSelectionScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            ListTile(
+              title: const Text('Rate'),
+              onTap: () async {
+                if (Platform.isIOS &&
+                    await _platform.invokeMethod('canRequestReview')) {
+                  _platform.invokeMethod<void>('requestReview');
+                } else
+                  _platform.invokeMethod<void>('launchStore');
+              },
             ),
             ListTile(
               title: const Text('Disclaimer'),
