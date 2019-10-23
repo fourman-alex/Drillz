@@ -1,10 +1,11 @@
 import 'package:clippy_flutter/chevron.dart';
-import 'package:flutter/material.dart';
 import 'package:drillz/consts.dart';
 import 'package:drillz/fill_transition.dart';
 import 'package:drillz/main.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/workout_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tinycolor/tinycolor.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
@@ -86,9 +87,7 @@ class LevelSelectionScreen extends StatelessWidget {
       for (int i = 0; i < workouts.length; i++) {
         widgets.add(Builder(
           builder: (BuildContext context) {
-            ;
             return LevelPage(
-              text: 'Lvl ${i + 1}',
               textColor: textColorOfCompleted,
               cardColor: cardColorOfCompleted,
               level: workouts[i],
@@ -100,7 +99,6 @@ class LevelSelectionScreen extends StatelessWidget {
 
     if (currentWorkout != null) {
       widgets.add(LevelPage(
-        text: 'Lvl ${(workouts?.length ?? 0) + 1}',
         level: currentWorkout,
         textColor: theme.textTheme.body1.color,
         cardColor: theme.primaryColor,
@@ -137,7 +135,6 @@ class LevelPage extends StatelessWidget {
   LevelPage({
     Key key,
     @required this.level,
-    @required this.text,
     @required this.textColor,
     @required this.cardColor,
   })  : _steps = level.steps.whereType<WorkStep>().toList(),
@@ -149,7 +146,6 @@ class LevelPage extends StatelessWidget {
   final Level level;
   final List<WorkStep> _steps;
   final int _totalCount;
-  final String text;
   final BorderRadius _borderRadius = const BorderRadius.only(
     bottomLeft: Radius.circular(15),
     bottomRight: Radius.circular(15),
@@ -167,46 +163,26 @@ class LevelPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 7 / 1,
-                    child: SizedBox.expand(
-                      child: FittedBox(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          text,
-                          style: theme.textTheme.body1.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: Consts.righteousFont,
-                            color: textColor,
-                          ),
-                        ),
-                      ),
+            Text.rich(
+              TextSpan(
+                text: '$_totalCount',
+                style: theme.textTheme.body1.copyWith(
+                  fontWeight: FontWeight.w500,
+                  fontFamily: Consts.righteousFont,
+                  fontSize: 35,
+                  color: textColor,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: ' in total',
+                    style: theme.textTheme.display1.copyWith(
+                      fontFamily: Consts.righteousFont,
+                      fontSize: 15,
+                      color: textColor,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: AspectRatio(
-                    aspectRatio: 9 / 1,
-                    child: SizedBox.expand(
-                      child: FittedBox(
-                        alignment: Alignment.bottomRight,
-                        child: Text(
-                          'Total of $_totalCount',
-                          style: theme.textTheme.body1.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontFamily: Consts.righteousFont,
-                            color: textColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
             Builder(
               builder: (BuildContext context) {
