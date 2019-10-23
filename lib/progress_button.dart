@@ -6,7 +6,7 @@ class ProgressButton extends StatefulWidget {
     Key key,
     this.child,
     this.size,
-    this.duration = const Duration(seconds: 2),
+    this.duration = const Duration(seconds: 1),
     @required this.onPressCompleted,
     @required this.color,
     this.startColor,
