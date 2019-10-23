@@ -169,7 +169,7 @@ class LevelPage extends StatelessWidget {
                 style: theme.textTheme.body1.copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: Consts.righteousFont,
-                  fontSize: 35,
+                  fontSize: 30,
                   color: textColor,
                 ),
                 children: <TextSpan>[
@@ -203,6 +203,7 @@ class LevelPage extends StatelessWidget {
                     );
                   },
                   child: Container(
+                    height: 60,
                     decoration: BoxDecoration(
                       color: cardColor,
                       borderRadius: _borderRadius,
