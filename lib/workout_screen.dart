@@ -95,7 +95,10 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.all(4),
-                child: WorkoutStepsBar(),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 80),
+                  child: WorkoutStepsBar(),
+                ),
               ),
             ),
             Positioned.directional(
@@ -211,12 +214,12 @@ class WorkoutStepsBar extends StatelessWidget {
                         workoutSteps[i].toString(),
                         maxLines: 1,
                         style: Theme.of(context).textTheme.body1.copyWith(
-                          color: currentStepNotifier.value == i
-                              ? Colors.white
-                              : Colors.white54,
-                          fontSize: 18.0,
-                          fontFamily: Consts.righteousFont,
-                        ),
+                              color: currentStepNotifier.value == i
+                                  ? Colors.white
+                                  : Colors.white54,
+                              fontSize: 18.0,
+                              fontFamily: Consts.righteousFont,
+                            ),
                       ),
                     ),
                   ),
