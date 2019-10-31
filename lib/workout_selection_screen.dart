@@ -111,15 +111,11 @@ class WorkoutSelectionScreen extends StatelessWidget {
               color: Theme.of(context).canvasColor,
             ),
             SafeArea(
-              child: Consumer<ValueNotifier<Model>>(
-                builder: (_, ValueNotifier<Model> modelNotifier, __) {
-                  final Model model = modelNotifier.value;
+              child: Consumer<Repository>(
+                builder: (_, Repository repository, __) {
                   //create indicator
                   Widget progressIndicator;
-                  if (model == null) {
-                    Repository.getModelAsync(context).then((Model model) {
-                      modelNotifier.value = model;
-                    });
+                  if (repository.value == null) {
                     progressIndicator = const CircularProgressIndicator();
                   } else
                     progressIndicator = Container();
@@ -185,12 +181,12 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                   _WorkoutButton(
                                     text: 'PUSHUPS',
                                     color: Colors.green,
-                                    plan: model?.pushUpsPlan,
+                                    plan: repository.value?.pushUpsPlan,
                                   ),
                                   _WorkoutButton(
                                     text: 'PULLUPS',
                                     color: Colors.deepOrange,
-                                    plan: model?.pullUpsPlan,
+                                    plan: repository.value?.pullUpsPlan,
                                   ),
                                 ],
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -202,11 +198,11 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                   _WorkoutButton(
                                     text: 'SITUPS',
                                     color: Colors.pink,
-                                    plan: model?.sitUpsPlan,
+                                    plan: repository.value?.sitUpsPlan,
                                   ),
                                   _WorkoutButton(
                                     text: 'SQUATS',
-                                    plan: model?.squatsPlan,
+                                    plan: repository.value?.squatsPlan,
                                     color: Colors.indigo,
                                   ),
                                 ],

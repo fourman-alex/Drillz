@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:drillz/audio.dart';
-import 'package:drillz/model.dart';
+import 'package:drillz/repository.dart';
 import 'package:drillz/workout_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,8 +20,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final ValueNotifier<Model> _modelValueNotifier = ValueNotifier<Model>(null);
-
   @override
   void initState() {
     //load notification sound
@@ -58,8 +56,8 @@ class _MyAppState extends State<MyApp> {
       accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),
     );
 
-    return ChangeNotifierProvider<ValueNotifier<Model>>.value(
-      value: _modelValueNotifier,
+    return ChangeNotifierProvider<Repository>(
+      builder: (BuildContext context) => Repository(context),
       child: MaterialApp(
         theme: theme,
         home: WorkoutSelectionScreen(),

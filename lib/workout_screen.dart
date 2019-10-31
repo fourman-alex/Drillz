@@ -123,17 +123,16 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   void _handleCurrentStepChanged() {
     final ExerciseStep currentStep =
         widget.level.steps[_currentStepIndexNotifier.value];
+    final Repository repository =
+        Provider.of<Repository>(context, listen: false);
     if (currentStep is FinishStep) {
-      Repository.setWorkoutDate(
+      repository.setWorkoutDate(
         Date.completed,
         widget.level.id,
         DateTime.now(),
       );
-      //also reset model to null so that well have to load it and get
-      // the updated values
-      Provider.of<ValueNotifier<Model>>(context).value = null;
     } else if (currentStep is StartStep) {
-      Repository.setWorkoutDate(
+      repository.setWorkoutDate(
         Date.attempted,
         widget.level.id,
         DateTime.now(),
