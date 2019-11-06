@@ -104,6 +104,7 @@ class LevelSelectionScreen extends StatelessWidget {
       ));
     }
 
+    // TODO(Alex): maybe just initially build it in correct order?
     widgets = widgets.reversed.toList();
 
     return DismissDetector(
