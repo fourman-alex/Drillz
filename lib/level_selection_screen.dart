@@ -75,7 +75,6 @@ class LevelSelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //find last completed
     List<Widget> widgets = <Widget>[];
     final ThemeData theme = Theme.of(context);
     final Color textColorOfCompleted =

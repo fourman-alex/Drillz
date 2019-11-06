@@ -179,14 +179,14 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: 'PUSHUPS',
+                                    text: kPushupsString.toUpperCase(),
                                     color: Colors.green,
-                                    plan: repository.value?.pushUpsPlan,
+                                    workoutType: WorkoutType.pushups,
                                   ),
                                   _WorkoutButton(
-                                    text: 'PULLUPS',
+                                    text: kPullupsString.toUpperCase(),
                                     color: Colors.deepOrange,
-                                    plan: repository.value?.pullUpsPlan,
+                                    workoutType: WorkoutType.pullups,
                                   ),
                                 ],
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -196,14 +196,14 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: 'SITUPS',
+                                    text: kSitupsString.toUpperCase(),
                                     color: Colors.pink,
-                                    plan: repository.value?.sitUpsPlan,
+                                    workoutType: WorkoutType.situps,
                                   ),
                                   _WorkoutButton(
-                                    text: 'SQUATS',
-                                    plan: repository.value?.squatsPlan,
+                                    text: kSquatsString.toUpperCase(),
                                     color: Colors.indigo,
+                                    workoutType: WorkoutType.squats,
                                   ),
                                 ],
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -238,12 +238,13 @@ class _WorkoutButton extends StatelessWidget {
   const _WorkoutButton({
     Key key,
     this.text,
-    this.plan,
+    this.workoutType,
     this.color,
   }) : super(key: key);
 
   final String text;
-  final List<Level> plan;
+
+  final WorkoutType workoutType;
   final Color color;
 
   @override
@@ -277,35 +278,26 @@ class _WorkoutButton extends StatelessWidget {
                   },
                 ),
               );
-              if (plan == null) {
-                return child;
-              }
-
               return GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 child: child,
                 onTap: () {
-                  if (plan != null) {
-                    //find all completed and the first uncompleted level
-                    final List<Level> levels = <Level>[];
-                    final int lastCompletedIndex =
-                        plan.lastIndexWhere((Level workout) {
-                      return workout.dateCompleted != null;
-                    });
-                    if (lastCompletedIndex != -1) {
-                      levels.addAll(plan.getRange(0, lastCompletedIndex + 1));
-                    }
+                  final List<Level> activePlan =
+                      Provider.of<Repository>(context, listen: false)
+                          .value
+                          .getPlan(workoutType)
+                          .activeLevels;
 
-                    final Level currentWorkout =
-                        (lastCompletedIndex + 1 < plan.length)
-                            ? plan[lastCompletedIndex + 1]
-                            : null;
+                  if (activePlan != null) {
+                    //find all completed and the first uncompleted level
+
+                    final Level currentWorkout = activePlan.removeLast();
 
                     Navigator.of(context).push(
                       LevelSelectionScreen.route(
                         title: text,
                         context: context,
-                        workouts: levels,
+                        workouts: activePlan,
                         currentWorkout: currentWorkout,
                         fromColor: color,
                         toColor: Theme.of(context).canvasColor,

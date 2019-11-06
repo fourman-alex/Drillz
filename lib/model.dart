@@ -1,4 +1,17 @@
 import 'dart:collection';
+import 'dart:math';
+
+const String kPushupsString = 'pushups';
+const String kPullupsString = 'pullups';
+const String kSitupsString = 'situps';
+const String kSquatsString = 'squats';
+
+enum WorkoutType {
+  pullups,
+  pushups,
+  situps,
+  squats,
+}
 
 class Model {
   Model(
@@ -6,25 +19,48 @@ class Model {
     this.pullUpsPlan,
     this.sitUpsPlan,
     this.squatsPlan,
-  ) {
-    if (pullUpsPlan is! List<Level>) {
-      throw ArgumentError(pullUpsPlan);
-    }
-    if (pushUpsPlan is! List<Level>) {
-      throw ArgumentError(pushUpsPlan);
-    }
-    if (sitUpsPlan is! List<Level>) {
-      throw ArgumentError(sitUpsPlan);
-    }
-    if (squatsPlan is! List<Level>) {
-      throw ArgumentError(squatsPlan);
-    }
-  }
+  );
 
-  final List<Level> pushUpsPlan;
-  final List<Level> pullUpsPlan;
-  final List<Level> sitUpsPlan;
-  final List<Level> squatsPlan;
+  final Plan pushUpsPlan;
+  final Plan pullUpsPlan;
+  final Plan sitUpsPlan;
+  final Plan squatsPlan;
+
+  Plan getPlan(WorkoutType workoutType) {
+    Plan result;
+    switch (workoutType) {
+      case WorkoutType.pullups:
+        result = pullUpsPlan;
+        break;
+      case WorkoutType.pushups:
+        result = pushUpsPlan;
+        break;
+      case WorkoutType.situps:
+        result = sitUpsPlan;
+        break;
+      case WorkoutType.squats:
+        result = squatsPlan;
+        break;
+    }
+    return result;
+  }
+}
+
+class Plan {
+  Plan(
+    this.levels,
+  );
+
+  final List<Level> levels;
+
+  List<Level> get activeLevels {
+    final int lastCompletedIndex = levels.lastIndexWhere((Level workout) {
+      return workout.dateCompleted != null;
+    });
+    return levels
+        .getRange(0, min(lastCompletedIndex + 2, levels.length))
+        .toList();
+  }
 }
 
 class Level {

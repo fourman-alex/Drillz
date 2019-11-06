@@ -27,7 +27,8 @@ class Repository extends ValueNotifier<Model> {
   ///See also:
   /// * [_getModelFromJson] to load everything but the json
   Future<Model> _getModelFromContext(BuildContext context) async {
-    _staticJsonData = await DefaultAssetBundle.of(context).loadString('assets/plan.json');
+    _staticJsonData =
+        await DefaultAssetBundle.of(context).loadString('assets/plan.json');
     return _getModelFromJson(_staticJsonData);
   }
 
@@ -71,7 +72,20 @@ class Repository extends ValueNotifier<Model> {
       situpLevels.add(await buildLevel(situpsID));
     }
 
-    return Model(pushupLevels, pullupLevels, situpLevels, squatLevels);
+    return Model(
+      Plan(
+        pushupLevels,
+      ),
+      Plan(
+        pullupLevels,
+      ),
+      Plan(
+        situpLevels,
+      ),
+      Plan(
+        squatLevels,
+      ),
+    );
   }
 
   static String _key(Date dateType, String id) => dateType.toString() + id;

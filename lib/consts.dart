@@ -4,3 +4,4 @@ class Consts {
   static const String drillz = 'Drillz';
   static const String contactEmail = 'fourman.alex@outlook.com';
 }
+
