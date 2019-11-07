@@ -1,35 +1,35 @@
 import 'package:clippy_flutter/chevron.dart';
+import 'package:drillz/calibration_banner.dart';
 import 'package:drillz/consts.dart';
 import 'package:drillz/fill_transition.dart';
 import 'package:drillz/main.dart';
 import 'package:drillz/model.dart';
+import 'package:drillz/repository.dart';
 import 'package:drillz/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:tinycolor/tinycolor.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({
     Key key,
     @required this.sourceRect,
-    this.workouts,
-    this.currentWorkout,
+    @required this.workoutType,
     @required this.title,
   })  : assert(sourceRect != null),
         super(key: key);
 
   final Rect sourceRect;
-  final List<Level> workouts;
-  final Level currentWorkout;
   final String title;
+  final WorkoutType workoutType;
 
   /// [context] must be the [BuildContext] of the widget from which the
   /// transition will visually fill
   static Route<void> route({
     @required BuildContext context,
     @required String title,
-    List<Level> workouts,
-    Level currentWorkout,
+    @required WorkoutType workoutType,
     @required MaterialColor fromColor,
     @required Color toColor,
     BorderRadius fromRadius,
@@ -43,7 +43,9 @@ class LevelSelectionScreen extends StatelessWidget {
         return FillTransition(
           source: sourceRect,
           child: Theme(
-            data: Theme.of(context).copyWith(
+            data: ThemeData(
+              brightness: Brightness.dark,
+              primarySwatch: fromColor,
               primaryColor: fromColor,
               primaryColorDark: fromColor.shade800,
               backgroundColor: toColor,
@@ -57,8 +59,7 @@ class LevelSelectionScreen extends StatelessWidget {
               },
               child: LevelSelectionScreen(
                 sourceRect: sourceRect,
-                workouts: workouts,
-                currentWorkout: currentWorkout,
+                workoutType: workoutType,
                 title: title,
               ),
             ),
@@ -82,28 +83,39 @@ class LevelSelectionScreen extends StatelessWidget {
     final Color cardColorOfCompleted =
         TinyColor(theme.primaryColor).darken(20).color;
 
-    if (workouts != null) {
-      for (int i = 0; i < workouts.length; i++) {
+    final Repository repository = Provider.of<Repository>(context);
+    final List<Level> activeLevels =
+        repository.value.getPlan(workoutType).activeLevels;
+    if (activeLevels != null) {
+      for (int i = 0; i < activeLevels.length - 1; i++) {
         widgets.add(Builder(
           builder: (BuildContext context) {
             return LevelPage(
               textColor: textColorOfCompleted,
               cardColor: cardColorOfCompleted,
-              level: workouts[i],
+              level: activeLevels[i],
             );
           },
         ));
       }
-    }
-
-    if (currentWorkout != null) {
       widgets.add(LevelPage(
-        level: currentWorkout,
+        level: activeLevels.last,
         textColor: theme.textTheme.body1.color,
         cardColor: theme.primaryColor,
       ));
     }
 
+    if (repository.value.getPlan(workoutType).notCalibrated) {
+      widgets.add(
+        CalibrationBanner(
+          onCalibrate: (int value) {
+            repository.calibratePlan(workoutType, value);
+          },
+          onDismiss: () => repository.calibratePlan(workoutType, null),
+          workoutString: Plan.getWorkoutTypeString(workoutType),
+        ),
+      );
+    }
     // TODO(Alex): maybe just initially build it in correct order?
     widgets = widgets.reversed.toList();
 
@@ -138,9 +150,7 @@ class LevelPage extends StatelessWidget {
     @required this.textColor,
     @required this.cardColor,
   })  : _steps = level.steps.whereType<WorkStep>().toList(),
-        _totalCount = level.steps
-            .whereType<WorkStep>()
-            .fold(0, (int value, WorkStep step) => value + step.reps),
+        _totalCount = level.total,
         super(key: key);
 
   final Level level;

@@ -179,12 +179,12 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: kPushupsString.toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(WorkoutType.pushups).toUpperCase(),
                                     color: Colors.green,
                                     workoutType: WorkoutType.pushups,
                                   ),
                                   _WorkoutButton(
-                                    text: kPullupsString.toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(WorkoutType.pullups).toUpperCase(),
                                     color: Colors.deepOrange,
                                     workoutType: WorkoutType.pullups,
                                   ),
@@ -196,12 +196,12 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: kSitupsString.toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(WorkoutType.situps).toUpperCase(),
                                     color: Colors.pink,
                                     workoutType: WorkoutType.situps,
                                   ),
                                   _WorkoutButton(
-                                    text: kSquatsString.toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(WorkoutType.squats).toUpperCase(),
                                     color: Colors.indigo,
                                     workoutType: WorkoutType.squats,
                                   ),
@@ -282,29 +282,16 @@ class _WorkoutButton extends StatelessWidget {
                 behavior: HitTestBehavior.translucent,
                 child: child,
                 onTap: () {
-                  final List<Level> activePlan =
-                      Provider.of<Repository>(context, listen: false)
-                          .value
-                          .getPlan(workoutType)
-                          .activeLevels;
-
-                  if (activePlan != null) {
-                    //find all completed and the first uncompleted level
-
-                    final Level currentWorkout = activePlan.removeLast();
-
-                    Navigator.of(context).push(
-                      LevelSelectionScreen.route(
-                        title: text,
-                        context: context,
-                        workouts: activePlan,
-                        currentWorkout: currentWorkout,
-                        fromColor: color,
-                        toColor: Theme.of(context).canvasColor,
-                        fromRadius: borderRadius,
-                      ),
-                    );
-                  }
+                  Navigator.of(context).push(
+                    LevelSelectionScreen.route(
+                      title: text,
+                      context: context,
+                      workoutType: workoutType,
+                      fromColor: color,
+                      toColor: Theme.of(context).canvasColor,
+                      fromRadius: borderRadius,
+                    ),
+                  );
                 },
               );
             },

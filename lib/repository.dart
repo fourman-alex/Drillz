@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:drillz/model.dart';
 import 'package:flutter/foundation.dart';
@@ -73,18 +74,28 @@ class Repository extends ValueNotifier<Model> {
     }
 
     return Model(
-      Plan(
-        pushupLevels,
-      ),
-      Plan(
-        pullupLevels,
-      ),
-      Plan(
-        situpLevels,
-      ),
-      Plan(
-        squatLevels,
-      ),
+      <WorkoutType, Plan>{
+        WorkoutType.pushups: Plan(
+          WorkoutType.pushups,
+          pushupLevels,
+          await _getIsCalibrated(WorkoutType.pushups),
+        ),
+        WorkoutType.pullups: Plan(
+          WorkoutType.pullups,
+          pullupLevels,
+          await _getIsCalibrated(WorkoutType.pullups),
+        ),
+        WorkoutType.situps: Plan(
+          WorkoutType.situps,
+          situpLevels,
+          await _getIsCalibrated(WorkoutType.situps),
+        ),
+        WorkoutType.squats: Plan(
+          WorkoutType.squats,
+          squatLevels,
+          await _getIsCalibrated(WorkoutType.squats),
+        ),
+      },
     );
   }
 
@@ -111,7 +122,26 @@ class Repository extends ValueNotifier<Model> {
     final bool res =
         await prefs.setString(key, completedDate.toIso8601String());
     debugPrint('set $completedDate on key:$key is:$res');
-    //reload
+    _reloadModel();
+  }
+
+  static const int _calibrationMultiplier = 3;
+
+  Future<void> calibratePlan(
+      WorkoutType workoutType, int calibrationValue) async {
+    final Plan plan = value.plans[workoutType];
+
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isCalibrated:$workoutType', true);
+
+    if (calibrationValue != null) {
+      final int total =
+          min(100, max(5, calibrationValue * _calibrationMultiplier));
+      final String workoutID =
+          plan.levels.lastWhere((Level level) => level.total == total).id;
+      await setWorkoutDate(Date.completed, workoutID, DateTime.now());
+    }
+
     _reloadModel();
   }
 
@@ -120,6 +150,11 @@ class Repository extends ValueNotifier<Model> {
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
     value = await _getModelFromJson(_staticJsonData);
+  }
+
+  Future<bool> _getIsCalibrated(WorkoutType workoutType) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('isCalibrated:$workoutType') ?? false;
   }
 }
 
