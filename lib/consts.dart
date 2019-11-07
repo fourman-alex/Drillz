@@ -5,3 +5,4 @@ class Consts {
   static const String contactEmail = 'fourman.alex@outlook.com';
 }
 
+const double kCalibrationMultiplier = 2.7;

@@ -108,6 +108,7 @@ class LevelSelectionScreen extends StatelessWidget {
     if (repository.value.getPlan(workoutType).notCalibrated) {
       widgets.add(
         CalibrationBanner(
+          maxValue: 100 ~/ kCalibrationMultiplier,
           onCalibrate: (int value) {
             repository.calibratePlan(workoutType, value);
           },

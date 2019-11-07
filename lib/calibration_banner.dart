@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CalibrationBanner extends StatefulWidget {
-  const CalibrationBanner(
-      {Key key,
-        @required this.onCalibrate,
-        @required this.onDismiss,
-        @required this.workoutString})
-      : super(key: key);
+  const CalibrationBanner({
+    Key key,
+    @required this.onCalibrate,
+    @required this.onDismiss,
+    @required this.workoutString,
+    @required this.maxValue,
+  }) : super(key: key);
 
   final void Function(int value) onCalibrate;
   final void Function() onDismiss;
   final String workoutString;
+  final int maxValue;
 
   @override
   _CalibrationBannerState createState() => _CalibrationBannerState();
@@ -76,6 +78,7 @@ class _CalibrationBannerState extends State<CalibrationBanner>
                         },
                       ),
                       CalibrationPage(
+                        maxValue: widget.maxValue,
                         workoutName: widget.workoutString,
                         onCalibrate: (int value) async {
                           await _animateDismiss();
@@ -118,8 +121,8 @@ class _CalibrationBannerState extends State<CalibrationBanner>
 class QuestionPage extends StatelessWidget {
   const QuestionPage(
       {@required this.onSkip,
-        @required this.onCalibrate,
-        @required this.workoutName});
+      @required this.onCalibrate,
+      @required this.workoutName});
 
   final String workoutName;
   final void Function() onSkip;
@@ -167,14 +170,16 @@ class QuestionPage extends StatelessWidget {
 }
 
 class CalibrationPage extends StatefulWidget {
-  const CalibrationPage(
-      {Key key,
-        @required this.workoutName,
-        @required this.onCalibrate,
-        @required this.onBack})
-      : super(key: key);
+  const CalibrationPage({
+    Key key,
+    @required this.workoutName,
+    @required this.onCalibrate,
+    @required this.onBack,
+    @required this.maxValue,
+  }) : super(key: key);
 
   final String workoutName;
+  final int maxValue;
   final void Function(int value) onCalibrate;
   final void Function() onBack;
 
@@ -208,7 +213,7 @@ class _CalibrationPageState extends State<CalibrationPage> {
         Slider(
           label: '10',
           min: 1,
-          max: 100,
+          max: widget.maxValue.toDouble(),
           value: sliderValue,
           onChanged: (double value) {
             setState(() {

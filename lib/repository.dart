@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:drillz/consts.dart';
 import 'package:drillz/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -125,8 +126,6 @@ class Repository extends ValueNotifier<Model> {
     _reloadModel();
   }
 
-  static const int _calibrationMultiplier = 3;
-
   Future<void> calibratePlan(
       WorkoutType workoutType, int calibrationValue) async {
     final Plan plan = value.plans[workoutType];
@@ -136,7 +135,7 @@ class Repository extends ValueNotifier<Model> {
 
     if (calibrationValue != null) {
       final int total =
-          min(100, max(5, calibrationValue * _calibrationMultiplier));
+          min(100, max(5, (calibrationValue * kCalibrationMultiplier).toInt()));
       final String workoutID =
           plan.levels.lastWhere((Level level) => level.total == total).id;
       await setWorkoutDate(Date.completed, workoutID, DateTime.now());
