@@ -80,8 +80,8 @@ class Level {
 
   final String id;
   final List<ExerciseStep> _steps;
-  final DateTime dateAttempted;
-  final DateTime dateCompleted;
+  DateTime dateAttempted;
+  DateTime dateCompleted;
 
   UnmodifiableListView<ExerciseStep> get steps =>
       UnmodifiableListView<ExerciseStep>(_steps);

@@ -119,13 +119,13 @@ class Repository extends ValueNotifier<Model> {
     String id,
     DateTime completedDate,
   ) async {
-
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String key = _key(dateType, id);
     final bool res =
         await prefs.setString(key, completedDate.toIso8601String());
     debugPrint('set $completedDate on key:$key is:$res');
-    _reloadModel();
+
+    _reloadLevel(id);
   }
 
   Future<void> calibratePlan(
@@ -141,9 +141,11 @@ class Repository extends ValueNotifier<Model> {
       final String workoutID =
           plan.levels.lastWhere((Level level) => level.total == total).id;
       await setWorkoutDate(Date.completed, workoutID, DateTime.now());
+      //not calling to any reload method because [setWorkoutDate] does that internally.
+      // this might have a better solution
+    } else {
+      _reloadModel();
     }
-
-    _reloadModel();
   }
 
   ///Updates the [value] (the model) by reloading everything but the json.
@@ -151,6 +153,19 @@ class Repository extends ValueNotifier<Model> {
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
     value = await _getModelFromJson(_staticJsonData);
+  }
+
+  Future<void> _reloadLevel(String id) async {
+    for (Plan plan in value.plans.values) {
+      final Level level = plan.levels
+          .firstWhere((Level level) => level.id == id, orElse: () => null);
+      if (level != null) {
+        level.dateCompleted = await _getWorkoutDate(Date.completed, id);
+        level.dateAttempted = await _getWorkoutDate(Date.attempted, id);
+        notifyListeners();
+        break;
+      }
+    }
   }
 
   Future<bool> _getIsCalibrated(WorkoutType workoutType) async {
