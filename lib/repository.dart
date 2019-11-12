@@ -21,7 +21,7 @@ class Repository extends ValueNotifier<Model> {
 
   static Repository _repository;
 
-  String _staticJsonData;
+  List<dynamic> _staticJsonData;
 
   ///Get the model from scratch. Will load the json and then additional shared
   ///pref data. Should only be called once per app's lifecycle.
@@ -29,17 +29,18 @@ class Repository extends ValueNotifier<Model> {
   ///See also:
   /// * [_getModelFromJson] to load everything but the json
   Future<Model> _getModelFromContext(BuildContext context) async {
-    _staticJsonData =
+    final String jsonString =
         await DefaultAssetBundle.of(context).loadString('assets/plan.json');
+    _staticJsonData = jsonDecode(jsonString);
+
     return _getModelFromJson(_staticJsonData);
   }
 
-  Future<Model> _getModelFromJson(String jsonData) async {
+  Future<Model> _getModelFromJson(List<dynamic> json) async {
     final List<Level> pushupLevels = <Level>[];
     final List<Level> pullupLevels = <Level>[];
     final List<Level> squatLevels = <Level>[];
     final List<Level> situpLevels = <Level>[];
-    final List<dynamic> json = jsonDecode(jsonData);
     for (int i = 0; i < json.length; i++) {
       final Map<String, dynamic> rawLevel = json[i];
       final List<dynamic> rawSteps = rawLevel['steps'];
@@ -118,6 +119,7 @@ class Repository extends ValueNotifier<Model> {
     String id,
     DateTime completedDate,
   ) async {
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String key = _key(dateType, id);
     final bool res =
