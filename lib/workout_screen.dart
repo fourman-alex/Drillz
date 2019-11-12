@@ -25,7 +25,7 @@ class WorkoutScreen extends StatefulWidget {
     Color fromColor,
   }) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 150),
+      transitionDuration: const Duration(milliseconds: 350),
       pageBuilder: (_, Animation<double> animation, __) {
         return Theme(
           data: theme,
