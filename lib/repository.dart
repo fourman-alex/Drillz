@@ -101,9 +101,9 @@ class Repository extends ValueNotifier<Model> {
     );
   }
 
-  static String _key(Date dateType, String id) => dateType.toString() + id;
+  String _key(Date dateType, String id) => dateType.toString() + id;
 
-  static Future<DateTime> _getWorkoutDate(Date dateType, String id) async {
+  Future<DateTime> _getWorkoutDate(Date dateType, String id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String dateTimeString = prefs.getString(_key(dateType, id));
     if (dateTimeString != null) {
@@ -144,8 +144,19 @@ class Repository extends ValueNotifier<Model> {
       //not calling to any reload method because [setWorkoutDate] does that internally.
       // this might have a better solution
     } else {
-      _reloadModel();
+      await _reloadModel();
     }
+  }
+
+  Future<void> resetWorkoutType(WorkoutType workoutType) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final Plan plan = value.getPlan(workoutType);
+    for (Level level in plan.levels){
+      await prefs.remove(_key(Date.completed, level.id));
+      await prefs.remove(_key(Date.attempted, level.id));
+    }
+    await prefs.remove('isCalibrated:$workoutType');
+    await _reloadModel();
   }
 
   ///Updates the [value] (the model) by reloading everything but the json.

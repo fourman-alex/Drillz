@@ -40,6 +40,10 @@ class WorkoutSelectionScreen extends StatelessWidget {
               ),
             ),
             ListTile(
+              title: const Text('Reset'),
+              onTap: () => _showResetDialog(context),
+            ),
+            ListTile(
               title: const Text('Rate'),
               onTap: () async {
                 if (Platform.isIOS &&
@@ -179,12 +183,16 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(WorkoutType.pushups).toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(
+                                            WorkoutType.pushups)
+                                        .toUpperCase(),
                                     color: Colors.green,
                                     workoutType: WorkoutType.pushups,
                                   ),
                                   _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(WorkoutType.pullups).toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(
+                                            WorkoutType.pullups)
+                                        .toUpperCase(),
                                     color: Colors.deepOrange,
                                     workoutType: WorkoutType.pullups,
                                   ),
@@ -196,12 +204,16 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               child: Row(
                                 children: <Widget>[
                                   _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(WorkoutType.situps).toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(
+                                            WorkoutType.situps)
+                                        .toUpperCase(),
                                     color: Colors.pink,
                                     workoutType: WorkoutType.situps,
                                   ),
                                   _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(WorkoutType.squats).toUpperCase(),
+                                    text: Plan.getWorkoutTypeString(
+                                            WorkoutType.squats)
+                                        .toUpperCase(),
                                     color: Colors.indigo,
                                     workoutType: WorkoutType.squats,
                                   ),
@@ -231,6 +243,41 @@ class WorkoutSelectionScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _showResetDialog(BuildContext context) async {
+    final Repository repository =
+        Provider.of<Repository>(context, listen: false);
+    final WorkoutType workoutType = await showDialog<WorkoutType>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Reset Workout'),
+          children: <Widget>[
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(WorkoutType.situps),
+              child: const Text('Situps'),
+            ),
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(WorkoutType.pullups),
+              child: const Text('Pullups'),
+            ),
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(WorkoutType.pushups),
+              child: const Text('Pushups'),
+            ),
+            SimpleDialogOption(
+              onPressed: () => Navigator.of(context).pop(WorkoutType.squats),
+              child: const Text('Squats'),
+            ),
+          ],
+        );
+      },
+    );
+    if (workoutType != null) {
+      await repository.resetWorkoutType(workoutType);
+      Navigator.of(context).pop();
+    }
   }
 }
 
