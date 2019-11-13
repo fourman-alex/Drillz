@@ -148,14 +148,19 @@ class Repository extends ValueNotifier<Model> {
     }
   }
 
-  Future<void> resetWorkoutType(WorkoutType workoutType) async {
+  Future<void> resetWorkoutType(List<WorkoutType> workoutTypeList) async {
+    if(workoutTypeList == null || workoutTypeList.isEmpty)
+      return;
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final Plan plan = value.getPlan(workoutType);
-    for (Level level in plan.levels){
-      await prefs.remove(_key(Date.completed, level.id));
-      await prefs.remove(_key(Date.attempted, level.id));
+    for (WorkoutType workoutType in workoutTypeList){
+      final Plan plan = value.getPlan(workoutType);
+      for (Level level in plan.levels){
+        await prefs.remove(_key(Date.completed, level.id));
+        await prefs.remove(_key(Date.attempted, level.id));
+      }
+      await prefs.remove('isCalibrated:$workoutType');
     }
-    await prefs.remove('isCalibrated:$workoutType');
     await _reloadModel();
   }
 

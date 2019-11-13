@@ -5,6 +5,7 @@ import 'package:drillz/consts.dart';
 import 'package:drillz/level_selection_screen.dart';
 import 'package:drillz/model.dart';
 import 'package:drillz/repository.dart';
+import 'package:drillz/reset_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -248,34 +249,15 @@ class WorkoutSelectionScreen extends StatelessWidget {
   Future<void> _showResetDialog(BuildContext context) async {
     final Repository repository =
         Provider.of<Repository>(context, listen: false);
-    final WorkoutType workoutType = await showDialog<WorkoutType>(
+    final List<WorkoutType> workoutTypeList =
+        await showDialog<List<WorkoutType>>(
       context: context,
       builder: (BuildContext context) {
-        return SimpleDialog(
-          title: const Text('Reset Workout'),
-          children: <Widget>[
-            SimpleDialogOption(
-              onPressed: () => Navigator.of(context).pop(WorkoutType.situps),
-              child: const Text('Situps'),
-            ),
-            SimpleDialogOption(
-              onPressed: () => Navigator.of(context).pop(WorkoutType.pullups),
-              child: const Text('Pullups'),
-            ),
-            SimpleDialogOption(
-              onPressed: () => Navigator.of(context).pop(WorkoutType.pushups),
-              child: const Text('Pushups'),
-            ),
-            SimpleDialogOption(
-              onPressed: () => Navigator.of(context).pop(WorkoutType.squats),
-              child: const Text('Squats'),
-            ),
-          ],
-        );
+        return ResetDialog();
       },
     );
-    if (workoutType != null) {
-      await repository.resetWorkoutType(workoutType);
+    if (workoutTypeList != null) {
+      await repository.resetWorkoutType(workoutTypeList);
       Navigator.of(context).pop();
     }
   }
