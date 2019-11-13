@@ -30,7 +30,8 @@ class Plan {
 
   final WorkoutType workoutType;
   final List<Level> levels;
-  final bool isCalibrated;
+
+  bool isCalibrated;
 
   bool get notCalibrated => !isCalibrated;
 

@@ -135,6 +135,8 @@ class Repository extends ValueNotifier<Model> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isCalibrated:$workoutType', true);
 
+    plan.isCalibrated = await _getIsCalibrated(workoutType);
+
     if (calibrationValue != null) {
       final int total =
           min(100, max(5, (calibrationValue * kCalibrationMultiplier).toInt()));
