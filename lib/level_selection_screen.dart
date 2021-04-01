@@ -31,8 +31,8 @@ class LevelSelectionScreen extends StatelessWidget {
     @required WorkoutType workoutType,
     @required MaterialColor fromColor,
     @required Color toColor,
-    BorderRadius fromRadius,
-    BorderRadius toRadius,
+    @required BorderRadius fromRadius,
+    @required BorderRadius toRadius,
   }) {
     final RenderBox box = context.findRenderObject();
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
@@ -98,7 +98,7 @@ class LevelSelectionScreen extends StatelessWidget {
       }
       widgets.add(LevelPage(
         level: activeLevels.last,
-        textColor: theme.textTheme.body1.color,
+        textColor: theme.textTheme.bodyText1.color/*!*/,
         cardColor: theme.primaryColor,
       ));
     }
@@ -216,7 +216,6 @@ class LevelPage extends StatelessWidget {
                         sourceRect: sourceRect,
                         fromBorderRadius: _borderRadius,
                         theme: Theme.of(context),
-                        fromColor: cardColor,
                       ),
                     );
                   },

@@ -73,9 +73,9 @@ final _PopAnimationObserver popAnimationObserver = _PopAnimationObserver();
 ///
 ///This is used to disable rapid back press during the somewhat slow pop animation
 class _PopAnimationObserver extends NavigatorObserver {
-  bool _isAnimating;
+  bool _isAnimating = false;
 
-  bool get isAnimating => _isAnimating ?? false;
+  bool get isAnimating => _isAnimating;
 
   @override
   void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {

@@ -22,7 +22,6 @@ class WorkoutScreen extends StatefulWidget {
     @required Rect sourceRect,
     @required BorderRadius fromBorderRadius,
     @required ThemeData theme,
-    Color fromColor,
   }) {
     return PageRouteBuilder<void>(
       transitionDuration: const Duration(milliseconds: 350),
@@ -49,7 +48,7 @@ class WorkoutScreen extends StatefulWidget {
 // TODO(alex): change to stateless. the notifier can go to a provider on top of this widget
 class _WorkoutScreenState extends State<WorkoutScreen>
     with TickerProviderStateMixin<WorkoutScreen> {
-  final ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier<int>(null);
+  final ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
@@ -149,7 +148,7 @@ class StepSwitcher extends StatelessWidget {
         Provider.of<ValueNotifier<int>>(context);
     final ExerciseStep currentStep =
         level.steps[currentStepIndexNotifier.value];
-    Widget center;
+    /*late*/ Widget center;
     if (currentStep is StartStep) {
       center = StartTile(
         onPressed: () => currentStepIndexNotifier.value++,

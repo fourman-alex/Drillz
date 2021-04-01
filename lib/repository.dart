@@ -9,17 +9,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Repository extends ValueNotifier<Model> {
   factory Repository(BuildContext context) {
-    _repository ??= Repository._internal(context);
-    return _repository;
+    return _repository ??= Repository._internal(context);
   }
 
-  Repository._internal(BuildContext context) : super(null) {
-    _getModelFromContext(context).then((Model model) {
+  Repository._internal(BuildContext context) : super(Model.empty()) {
+    _getModelFromContext(context).then((model) {
       value = model;
     });
   }
 
-  static Repository _repository;
+  static /*late*/ Repository _repository;
 
   List<dynamic> _staticJsonData;
 
@@ -151,13 +150,12 @@ class Repository extends ValueNotifier<Model> {
   }
 
   Future<void> resetWorkoutType(List<WorkoutType> workoutTypeList) async {
-    if(workoutTypeList == null || workoutTypeList.isEmpty)
-      return;
+    if (workoutTypeList == null || workoutTypeList.isEmpty) return;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    for (WorkoutType workoutType in workoutTypeList){
+    for (WorkoutType workoutType in workoutTypeList) {
       final Plan plan = value.getPlan(workoutType);
-      for (Level level in plan.levels){
+      for (Level level in plan.levels) {
         await prefs.remove(_key(Date.completed, level.id));
         await prefs.remove(_key(Date.attempted, level.id));
       }

@@ -182,6 +182,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
                           children: <Widget>[
                             Flexible(
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _WorkoutButton(
                                     text: Plan.getWorkoutTypeString(
@@ -198,11 +199,11 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                     workoutType: WorkoutType.pullups,
                                   ),
                                 ],
-                                mainAxisAlignment: MainAxisAlignment.center,
                               ),
                             ),
                             Flexible(
                               child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   _WorkoutButton(
                                     text: Plan.getWorkoutTypeString(
@@ -219,7 +220,6 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                     workoutType: WorkoutType.squats,
                                   ),
                                 ],
-                                mainAxisAlignment: MainAxisAlignment.center,
                               ),
                             ),
                           ],
@@ -266,15 +266,14 @@ class WorkoutSelectionScreen extends StatelessWidget {
 class _WorkoutButton extends StatelessWidget {
   const _WorkoutButton({
     Key key,
-    this.text,
-    this.workoutType,
-    this.color,
+    @required this.text,
+    @required this.workoutType,
+    @required this.color,
   }) : super(key: key);
 
   final String text;
-
   final WorkoutType workoutType;
-  final Color color;
+  final MaterialColor color;
 
   @override
   Widget build(BuildContext context) {

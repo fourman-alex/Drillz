@@ -14,7 +14,8 @@ enum WorkoutType {
 }
 
 class Model {
-  Model(this.plans);
+  const Model(this.plans);
+  factory Model.empty() => const Model({});
 
   final Map<WorkoutType, Plan> plans;
 
@@ -45,7 +46,7 @@ class Plan {
   }
 
   static String getWorkoutTypeString(WorkoutType workoutType) {
-    String result;
+    /*late*/ String result;
     switch (workoutType) {
       case WorkoutType.pullups:
         result = _pullupsString;
@@ -79,7 +80,7 @@ class Level {
     }
   }
 
-  final String id;
+  final String /*!*/ id;
   final List<ExerciseStep> _steps;
   DateTime dateAttempted;
   DateTime dateCompleted;
@@ -105,7 +106,7 @@ class WorkStep extends ExerciseStep {
     }
   }
 
-  final int reps;
+  final int /*!*/ reps;
 
   @override
   String toString() {
@@ -121,7 +122,7 @@ class RestStep extends ExerciseStep {
   }
 
   /// Rest [duration] in seconds
-  final int duration;
+  final int /*!*/ duration;
 
   @override
   String toString() {

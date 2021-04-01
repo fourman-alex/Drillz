@@ -8,9 +8,9 @@ class FillTransition extends StatelessWidget {
     @required this.child,
     @required Color fromColor,
     @required Color toColor,
-    BorderRadius fromBorderRadius,
+    @required BorderRadius fromBorderRadius,
     // TODO(alex): toBorderRadius should default to a square
-    BorderRadius toBorderRadius,
+    @required BorderRadius toBorderRadius,
   })  : colorTween = ColorTween(begin: fromColor, end: toColor),
         _borderRadiusTween = BorderRadiusTween(
           begin: fromBorderRadius,
@@ -27,7 +27,7 @@ class FillTransition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> animation = ModalRoute.of(context).animation;
+    final Animation<double>/*!*/ animation = ModalRoute.of(context).animation;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final Animation<double> positionAnimation = CurvedAnimation(

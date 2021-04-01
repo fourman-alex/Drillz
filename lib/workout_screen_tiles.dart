@@ -112,9 +112,9 @@ class RestTile extends StatefulWidget {
 class _RestTileState extends State<RestTile>
     with AutomaticKeepAliveClientMixin<RestTile> {
   double _progressBarHeight = 0;
-  int _timerString;
+  /*late*/ int _timerString;
 
-  Timer _timer;
+  /*late*/ Timer _timer;
 
   @override
   void initState() {
