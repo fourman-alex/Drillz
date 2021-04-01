@@ -9,7 +9,6 @@ import 'package:drillz/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:tinycolor/tinycolor.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({
@@ -79,9 +78,8 @@ class LevelSelectionScreen extends StatelessWidget {
     List<Widget> widgets = <Widget>[];
     final ThemeData theme = Theme.of(context);
     final Color textColorOfCompleted =
-        TinyColor(theme.textTheme.body1.color).darken(40).color;
-    final Color cardColorOfCompleted =
-        TinyColor(theme.primaryColor).darken(20).color;
+        _darken(theme.textTheme.bodyText2.color, 0.4);
+    final Color cardColorOfCompleted = _darken(theme.primaryColor, 0.2);
 
     final Repository repository = Provider.of<Repository>(context);
     final List<Level> activeLevels =
@@ -141,6 +139,15 @@ class LevelSelectionScreen extends StatelessWidget {
       ),
       onDismiss: () => Navigator.of(context).pop(),
     );
+  }
+
+  Color _darken(Color color, [double amount = .1]) {
+    assert(amount >= 0 && amount <= 1, 'amount must be between 0 and 1');
+
+    final hsl = HSLColor.fromColor(color);
+    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
+
+    return hslDark.toColor();
   }
 }
 
