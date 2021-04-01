@@ -80,7 +80,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   Widget build(BuildContext context) {
     return Material(
       child: MultiProvider(
-        providers: <SingleChildCloneableWidget>[
+        providers: [
           ListenableProvider<ValueNotifier<int>>.value(
             value: _currentStepIndexNotifier,
           ),

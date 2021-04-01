@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
     );
 
     return ChangeNotifierProvider<Repository>(
-      builder: (BuildContext context) => Repository(context),
+      create: (context) => Repository(context),
       child: MaterialApp(
         theme: theme,
         home: WorkoutSelectionScreen(),
