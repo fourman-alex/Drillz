@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 
 class ProgressButton extends StatefulWidget {
   const ProgressButton({
-    Key? key,
-    this.child,
     required this.size,
-    this.duration = const Duration(seconds: 1),
     required this.onPressCompleted,
     required this.color,
     required this.startColor,
     required this.endColor,
+    Key? key,
+    this.child,
+    this.duration = const Duration(seconds: 1),
   }) : super(key: key);
 
   final Duration duration;
@@ -33,7 +33,7 @@ class _ProgressButtonState extends State<ProgressButton>
   void initState() {
     _animationController =
         AnimationController(vsync: this, duration: widget.duration);
-    _animationController.addStatusListener((AnimationStatus status) {
+    _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onPressCompleted();
       }
@@ -62,13 +62,13 @@ class _ProgressButtonState extends State<ProgressButton>
 
 class _InnerProgressButton extends AnimatedWidget {
   const _InnerProgressButton({
-    Key? key,
     required this.size,
     required this.animationController,
     required this.color,
     required this.startColor,
     required this.endColor,
     required this.child,
+    Key? key,
   })  : strokeWidth = size / 10,
         super(key: key, listenable: animationController);
 
@@ -84,11 +84,11 @@ class _InnerProgressButton extends AnimatedWidget {
   Widget build(BuildContext context) {
     return Listener(
       behavior: HitTestBehavior.opaque,
-      onPointerCancel: (PointerCancelEvent details) {
+      onPointerCancel: (details) {
         debugPrint('onPointerCancel');
         animationController.reset();
       },
-      onPointerMove: (PointerMoveEvent details) {
+      onPointerMove: (details) {
         //check if the pointer is outside of the button boundaries
         // this does ignore it being circular
         final RenderBox box = context.findRenderObject() as RenderBox;
@@ -99,16 +99,17 @@ class _InnerProgressButton extends AnimatedWidget {
           animationController.reset();
         }
       },
-      onPointerDown: (PointerDownEvent details) {
+      onPointerDown: (details) {
         debugPrint(details.toString());
         animationController.forward();
       },
-      onPointerUp: (PointerUpEvent details) {
+      onPointerUp: (details) {
         debugPrint(details.toString());
-        if (animationController.status == AnimationStatus.completed)
+        if (animationController.status == AnimationStatus.completed) {
           debugPrint('animation completed at tap up');
-        else
+        } else {
           animationController.reset();
+        }
       },
       child: SizedBox(
         height: size,

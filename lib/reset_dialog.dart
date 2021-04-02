@@ -1,7 +1,10 @@
-import 'package:drillz/model.dart';
 import 'package:flutter/material.dart';
 
+import 'model.dart';
+
 class ResetDialog extends StatefulWidget {
+  const ResetDialog({Key? key}) : super(key: key);
+
   @override
   _ResetDialogState createState() => _ResetDialogState();
 }
@@ -27,7 +30,7 @@ class _ResetDialogState extends State<ResetDialog> {
               const Text('Pushups'),
               Switch(
                   value: _pushupsSwitch,
-                  onChanged: (bool value) {
+                  onChanged: (value) {
                     setState(() {
                       _pushupsSwitch = value;
                     });
@@ -43,7 +46,7 @@ class _ResetDialogState extends State<ResetDialog> {
               const Text('Pullups'),
               Switch(
                   value: _pullupsSwitch,
-                  onChanged: (bool value) {
+                  onChanged: (value) {
                     setState(() {
                       _pullupsSwitch = value;
                     });
@@ -59,7 +62,7 @@ class _ResetDialogState extends State<ResetDialog> {
               const Text('Situps'),
               Switch(
                   value: _situpsSwitch,
-                  onChanged: (bool value) {
+                  onChanged: (value) {
                     setState(() {
                       _situpsSwitch = value;
                     });
@@ -75,7 +78,7 @@ class _ResetDialogState extends State<ResetDialog> {
               const Text('Squats'),
               Switch(
                   value: _squatsSwitch,
-                  onChanged: (bool value) {
+                  onChanged: (value) {
                     setState(() {
                       _squatsSwitch = value;
                     });
@@ -84,8 +87,9 @@ class _ResetDialogState extends State<ResetDialog> {
           ),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            FlatButton(
+            TextButton(
               onPressed: () {
                 final List<WorkoutType> res = <WorkoutType>[
                   if (_situpsSwitch) WorkoutType.situps,
@@ -97,14 +101,13 @@ class _ResetDialogState extends State<ResetDialog> {
               },
               child: const Text('RESET'),
             ),
-            FlatButton(
+            TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: const Text('CANCEL'),
             )
           ],
-          mainAxisAlignment: MainAxisAlignment.end,
         )
       ],
     );

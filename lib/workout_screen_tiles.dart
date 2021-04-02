@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:drillz/audio.dart';
-import 'package:drillz/consts.dart';
 import 'package:flutter/material.dart';
 
+import 'audio.dart';
+import 'consts.dart';
+
 class StartTile extends StatelessWidget {
-  const StartTile({required VoidCallback onPressed}) : _onPressed = onPressed;
+  const StartTile({required VoidCallback onPressed, Key? key})
+      : _onPressed = onPressed,
+        super(key: key);
 
   final VoidCallback _onPressed;
 
@@ -22,7 +25,7 @@ class StartTile extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .display4!
+              .headline1!
               .copyWith(fontFamily: Consts.righteousFont),
         ),
       ),
@@ -31,13 +34,14 @@ class StartTile extends StatelessWidget {
 }
 
 class FinishTile extends StatelessWidget {
+  const FinishTile({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
-        final NavigatorState navigator = Navigator.of(context);
-        navigator.popUntil(ModalRoute.withName('/'));
+        Navigator.of(context).popUntil(ModalRoute.withName('/'));
       },
       child: Container(
         alignment: Alignment.center,
@@ -46,7 +50,7 @@ class FinishTile extends StatelessWidget {
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
-              .display4!
+              .headline1!
               .copyWith(fontFamily: Consts.righteousFont),
         ),
       ),
@@ -55,9 +59,10 @@ class FinishTile extends StatelessWidget {
 }
 
 class WorkTile extends StatelessWidget {
-  const WorkTile({required int reps, required VoidCallback onPressed})
+  const WorkTile({required int reps, required VoidCallback onPressed, Key? key})
       : _onPressed = onPressed,
-        _amount = reps;
+        _amount = reps,
+        super(key: key);
 
   final int _amount;
   final VoidCallback _onPressed;
@@ -75,7 +80,7 @@ class WorkTile extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Text(
                 'PERFORM',
-                style: Theme.of(context).textTheme.display1!.copyWith(
+                style: Theme.of(context).textTheme.headline4!.copyWith(
                       fontFamily: Consts.righteousFont,
                     ),
               ),
@@ -84,9 +89,9 @@ class WorkTile extends StatelessWidget {
           Center(
             child: Text(
               '$_amount',
-              style: Theme.of(context).textTheme.display4!.copyWith(
-                fontFamily: Consts.righteousFont,
-              ),
+              style: Theme.of(context).textTheme.headline1!.copyWith(
+                    fontFamily: Consts.righteousFont,
+                  ),
               textAlign: TextAlign.center,
             ),
           ),
@@ -97,9 +102,11 @@ class WorkTile extends StatelessWidget {
 }
 
 class RestTile extends StatefulWidget {
-  const RestTile(
-      {Key? key, required this.duration, required VoidCallback onDone})
-      : _onDone = onDone,
+  const RestTile({
+    required this.duration,
+    required VoidCallback onDone,
+    Key? key,
+  })  : _onDone = onDone,
         super(key: key);
 
   final int duration;
@@ -122,8 +129,7 @@ class _RestTileState extends State<RestTile>
     _timerString = widget.duration;
     //start timer when created
     final int duration = _timerString;
-    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
-      print(timer.tick);
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timer.tick > duration) {
         audioPlayer.play(Consts.bellsAudio);
         timer.cancel();
@@ -146,7 +152,7 @@ class _RestTileState extends State<RestTile>
           alignment: Alignment.topCenter,
           child: AnimatedContainer(
             curve: Curves.elasticOut,
-            duration: Duration(milliseconds: 750),
+            duration: const Duration(milliseconds: 750),
             color: Theme.of(context).primaryColorDark,
             height: _progressBarHeight,
           ),
@@ -157,19 +163,18 @@ class _RestTileState extends State<RestTile>
             alignment: Alignment.topCenter,
             child: Text(
               'REST',
-              style: Theme.of(context).textTheme.display1!.copyWith(
+              style: Theme.of(context).textTheme.headline4!.copyWith(
                     fontFamily: Consts.righteousFont,
                   ),
             ),
           ),
         ),
         Align(
-          alignment: Alignment.center,
           child: Text(
-            '${_timerString.toString()}',
+            _timerString.toString(),
             style: Theme.of(context)
                 .textTheme
-                .display4!
+                .headline1!
                 .copyWith(fontFamily: Consts.righteousFont),
             textAlign: TextAlign.center,
           ),

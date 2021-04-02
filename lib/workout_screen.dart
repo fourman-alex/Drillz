@@ -1,16 +1,20 @@
 import 'dart:collection';
 
-import 'package:drillz/consts.dart';
-import 'package:drillz/model.dart';
-import 'package:drillz/progress_button.dart';
-import 'package:drillz/repository.dart';
-import 'package:drillz/workout_screen_tiles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
+import 'consts.dart';
+import 'model.dart';
+import 'progress_button.dart';
+import 'repository.dart';
+import 'workout_screen_tiles.dart';
+
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key? key, required this.level}) : super(key: key);
+  const WorkoutScreen({
+    required this.level,
+    Key? key,
+  }) : super(key: key);
 
   final Level level;
 
@@ -25,7 +29,7 @@ class WorkoutScreen extends StatefulWidget {
   }) {
     return PageRouteBuilder<void>(
       transitionDuration: const Duration(milliseconds: 350),
-      pageBuilder: (_, Animation<double> animation, __) {
+      pageBuilder: (_, animation, __) {
         return Theme(
           data: theme,
           child: SlideTransition(
@@ -45,15 +49,17 @@ class WorkoutScreen extends StatefulWidget {
   }
 }
 
-// TODO(alex): change to stateless. the notifier can go to a provider on top of this widget
+// TODO(alex): change to stateless. the notifier can go to a provider on top of
+//  this widget
 class _WorkoutScreenState extends State<WorkoutScreen>
     with TickerProviderStateMixin<WorkoutScreen> {
   final ValueNotifier<int> _currentStepIndexNotifier = ValueNotifier<int>(0);
 
   @override
   void initState() {
-    _currentStepIndexNotifier.addListener(_handleCurrentStepChanged);
-    _currentStepIndexNotifier.value = 0;
+    _currentStepIndexNotifier
+      ..addListener(_handleCurrentStepChanged)
+      ..value = 0;
     //keep screen on while in this screen
     Wakelock.enable();
     super.initState();
@@ -70,8 +76,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
   @override
   void didUpdateWidget(WorkoutScreen oldWidget) {
     //reset the index if the level changed
-    if (widget != oldWidget && widget.level != oldWidget.level)
+    if (widget != oldWidget && widget.level != oldWidget.level) {
       _currentStepIndexNotifier.value = 0;
+    }
     super.didUpdateWidget(oldWidget);
   }
 
@@ -87,7 +94,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
         ],
         child: Stack(
           children: <Widget>[
-            Positioned.fill(
+            const Positioned.fill(
               child: StepSwitcher(),
             ),
             Align(
@@ -96,7 +103,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
                 padding: const EdgeInsets.all(4),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 80),
-                  child: WorkoutStepsBar(),
+                  child: const WorkoutStepsBar(),
                 ),
               ),
             ),
@@ -106,11 +113,11 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               end: 16.0,
               child: ProgressButton(
                 size: 56,
-                child: Icon(Icons.close),
                 startColor: Theme.of(context).primaryColor,
                 endColor: Theme.of(context).accentColor,
                 onPressCompleted: () => Navigator.of(context).pop(),
                 color: Theme.of(context).primaryColor,
+                child: const Icon(Icons.close),
               ),
             ),
           ],
@@ -141,6 +148,8 @@ class _WorkoutScreenState extends State<WorkoutScreen>
 }
 
 class StepSwitcher extends StatelessWidget {
+  const StepSwitcher({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final Level level = Provider.of<Level>(context, listen: false);
@@ -154,7 +163,7 @@ class StepSwitcher extends StatelessWidget {
         onPressed: () => currentStepIndexNotifier.value++,
       );
     } else if (currentStep is FinishStep) {
-      center = FinishTile();
+      center = const FinishTile();
     } else if (currentStep is RestStep) {
       center = RestTile(
         key: ValueKey<int>(currentStepIndexNotifier.value),
@@ -168,17 +177,16 @@ class StepSwitcher extends StatelessWidget {
       );
     }
 
-    assert(center != null,
-        "center has to be a Tile of some kind, it can't be null");
-
     return AnimatedSwitcher(
-      child: center,
       duration: const Duration(milliseconds: 250),
+      child: center,
     );
   }
 }
 
 class WorkoutStepsBar extends StatelessWidget {
+  const WorkoutStepsBar({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> workoutStepsWidgets = <Widget>[];
@@ -192,7 +200,7 @@ class WorkoutStepsBar extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1.3 / 1,
             child: Consumer<ValueNotifier<int>>(
-              builder: (_, ValueNotifier<int> currentStepNotifier, __) {
+              builder: (_, currentStepNotifier, __) {
                 return GestureDetector(
                   onTap: () {
                     currentStepNotifier.value = i;
@@ -211,7 +219,7 @@ class WorkoutStepsBar extends StatelessWidget {
                       child: Text(
                         workoutSteps[i].toString(),
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.body1!.copyWith(
+                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
                               color: currentStepNotifier.value == i
                                   ? Colors.white
                                   : Colors.white54,
@@ -227,18 +235,18 @@ class WorkoutStepsBar extends StatelessWidget {
           ),
         ),
       );
-      if (i + 1 < workoutSteps.length)
+      if (i + 1 < workoutSteps.length) {
         workoutStepsWidgets.add(
           const Flexible(
             child: VerticalDivider(width: 1),
           ),
         );
+      }
     }
 
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: workoutStepsWidgets,
       ),
     );

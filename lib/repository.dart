@@ -2,11 +2,12 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:drillz/consts.dart';
-import 'package:drillz/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'consts.dart';
+import 'model.dart';
 
 class Repository extends ValueNotifier<Model> {
   factory Repository(BuildContext context) {
@@ -44,8 +45,7 @@ class Repository extends ValueNotifier<Model> {
     for (int i = 0; i < json.length; i++) {
       final Map<String, dynamic> rawLevel = json[i];
       final List<dynamic> rawSteps = rawLevel['steps'];
-      final List<ExerciseStep> steps = <ExerciseStep>[];
-      steps.add(const StartStep());
+      final List<ExerciseStep> steps = <ExerciseStep>[const StartStep()];
       for (final Map<String, dynamic> rawStep in rawSteps) {
         if (rawStep['type'] == 'work') {
           steps.add(WorkStep(rawStep['reps']));
@@ -141,9 +141,10 @@ class Repository extends ValueNotifier<Model> {
       final int total =
           min(100, max(5, (calibrationValue * kCalibrationMultiplier).toInt()));
       final String workoutID =
-          plan.levels.lastWhere((Level level) => level.total == total).id;
+          plan.levels.lastWhere((level) => level.total == total).id;
       await setWorkoutDate(Date.completed, workoutID, DateTime.now());
-      //not calling to any reload method because [setWorkoutDate] does that internally.
+      //not calling to any reload method because [setWorkoutDate] does that
+      // internally.
       // this might have a better solution
     } else {
       await _reloadModel();
@@ -151,12 +152,14 @@ class Repository extends ValueNotifier<Model> {
   }
 
   Future<void> resetWorkoutType(List<WorkoutType> workoutTypeList) async {
-    if (workoutTypeList == null || workoutTypeList.isEmpty) return;
+    if (workoutTypeList.isEmpty) {
+      return;
+    }
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    for (WorkoutType workoutType in workoutTypeList) {
+    for (final WorkoutType workoutType in workoutTypeList) {
       final Plan plan = value.getPlan(workoutType)!;
-      for (Level level in plan.levels) {
+      for (final Level level in plan.levels) {
         await prefs.remove(_key(Date.completed, level.id));
         await prefs.remove(_key(Date.attempted, level.id));
       }
@@ -173,12 +176,13 @@ class Repository extends ValueNotifier<Model> {
   }
 
   Future<void> _reloadLevel(String id) async {
-    for (Plan plan in value.plans.values) {
-      final Level? level = plan.levels
-          .firstWhereOrNull((Level level) => level.id == id);
+    for (final Plan plan in value.plans.values) {
+      final Level? level =
+          plan.levels.firstWhereOrNull((level) => level.id == id);
       if (level != null) {
-        level.dateCompleted = await _getWorkoutDate(Date.completed, id);
-        level.dateAttempted = await _getWorkoutDate(Date.attempted, id);
+        level
+          ..dateCompleted = await _getWorkoutDate(Date.completed, id)
+          ..dateAttempted = await _getWorkoutDate(Date.attempted, id);
         notifyListeners();
         break;
       }

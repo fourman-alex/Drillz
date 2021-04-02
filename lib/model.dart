@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+
 const String _pushupsString = 'pushups';
 const String _pullupsString = 'pullups';
 const String _situpsString = 'situps';
@@ -37,7 +39,7 @@ class Plan {
   bool get notCalibrated => !isCalibrated;
 
   List<Level> get activeLevels {
-    final int lastCompletedIndex = levels.lastIndexWhere((Level workout) {
+    final int lastCompletedIndex = levels.lastIndexWhere((workout) {
       return workout.dateCompleted != null;
     });
     return levels
@@ -91,7 +93,7 @@ class Level {
   int get total {
     return steps
         .whereType<WorkStep>()
-        .fold(0, (int value, WorkStep step) => value + step.reps);
+        .fold(0, (value, step) => value + step.reps);
   }
 }
 
@@ -126,10 +128,11 @@ class RestStep extends ExerciseStep {
 
   @override
   String toString() {
-    return duration.toString() + 's';
+    return '${duration}s';
   }
 }
 
+@immutable
 class StartStep extends ExerciseStep {
   const StartStep();
 
@@ -137,12 +140,13 @@ class StartStep extends ExerciseStep {
   String toString() => 'Go';
 
   @override
-  bool operator ==(dynamic other) => other is StartStep;
+  bool operator ==(Object other) => other is StartStep;
 
   @override
   int get hashCode => toString().hashCode;
 }
 
+@immutable
 class FinishStep extends ExerciseStep {
   const FinishStep();
 
@@ -150,7 +154,7 @@ class FinishStep extends ExerciseStep {
   String toString() => '\u{1F3C1}';
 
   @override
-  bool operator ==(dynamic other) => other is FinishStep;
+  bool operator ==(Object other) => other is FinishStep;
 
   @override
   int get hashCode => toString().hashCode;

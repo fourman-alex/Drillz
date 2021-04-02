@@ -2,19 +2,26 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:drillz/consts.dart';
-import 'package:drillz/level_selection_screen.dart';
-import 'package:drillz/model.dart';
-import 'package:drillz/repository.dart';
-import 'package:drillz/reset_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'consts.dart';
+import 'level_selection_screen.dart';
+import 'model.dart';
+import 'repository.dart';
+import 'reset_dialog.dart';
+
 const String _disclaimerText =
-    'The information in this app is for general information purposes only. \nWhile a lot of thought and research has been put into the information provided, it does not substitue for personal professional advice.\n\nAny reliance you place on the information in this app is therefore strictly at your own risk.';
+    'The information in this app is for general information purposes only. '
+    '\nWhile a lot of thought and research has been put into the information '
+    'provided, it does not substitue for personal professional advice.\n\nAny '
+    'reliance you place on the information in this app is therefore strictly '
+    'at your own risk.';
 
 class WorkoutSelectionScreen extends StatelessWidget {
+  const WorkoutSelectionScreen({Key? key}) : super(key: key);
+
   static const MethodChannel _platform = MethodChannel('drillz.com/rate');
 
   @override
@@ -31,12 +38,12 @@ class WorkoutSelectionScreen extends StatelessWidget {
                     'Drillz',
                     style: Theme.of(context)
                         .textTheme
-                        .display2!
+                        .headline3!
                         .copyWith(fontFamily: Consts.righteousFont),
                   ),
                   Text(
                     '100 challenge',
-                    style: Theme.of(context).textTheme.display1,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ],
               ),
@@ -52,8 +59,9 @@ class WorkoutSelectionScreen extends StatelessWidget {
                     await (_platform.invokeMethod('canRequestReview')
                         as FutureOr<bool>)) {
                   _platform.invokeMethod<void>('requestReview');
-                } else
+                } else {
                   _platform.invokeMethod<void>('launchStore');
+                }
               },
             ),
             ListTile(
@@ -61,18 +69,18 @@ class WorkoutSelectionScreen extends StatelessWidget {
               onTap: () {
                 showDialog<SimpleDialog>(
                     context: context,
-                    builder: (BuildContext context) {
+                    builder: (context) {
                       return AlertDialog(
                         actions: <Widget>[
-                          FlatButton(
+                          TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                               child: const Text('CLOSE'))
                         ],
                         contentPadding: const EdgeInsets.all(16.0),
-                        content: SingleChildScrollView(
-                          child: const Text(_disclaimerText),
+                        content: const SingleChildScrollView(
+                          child: Text(_disclaimerText),
                         ),
                       );
                     });
@@ -80,16 +88,15 @@ class WorkoutSelectionScreen extends StatelessWidget {
             ),
             Theme(
               data: () {
-                ThemeData theme = ThemeData.dark();
-                theme = theme.copyWith(
+                final ThemeData theme = ThemeData.dark().copyWith(
                   buttonTheme: ButtonThemeData(
-                      colorScheme:
-                          ColorScheme.dark().copyWith(secondary: Colors.white)),
+                    colorScheme: const ColorScheme.dark()
+                        .copyWith(secondary: Colors.white),
+                  ),
                 );
                 return theme;
               }(),
               child: AboutListTile(
-                icon: null,
                 applicationName: Consts.drillz,
                 applicationLegalese: 'Copyright © Alex Fourman 2019',
                 applicationIcon: const Image(
@@ -102,7 +109,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
                       Consts.contactEmail,
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                   ),
                 ],
@@ -112,26 +119,27 @@ class WorkoutSelectionScreen extends StatelessWidget {
         ),
       ),
       body: Builder(
-        builder: (BuildContext context) => Stack(
+        builder: (context) => Stack(
           children: <Widget>[
             Container(
               color: Theme.of(context).canvasColor,
             ),
             SafeArea(
               child: Consumer<Repository>(
-                builder: (_, Repository repository, __) {
+                builder: (_, repository, __) {
                   //create indicator
                   Widget progressIndicator;
-                  if (repository.value == null) {
+                  if (repository.value == Model.empty()) {
                     progressIndicator = const CircularProgressIndicator();
-                  } else
+                  } else {
                     progressIndicator = Container();
+                  }
 
                   return Column(
-                    mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
+                        flex: 3,
                         child: Stack(
                           children: <Widget>[
                             Positioned.fill(
@@ -139,12 +147,13 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 16.0),
                                 child: Material(
+                                  type: MaterialType.transparency,
                                   child: FittedBox(
                                     child: Text(
                                       'Drillz',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .body1!
+                                          .bodyText2!
                                           .copyWith(
                                               fontFamily: Consts.righteousFont,
                                               shadows: <Shadow>[
@@ -155,7 +164,6 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                           ]),
                                     ),
                                   ),
-                                  type: MaterialType.transparency,
                                 ),
                               ),
                             ),
@@ -163,11 +171,10 @@ class WorkoutSelectionScreen extends StatelessWidget {
                               alignment: Alignment.topLeft,
                               child: Material(
                                 child: IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.menu,
                                   ),
                                   onPressed: () {
-                                    print('menu');
                                     Scaffold.of(context).openDrawer();
                                   },
                                 ),
@@ -175,7 +182,6 @@ class WorkoutSelectionScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        flex: 3,
                       ),
                       Expanded(
                         flex: 8,
@@ -228,7 +234,6 @@ class WorkoutSelectionScreen extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 8.0),
                           child: AnimatedSwitcher(
@@ -254,8 +259,8 @@ class WorkoutSelectionScreen extends StatelessWidget {
     final List<WorkoutType>? workoutTypeList =
         await showDialog<List<WorkoutType>>(
       context: context,
-      builder: (BuildContext context) {
-        return ResetDialog();
+      builder: (context) {
+        return const ResetDialog();
       },
     );
     if (workoutTypeList != null) {
@@ -267,10 +272,10 @@ class WorkoutSelectionScreen extends StatelessWidget {
 
 class _WorkoutButton extends StatelessWidget {
   const _WorkoutButton({
-    Key? key,
     required this.text,
     required this.workoutType,
     required this.color,
+    Key? key,
   }) : super(key: key);
 
   final String text;
@@ -291,16 +296,19 @@ class _WorkoutButton extends StatelessWidget {
             borderRadius: borderRadius,
           ),
           child: Builder(
-            builder: (BuildContext context) {
+            builder: (context) {
               final Center child = Center(
                 child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
+                  builder: (context, constraints) {
                     //makes sure that the font size fills the container
                     //AND is the same for all the buttons
                     final double fontSize = constraints.biggest.width / 5.5;
                     return Text(
                       text,
-                      style: Theme.of(context).primaryTextTheme.body1!.copyWith(
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .bodyText2!
+                          .copyWith(
                             fontSize: fontSize,
                             fontFamily: Consts.righteousFont,
                           ),
@@ -310,7 +318,6 @@ class _WorkoutButton extends StatelessWidget {
               );
               return GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                child: child,
                 onTap: () {
                   Navigator.of(context).push(
                     LevelSelectionScreen.route(
@@ -323,6 +330,7 @@ class _WorkoutButton extends StatelessWidget {
                     ),
                   );
                 },
+                child: child,
               );
             },
           ),

@@ -1,20 +1,21 @@
-import 'dart:io';
-
 import 'package:audioplayers/audioplayers.dart';
-import 'package:drillz/audio.dart';
-import 'package:drillz/repository.dart';
-import 'package:drillz/workout_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'audio.dart';
+import 'repository.dart';
+import 'workout_selection_screen.dart';
 //todo add keys to widget constructors
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -26,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     audioPlayer.fixedPlayer = AudioPlayer(mode: PlayerMode.LOW_LATENCY);
     audioPlayer
         .load('soft-bells.mp3')
-        .then((File file) => debugPrint('$file loaded'));
+        .then((file) => debugPrint('$file loaded'));
     //load the stupid shared pref
     SharedPreferences.getInstance();
     //lock screen orientation
@@ -46,11 +47,12 @@ class _MyAppState extends State<MyApp> {
       primaryColor: Colors.grey[850],
       accentColor: Colors.white,
       canvasColor: Colors.grey[850],
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: const IconThemeData(color: Colors.white),
     );
     theme = theme.copyWith(
       buttonTheme: ButtonThemeData(
-          colorScheme: ColorScheme.dark().copyWith(secondary: Colors.white)),
+          colorScheme:
+              const ColorScheme.dark().copyWith(secondary: Colors.white)),
       textTheme: theme.textTheme.merge(theme.typography.white),
       primaryTextTheme: theme.primaryTextTheme.merge(theme.typography.white),
       accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),
@@ -60,7 +62,7 @@ class _MyAppState extends State<MyApp> {
       create: (context) => Repository(context),
       child: MaterialApp(
         theme: theme,
-        home: WorkoutSelectionScreen(),
+        home: const WorkoutSelectionScreen(),
         navigatorObservers: <NavigatorObserver>[popAnimationObserver],
       ),
     );
@@ -71,7 +73,8 @@ final _PopAnimationObserver popAnimationObserver = _PopAnimationObserver();
 
 ///Use [isAnimating] to query whether a pop animation is in progress.
 ///
-///This is used to disable rapid back press during the somewhat slow pop animation
+///This is used to disable rapid back press during the somewhat slow pop
+///animation
 class _PopAnimationObserver extends NavigatorObserver {
   bool _isAnimating = false;
 
@@ -82,7 +85,7 @@ class _PopAnimationObserver extends NavigatorObserver {
     if (route is ModalRoute) {
       _isAnimating = true;
       debugPrint('isAnimating: TRUE');
-      route.completed.then((dynamic _) {
+      route.completed.then((_) {
         debugPrint('isAnimating: FALSE');
         return _isAnimating = false;
       });

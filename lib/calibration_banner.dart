@@ -55,7 +55,7 @@ class _CalibrationBannerState extends State<CalibrationBanner>
       child: Material(
         child: AnimatedBuilder(
           animation: _slideAnimationController,
-          builder: (BuildContext context, Widget? child) {
+          builder: (context, child) {
             return ClipRect(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -77,7 +77,7 @@ class _CalibrationBannerState extends State<CalibrationBanner>
                         workoutName: widget.workoutString,
                         onCalibrate: () {
                           _pageController.nextPage(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             curve: Curves.easeIn,
                           );
                         },
@@ -89,13 +89,13 @@ class _CalibrationBannerState extends State<CalibrationBanner>
                       CalibrationPage(
                         maxValue: widget.maxValue,
                         workoutName: widget.workoutString,
-                        onCalibrate: (int value) async {
+                        onCalibrate: (value) async {
                           await _animateDismiss();
                           widget.onCalibrate(value);
                         },
                         onBack: () {
                           _pageController.previousPage(
-                            duration: Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             curve: Curves.easeIn,
                           );
                         },
@@ -122,7 +122,9 @@ class QuestionPage extends StatelessWidget {
   const QuestionPage(
       {required this.onSkip,
       required this.onCalibrate,
-      required this.workoutName});
+      required this.workoutName,
+      Key? key})
+      : super(key: key);
 
   final String workoutName;
   final void Function() onSkip;
@@ -138,28 +140,30 @@ class QuestionPage extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Text(
               'Too easy?',
-              style: Theme.of(context).textTheme.body1!.copyWith(fontSize: 15),
+              style:
+                  Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: Text(
-              'Lets calibrate, by setting the max amount of $workoutName you can do in one set'),
+              'Lets calibrate, by setting the max amount of $workoutName you '
+              'can do in one set'),
         ),
-        Spacer(),
+        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            FlatButton(
-              onPressed: () => onCalibrate(),
+            TextButton(
+              onPressed: onCalibrate,
               child: const Text('CALIBRATE'),
             ),
             Container(
               width: 8,
             ),
-            FlatButton(
-              onPressed: () => onSkip(),
+            TextButton(
+              onPressed: onSkip,
               child: const Text('DISMISS'),
             ),
           ],
@@ -171,11 +175,11 @@ class QuestionPage extends StatelessWidget {
 
 class CalibrationPage extends StatefulWidget {
   const CalibrationPage({
-    Key? key,
     required this.workoutName,
     required this.onCalibrate,
     required this.onBack,
     required this.maxValue,
+    Key? key,
   }) : super(key: key);
 
   final String workoutName;
@@ -215,23 +219,23 @@ class _CalibrationPageState extends State<CalibrationPage> {
           min: 1,
           max: widget.maxValue.toDouble(),
           value: sliderValue,
-          onChanged: (double value) {
+          onChanged: (value) {
             setState(() {
               sliderValue = value;
             });
           },
         ),
-        Spacer(),
+        const Spacer(),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            FlatButton(
-              child: const Text('BACK'),
+            TextButton(
               onPressed: widget.onBack,
+              child: const Text('BACK'),
             ),
-            FlatButton(
-              child: const Text('CALIBRATE'),
+            TextButton(
               onPressed: () => widget.onCalibrate(sliderValue.toInt()),
+              child: const Text('CALIBRATE'),
             ),
           ],
         )

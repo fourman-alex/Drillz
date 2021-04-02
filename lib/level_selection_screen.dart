@@ -1,23 +1,23 @@
 import 'package:clippy_flutter/chevron.dart';
-import 'package:drillz/calibration_banner.dart';
-import 'package:drillz/consts.dart';
-import 'package:drillz/fill_transition.dart';
-import 'package:drillz/main.dart';
-import 'package:drillz/model.dart';
-import 'package:drillz/repository.dart';
-import 'package:drillz/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'calibration_banner.dart';
+import 'consts.dart';
+import 'fill_transition.dart';
+import 'main.dart';
+import 'model.dart';
+import 'repository.dart';
+import 'workout_screen.dart';
+
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({
-    Key? key,
     required this.sourceRect,
     required this.workoutType,
     required this.title,
-  })   : assert(sourceRect != null),
-        super(key: key);
+    Key? key,
+  }) : super(key: key);
 
   final Rect sourceRect;
   final String title;
@@ -37,10 +37,13 @@ class LevelSelectionScreen extends StatelessWidget {
     final RenderBox box = context.findRenderObject() as RenderBox;
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
     return PageRouteBuilder<void>(
-      maintainState: true,
       pageBuilder: (_, __, ___) {
         return FillTransition(
           source: sourceRect,
+          fromColor: fromColor,
+          toColor: toColor,
+          fromBorderRadius: fromRadius,
+          toBorderRadius: toRadius,
           child: Theme(
             data: ThemeData(
               brightness: Brightness.dark,
@@ -50,7 +53,7 @@ class LevelSelectionScreen extends StatelessWidget {
               backgroundColor: toColor,
               canvasColor: toColor,
               dividerColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
             ),
             child: WillPopScope(
               onWillPop: () async {
@@ -63,10 +66,6 @@ class LevelSelectionScreen extends StatelessWidget {
               ),
             ),
           ),
-          fromColor: fromColor,
-          toColor: toColor,
-          fromBorderRadius: fromRadius,
-          toBorderRadius: toRadius,
         );
       },
       transitionDuration: const Duration(milliseconds: 650),
@@ -84,30 +83,28 @@ class LevelSelectionScreen extends StatelessWidget {
     final Repository repository = Provider.of<Repository>(context);
     final List<Level> activeLevels =
         repository.value.getPlan(workoutType)!.activeLevels;
-    if (activeLevels != null) {
-      for (int i = 0; i < activeLevels.length - 1; i++) {
-        widgets.add(Builder(
-          builder: (BuildContext context) {
-            return LevelPage(
-              textColor: textColorOfCompleted,
-              cardColor: cardColorOfCompleted,
-              level: activeLevels[i],
-            );
-          },
-        ));
-      }
-      widgets.add(LevelPage(
-        level: activeLevels.last,
-        textColor: theme.textTheme.bodyText1!.color!,
-        cardColor: theme.primaryColor,
+    for (int i = 0; i < activeLevels.length - 1; i++) {
+      widgets.add(Builder(
+        builder: (context) {
+          return LevelPage(
+            textColor: textColorOfCompleted,
+            cardColor: cardColorOfCompleted,
+            level: activeLevels[i],
+          );
+        },
       ));
     }
+    widgets.add(LevelPage(
+      level: activeLevels.last,
+      textColor: theme.textTheme.bodyText1!.color!,
+      cardColor: theme.primaryColor,
+    ));
 
     if (repository.value.getPlan(workoutType)!.notCalibrated) {
       widgets.add(
         CalibrationBanner(
           maxValue: 100 ~/ kCalibrationMultiplier,
-          onCalibrate: (int value) {
+          onCalibrate: (value) {
             repository.calibratePlan(workoutType, value);
           },
           onDismiss: () => repository.calibratePlan(workoutType, null),
@@ -119,16 +116,16 @@ class LevelSelectionScreen extends StatelessWidget {
     widgets = widgets.reversed.toList();
 
     return DismissDetector(
+      onDismiss: () => Navigator.of(context).pop(),
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
             floating: true,
-            automaticallyImplyLeading: true,
             titleSpacing: 4.0,
             backgroundColor: theme.backgroundColor,
             title: Text(
               title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontFamily: Consts.righteousFont,
                 fontSize: 30,
               ),
@@ -137,7 +134,6 @@ class LevelSelectionScreen extends StatelessWidget {
           SliverList(delegate: SliverChildListDelegate(widgets)),
         ],
       ),
-      onDismiss: () => Navigator.of(context).pop(),
     );
   }
 
@@ -153,10 +149,10 @@ class LevelSelectionScreen extends StatelessWidget {
 
 class LevelPage extends StatelessWidget {
   LevelPage({
-    Key? key,
     required this.level,
     required this.textColor,
     required this.cardColor,
+    Key? key,
   })   : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.total,
         super(key: key);
@@ -184,7 +180,7 @@ class LevelPage extends StatelessWidget {
             Text.rich(
               TextSpan(
                 text: '$_totalCount',
-                style: theme.textTheme.body1!.copyWith(
+                style: theme.textTheme.bodyText2!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: Consts.righteousFont,
                   fontSize: 30,
@@ -193,7 +189,7 @@ class LevelPage extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                     text: ' in total',
-                    style: theme.textTheme.display1!.copyWith(
+                    style: theme.textTheme.headline4!.copyWith(
                       fontFamily: Consts.righteousFont,
                       fontSize: 15,
                       color: textColor,
@@ -203,7 +199,7 @@ class LevelPage extends StatelessWidget {
               ),
             ),
             Builder(
-              builder: (BuildContext context) {
+              builder: (context) {
                 return GestureDetector(
                   onTap: () {
                     final RenderBox renderBox =
@@ -242,21 +238,22 @@ class LevelPage extends StatelessWidget {
                                   child: Container(
                                     padding: const EdgeInsets.all(12),
                                     alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                      color: textColor.withOpacity(0.3),
+                                    ),
                                     child: SizedBox.expand(
                                       child: FittedBox(
                                         child: Text(
                                           step.reps.toString(),
                                           textAlign: TextAlign.center,
-                                          style: theme.accentTextTheme.body1!
+                                          style: theme
+                                              .accentTextTheme.bodyText2!
                                               .copyWith(
                                                   color: textColor,
                                                   fontFamily:
                                                       Consts.righteousFont),
                                         ),
                                       ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: textColor.withOpacity(0.3),
                                     ),
                                   ),
                                 ),
@@ -279,9 +276,9 @@ class LevelPage extends StatelessWidget {
 /// Detects swipe right and "zoom out" gesture
 class DismissDetector extends StatelessWidget {
   const DismissDetector({
+    required this.onDismiss,
     Key? key,
     this.child,
-    required this.onDismiss,
   }) : super(key: key);
 
   final Widget? child;
@@ -290,17 +287,17 @@ class DismissDetector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: child,
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
+      onHorizontalDragUpdate: (details) {
         if (details.primaryDelta! > 10) {
           onDismiss();
         }
       },
-      onScaleUpdate: (ScaleUpdateDetails details) {
+      onScaleUpdate: (details) {
         if (details.scale < 0.9) {
           onDismiss();
         }
       },
+      child: child,
     );
   }
 }
