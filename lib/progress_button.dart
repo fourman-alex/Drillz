@@ -3,14 +3,14 @@ import 'package:flutter/widgets.dart';
 
 class ProgressButton extends StatefulWidget {
   const ProgressButton({
-    Key key,
+    Key? key,
     this.child,
-    @required this.size,
+    required this.size,
     this.duration = const Duration(seconds: 1),
-    @required this.onPressCompleted,
-    @required this.color,
-    @required this.startColor,
-    @required this.endColor,
+    required this.onPressCompleted,
+    required this.color,
+    required this.startColor,
+    required this.endColor,
   }) : super(key: key);
 
   final Duration duration;
@@ -18,7 +18,7 @@ class ProgressButton extends StatefulWidget {
   final Color color;
   final Color startColor;
   final Color endColor;
-  final Widget child;
+  final Widget? child;
   final void Function() onPressCompleted;
 
   @override
@@ -27,7 +27,7 @@ class ProgressButton extends StatefulWidget {
 
 class _ProgressButtonState extends State<ProgressButton>
     with SingleTickerProviderStateMixin<ProgressButton> {
-  AnimationController _animationController;
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -62,13 +62,13 @@ class _ProgressButtonState extends State<ProgressButton>
 
 class _InnerProgressButton extends AnimatedWidget {
   const _InnerProgressButton({
-    Key key,
-    @required this.size,
-    @required this.animationController,
-    @required this.color,
-    @required this.startColor,
-    @required this.endColor,
-    @required this.child,
+    Key? key,
+    required this.size,
+    required this.animationController,
+    required this.color,
+    required this.startColor,
+    required this.endColor,
+    required this.child,
   })  : strokeWidth = size / 10,
         super(key: key, listenable: animationController);
 
@@ -78,7 +78,7 @@ class _InnerProgressButton extends AnimatedWidget {
   final Color startColor;
   final Color endColor;
   final Color color;
-  final Widget child;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +91,7 @@ class _InnerProgressButton extends AnimatedWidget {
       onPointerMove: (PointerMoveEvent details) {
         //check if the pointer is outside of the button boundaries
         // this does ignore it being circular
-        final RenderBox box = context.findRenderObject();
+        final RenderBox box = context.findRenderObject() as RenderBox;
         if (details.localPosition.dx > box.size.width ||
             details.localPosition.dy > box.size.height ||
             details.localPosition.dx < 0 ||

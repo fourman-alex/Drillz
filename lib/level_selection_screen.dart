@@ -12,11 +12,11 @@ import 'package:provider/provider.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({
-    Key key,
-    @required this.sourceRect,
-    @required this.workoutType,
-    @required this.title,
-  })  : assert(sourceRect != null),
+    Key? key,
+    required this.sourceRect,
+    required this.workoutType,
+    required this.title,
+  })   : assert(sourceRect != null),
         super(key: key);
 
   final Rect sourceRect;
@@ -26,15 +26,15 @@ class LevelSelectionScreen extends StatelessWidget {
   /// [context] must be the [BuildContext] of the widget from which the
   /// transition will visually fill
   static Route<void> route({
-    @required BuildContext context,
-    @required String title,
-    @required WorkoutType workoutType,
-    @required MaterialColor fromColor,
-    @required Color toColor,
-    @required BorderRadius fromRadius,
-    @required BorderRadius toRadius,
+    required BuildContext context,
+    required String title,
+    required WorkoutType workoutType,
+    required MaterialColor fromColor,
+    required Color toColor,
+    required BorderRadius fromRadius,
+    BorderRadius toRadius = BorderRadius.zero,
   }) {
-    final RenderBox box = context.findRenderObject();
+    final RenderBox box = context.findRenderObject() as RenderBox;
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
     return PageRouteBuilder<void>(
       maintainState: true,
@@ -78,12 +78,12 @@ class LevelSelectionScreen extends StatelessWidget {
     List<Widget> widgets = <Widget>[];
     final ThemeData theme = Theme.of(context);
     final Color textColorOfCompleted =
-        _darken(theme.textTheme.bodyText2.color, 0.4);
+        _darken(theme.textTheme.bodyText2!.color!, 0.4);
     final Color cardColorOfCompleted = _darken(theme.primaryColor, 0.2);
 
     final Repository repository = Provider.of<Repository>(context);
     final List<Level> activeLevels =
-        repository.value.getPlan(workoutType).activeLevels;
+        repository.value.getPlan(workoutType)!.activeLevels;
     if (activeLevels != null) {
       for (int i = 0; i < activeLevels.length - 1; i++) {
         widgets.add(Builder(
@@ -98,12 +98,12 @@ class LevelSelectionScreen extends StatelessWidget {
       }
       widgets.add(LevelPage(
         level: activeLevels.last,
-        textColor: theme.textTheme.bodyText1.color/*!*/,
+        textColor: theme.textTheme.bodyText1!.color!,
         cardColor: theme.primaryColor,
       ));
     }
 
-    if (repository.value.getPlan(workoutType).notCalibrated) {
+    if (repository.value.getPlan(workoutType)!.notCalibrated) {
       widgets.add(
         CalibrationBanner(
           maxValue: 100 ~/ kCalibrationMultiplier,
@@ -153,11 +153,11 @@ class LevelSelectionScreen extends StatelessWidget {
 
 class LevelPage extends StatelessWidget {
   LevelPage({
-    Key key,
-    @required this.level,
-    @required this.textColor,
-    @required this.cardColor,
-  })  : _steps = level.steps.whereType<WorkStep>().toList(),
+    Key? key,
+    required this.level,
+    required this.textColor,
+    required this.cardColor,
+  })   : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.total,
         super(key: key);
 
@@ -184,7 +184,7 @@ class LevelPage extends StatelessWidget {
             Text.rich(
               TextSpan(
                 text: '$_totalCount',
-                style: theme.textTheme.body1.copyWith(
+                style: theme.textTheme.body1!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: Consts.righteousFont,
                   fontSize: 30,
@@ -193,7 +193,7 @@ class LevelPage extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                     text: ' in total',
-                    style: theme.textTheme.display1.copyWith(
+                    style: theme.textTheme.display1!.copyWith(
                       fontFamily: Consts.righteousFont,
                       fontSize: 15,
                       color: textColor,
@@ -206,7 +206,8 @@ class LevelPage extends StatelessWidget {
               builder: (BuildContext context) {
                 return GestureDetector(
                   onTap: () {
-                    final RenderBox renderBox = context.findRenderObject();
+                    final RenderBox renderBox =
+                        context.findRenderObject() as RenderBox;
                     final Rect sourceRect =
                         renderBox.localToGlobal(Offset.zero) & renderBox.size;
                     Navigator.push<void>(
@@ -246,7 +247,7 @@ class LevelPage extends StatelessWidget {
                                         child: Text(
                                           step.reps.toString(),
                                           textAlign: TextAlign.center,
-                                          style: theme.accentTextTheme.body1
+                                          style: theme.accentTextTheme.body1!
                                               .copyWith(
                                                   color: textColor,
                                                   fontFamily:
@@ -278,12 +279,12 @@ class LevelPage extends StatelessWidget {
 /// Detects swipe right and "zoom out" gesture
 class DismissDetector extends StatelessWidget {
   const DismissDetector({
-    Key key,
+    Key? key,
     this.child,
-    @required this.onDismiss,
+    required this.onDismiss,
   }) : super(key: key);
 
-  final Widget child;
+  final Widget? child;
   final void Function() onDismiss;
 
   @override
@@ -291,7 +292,7 @@ class DismissDetector extends StatelessWidget {
     return GestureDetector(
       child: child,
       onHorizontalDragUpdate: (DragUpdateDetails details) {
-        if (details.primaryDelta > 10) {
+        if (details.primaryDelta! > 10) {
           onDismiss();
         }
       },

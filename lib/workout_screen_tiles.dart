@@ -6,7 +6,7 @@ import 'package:drillz/consts.dart';
 import 'package:flutter/material.dart';
 
 class StartTile extends StatelessWidget {
-  const StartTile({@required VoidCallback onPressed}) : _onPressed = onPressed;
+  const StartTile({required VoidCallback onPressed}) : _onPressed = onPressed;
 
   final VoidCallback _onPressed;
 
@@ -22,7 +22,7 @@ class StartTile extends StatelessWidget {
           textAlign: TextAlign.center,
           style: Theme.of(context)
               .textTheme
-              .display4
+              .display4!
               .copyWith(fontFamily: Consts.righteousFont),
         ),
       ),
@@ -46,7 +46,7 @@ class FinishTile extends StatelessWidget {
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
-              .display4
+              .display4!
               .copyWith(fontFamily: Consts.righteousFont),
         ),
       ),
@@ -55,7 +55,7 @@ class FinishTile extends StatelessWidget {
 }
 
 class WorkTile extends StatelessWidget {
-  const WorkTile({@required int reps, @required VoidCallback onPressed})
+  const WorkTile({required int reps, required VoidCallback onPressed})
       : _onPressed = onPressed,
         _amount = reps;
 
@@ -75,7 +75,7 @@ class WorkTile extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Text(
                 'PERFORM',
-                style: Theme.of(context).textTheme.display1.copyWith(
+                style: Theme.of(context).textTheme.display1!.copyWith(
                       fontFamily: Consts.righteousFont,
                     ),
               ),
@@ -84,7 +84,7 @@ class WorkTile extends StatelessWidget {
           Center(
             child: Text(
               '$_amount',
-              style: Theme.of(context).textTheme.display4.copyWith(
+              style: Theme.of(context).textTheme.display4!.copyWith(
                 fontFamily: Consts.righteousFont,
               ),
               textAlign: TextAlign.center,
@@ -98,7 +98,7 @@ class WorkTile extends StatelessWidget {
 
 class RestTile extends StatefulWidget {
   const RestTile(
-      {Key key, @required this.duration, @required VoidCallback onDone})
+      {Key? key, required this.duration, required VoidCallback onDone})
       : _onDone = onDone,
         super(key: key);
 
@@ -112,9 +112,9 @@ class RestTile extends StatefulWidget {
 class _RestTileState extends State<RestTile>
     with AutomaticKeepAliveClientMixin<RestTile> {
   double _progressBarHeight = 0;
-  /*late*/ int _timerString;
+  late int _timerString;
 
-  /*late*/ Timer _timer;
+  late Timer _timer;
 
   @override
   void initState() {
@@ -130,7 +130,7 @@ class _RestTileState extends State<RestTile>
         widget._onDone();
       } else {
         setState(() {
-          _progressBarHeight = context.size.height * (timer.tick / duration);
+          _progressBarHeight = context.size!.height * (timer.tick / duration);
           _timerString = duration - timer.tick;
         });
       }
@@ -157,7 +157,7 @@ class _RestTileState extends State<RestTile>
             alignment: Alignment.topCenter,
             child: Text(
               'REST',
-              style: Theme.of(context).textTheme.display1.copyWith(
+              style: Theme.of(context).textTheme.display1!.copyWith(
                     fontFamily: Consts.righteousFont,
                   ),
             ),
@@ -169,7 +169,7 @@ class _RestTileState extends State<RestTile>
             '${_timerString.toString()}',
             style: Theme.of(context)
                 .textTheme
-                .display4
+                .display4!
                 .copyWith(fontFamily: Consts.righteousFont),
             textAlign: TextAlign.center,
           ),
@@ -180,7 +180,7 @@ class _RestTileState extends State<RestTile>
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     super.dispose();
   }
 

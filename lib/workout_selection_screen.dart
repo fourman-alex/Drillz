@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
@@ -30,7 +31,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
                     'Drillz',
                     style: Theme.of(context)
                         .textTheme
-                        .display2
+                        .display2!
                         .copyWith(fontFamily: Consts.righteousFont),
                   ),
                   Text(
@@ -48,7 +49,8 @@ class WorkoutSelectionScreen extends StatelessWidget {
               title: const Text('Rate'),
               onTap: () async {
                 if (Platform.isIOS &&
-                    await _platform.invokeMethod('canRequestReview')) {
+                    await (_platform.invokeMethod('canRequestReview')
+                        as FutureOr<bool>)) {
                   _platform.invokeMethod<void>('requestReview');
                 } else
                   _platform.invokeMethod<void>('launchStore');
@@ -142,7 +144,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
                                       'Drillz',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .body1
+                                          .body1!
                                           .copyWith(
                                               fontFamily: Consts.righteousFont,
                                               shadows: <Shadow>[
@@ -249,7 +251,7 @@ class WorkoutSelectionScreen extends StatelessWidget {
   Future<void> _showResetDialog(BuildContext context) async {
     final Repository repository =
         Provider.of<Repository>(context, listen: false);
-    final List<WorkoutType> workoutTypeList =
+    final List<WorkoutType>? workoutTypeList =
         await showDialog<List<WorkoutType>>(
       context: context,
       builder: (BuildContext context) {
@@ -265,10 +267,10 @@ class WorkoutSelectionScreen extends StatelessWidget {
 
 class _WorkoutButton extends StatelessWidget {
   const _WorkoutButton({
-    Key key,
-    @required this.text,
-    @required this.workoutType,
-    @required this.color,
+    Key? key,
+    required this.text,
+    required this.workoutType,
+    required this.color,
   }) : super(key: key);
 
   final String text;
@@ -298,7 +300,7 @@ class _WorkoutButton extends StatelessWidget {
                     final double fontSize = constraints.biggest.width / 5.5;
                     return Text(
                       text,
-                      style: Theme.of(context).primaryTextTheme.body1.copyWith(
+                      style: Theme.of(context).primaryTextTheme.body1!.copyWith(
                             fontSize: fontSize,
                             fontFamily: Consts.righteousFont,
                           ),

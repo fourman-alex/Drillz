@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CalibrationBanner extends StatefulWidget {
   const CalibrationBanner({
-    Key key,
-    @required this.onCalibrate,
-    @required this.onDismiss,
-    @required this.workoutString,
-    @required this.maxValue,
+    required this.onCalibrate,
+    required this.onDismiss,
+    required this.workoutString,
+    required this.maxValue,
+    Key? key,
   }) : super(key: key);
 
   final void Function(int value) onCalibrate;
@@ -21,15 +21,15 @@ class CalibrationBanner extends StatefulWidget {
 class _CalibrationBannerState extends State<CalibrationBanner>
     with SingleTickerProviderStateMixin<CalibrationBanner> {
   final PageController _pageController = PageController();
-  AnimationController _slideAnimationController;
-  Animation<double> _heightFactorAnimation;
+  late AnimationController _slideAnimationController;
+  late Animation<double> _heightFactorAnimation;
   final ValueNotifier<bool> _isVisibleNotifier = ValueNotifier<bool>(true);
 
   @override
   void initState() {
     _slideAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 400),
+      duration: const Duration(milliseconds: 400),
     );
     _heightFactorAnimation = CurvedAnimation(
         parent: _slideAnimationController.drive(
@@ -46,16 +46,25 @@ class _CalibrationBannerState extends State<CalibrationBanner>
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: _isVisibleNotifier,
-      builder: (BuildContext context, bool isVisible, Widget child) {
+      builder: (context, isVisible, child) {
         return Visibility(
-          child: child,
           visible: isVisible,
+          child: child!,
         );
       },
       child: Material(
         child: AnimatedBuilder(
           animation: _slideAnimationController,
-          child: Container(
+          builder: (BuildContext context, Widget? child) {
+            return ClipRect(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                heightFactor: _heightFactorAnimation.value,
+                child: child,
+              ),
+            );
+          },
+          child: SizedBox(
             height: 160,
             child: Column(
               children: <Widget>[
@@ -98,15 +107,6 @@ class _CalibrationBannerState extends State<CalibrationBanner>
               ],
             ),
           ),
-          builder: (BuildContext context, Widget child) {
-            return ClipRect(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                heightFactor: _heightFactorAnimation.value,
-                child: child,
-              ),
-            );
-          },
         ),
       ),
     );
@@ -120,9 +120,9 @@ class _CalibrationBannerState extends State<CalibrationBanner>
 
 class QuestionPage extends StatelessWidget {
   const QuestionPage(
-      {@required this.onSkip,
-      @required this.onCalibrate,
-      @required this.workoutName});
+      {required this.onSkip,
+      required this.onCalibrate,
+      required this.workoutName});
 
   final String workoutName;
   final void Function() onSkip;
@@ -138,7 +138,7 @@ class QuestionPage extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Text(
               'Too easy?',
-              style: Theme.of(context).textTheme.body1.copyWith(fontSize: 15),
+              style: Theme.of(context).textTheme.body1!.copyWith(fontSize: 15),
             ),
           ),
         ),
@@ -171,11 +171,11 @@ class QuestionPage extends StatelessWidget {
 
 class CalibrationPage extends StatefulWidget {
   const CalibrationPage({
-    Key key,
-    @required this.workoutName,
-    @required this.onCalibrate,
-    @required this.onBack,
-    @required this.maxValue,
+    Key? key,
+    required this.workoutName,
+    required this.onCalibrate,
+    required this.onBack,
+    required this.maxValue,
   }) : super(key: key);
 
   final String workoutName;

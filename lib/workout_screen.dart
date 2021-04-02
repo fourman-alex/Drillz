@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:wakelock/wakelock.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key key, @required this.level}) : super(key: key);
+  const WorkoutScreen({Key? key, required this.level}) : super(key: key);
 
   final Level level;
 
@@ -18,10 +18,10 @@ class WorkoutScreen extends StatefulWidget {
   _WorkoutScreenState createState() => _WorkoutScreenState();
 
   static PageRouteBuilder<void> route({
-    @required Level level,
-    @required Rect sourceRect,
-    @required BorderRadius fromBorderRadius,
-    @required ThemeData theme,
+    required Level level,
+    required Rect sourceRect,
+    required BorderRadius fromBorderRadius,
+    required ThemeData theme,
   }) {
     return PageRouteBuilder<void>(
       transitionDuration: const Duration(milliseconds: 350),
@@ -148,7 +148,7 @@ class StepSwitcher extends StatelessWidget {
         Provider.of<ValueNotifier<int>>(context);
     final ExerciseStep currentStep =
         level.steps[currentStepIndexNotifier.value];
-    /*late*/ Widget center;
+    late Widget center;
     if (currentStep is StartStep) {
       center = StartTile(
         onPressed: () => currentStepIndexNotifier.value++,
@@ -211,7 +211,7 @@ class WorkoutStepsBar extends StatelessWidget {
                       child: Text(
                         workoutSteps[i].toString(),
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.body1.copyWith(
+                        style: Theme.of(context).textTheme.body1!.copyWith(
                               color: currentStepNotifier.value == i
                                   ? Colors.white
                                   : Colors.white54,

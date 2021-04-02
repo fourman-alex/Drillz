@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:drillz/consts.dart';
 import 'package:drillz/model.dart';
 import 'package:flutter/foundation.dart';
@@ -18,9 +19,9 @@ class Repository extends ValueNotifier<Model> {
     });
   }
 
-  static /*late*/ Repository _repository;
+  static Repository? _repository;
 
-  List<dynamic> _staticJsonData;
+  List<dynamic>? _staticJsonData;
 
   ///Get the model from scratch. Will load the json and then additional shared
   ///pref data. Should only be called once per app's lifecycle.
@@ -32,7 +33,7 @@ class Repository extends ValueNotifier<Model> {
         await DefaultAssetBundle.of(context).loadString('assets/plan.json');
     _staticJsonData = jsonDecode(jsonString);
 
-    return _getModelFromJson(_staticJsonData);
+    return _getModelFromJson(_staticJsonData!);
   }
 
   Future<Model> _getModelFromJson(List<dynamic> json) async {
@@ -45,7 +46,7 @@ class Repository extends ValueNotifier<Model> {
       final List<dynamic> rawSteps = rawLevel['steps'];
       final List<ExerciseStep> steps = <ExerciseStep>[];
       steps.add(const StartStep());
-      for (Map<String, dynamic> rawStep in rawSteps) {
+      for (final Map<String, dynamic> rawStep in rawSteps) {
         if (rawStep['type'] == 'work') {
           steps.add(WorkStep(rawStep['reps']));
         }
@@ -102,9 +103,9 @@ class Repository extends ValueNotifier<Model> {
 
   String _key(Date dateType, String id) => dateType.toString() + id;
 
-  Future<DateTime> _getWorkoutDate(Date dateType, String id) async {
+  Future<DateTime?> _getWorkoutDate(Date dateType, String id) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String dateTimeString = prefs.getString(_key(dateType, id));
+    final String? dateTimeString = prefs.getString(_key(dateType, id));
     if (dateTimeString != null) {
       return DateTime.parse(dateTimeString);
     }
@@ -128,8 +129,8 @@ class Repository extends ValueNotifier<Model> {
   }
 
   Future<void> calibratePlan(
-      WorkoutType workoutType, int calibrationValue) async {
-    final Plan plan = value.plans[workoutType];
+      WorkoutType workoutType, int? calibrationValue) async {
+    final Plan plan = value.plans[workoutType]!;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isCalibrated:$workoutType', true);
@@ -154,7 +155,7 @@ class Repository extends ValueNotifier<Model> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     for (WorkoutType workoutType in workoutTypeList) {
-      final Plan plan = value.getPlan(workoutType);
+      final Plan plan = value.getPlan(workoutType)!;
       for (Level level in plan.levels) {
         await prefs.remove(_key(Date.completed, level.id));
         await prefs.remove(_key(Date.attempted, level.id));
@@ -168,13 +169,13 @@ class Repository extends ValueNotifier<Model> {
   ///
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
-    value = await _getModelFromJson(_staticJsonData);
+    value = await _getModelFromJson(_staticJsonData!);
   }
 
   Future<void> _reloadLevel(String id) async {
     for (Plan plan in value.plans.values) {
-      final Level level = plan.levels
-          .firstWhere((Level level) => level.id == id, orElse: () => null);
+      final Level? level = plan.levels
+          .firstWhereOrNull((Level level) => level.id == id);
       if (level != null) {
         level.dateCompleted = await _getWorkoutDate(Date.completed, id);
         level.dateAttempted = await _getWorkoutDate(Date.attempted, id);

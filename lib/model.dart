@@ -19,7 +19,7 @@ class Model {
 
   final Map<WorkoutType, Plan> plans;
 
-  Plan getPlan(WorkoutType workoutType) => plans[workoutType];
+  Plan? getPlan(WorkoutType workoutType) => plans[workoutType];
 }
 
 class Plan {
@@ -46,7 +46,7 @@ class Plan {
   }
 
   static String getWorkoutTypeString(WorkoutType workoutType) {
-    /*late*/ String result;
+    late String result;
     switch (workoutType) {
       case WorkoutType.pullups:
         result = _pullupsString;
@@ -80,10 +80,10 @@ class Level {
     }
   }
 
-  final String /*!*/ id;
+  final String id;
   final List<ExerciseStep> _steps;
-  DateTime dateAttempted;
-  DateTime dateCompleted;
+  DateTime? dateAttempted;
+  DateTime? dateCompleted;
 
   UnmodifiableListView<ExerciseStep> get steps =>
       UnmodifiableListView<ExerciseStep>(_steps);
@@ -106,7 +106,7 @@ class WorkStep extends ExerciseStep {
     }
   }
 
-  final int /*!*/ reps;
+  final int reps;
 
   @override
   String toString() {
@@ -122,7 +122,7 @@ class RestStep extends ExerciseStep {
   }
 
   /// Rest [duration] in seconds
-  final int /*!*/ duration;
+  final int duration;
 
   @override
   String toString() {

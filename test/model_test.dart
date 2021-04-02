@@ -18,11 +18,9 @@ void main() {
 
   group('ExerciseStep', () {
     test('WorkStep args', () {
-      expect(() => WorkStep(null), throwsArgumentError);
       expect(() => WorkStep(-1), throwsArgumentError);
     });
     test('RestStep args', () {
-      expect(() => RestStep(null), throwsArgumentError);
       expect(() => RestStep(-1), throwsArgumentError);
     });
   });
@@ -30,10 +28,6 @@ void main() {
   group('Level', () {
     test('completed before attempted dates', () {
       expect(() => Level('some id', dummySteps, DateTime(2019), DateTime(2018)),
-          throwsArgumentError);
-    });
-    test('id not null', () {
-      expect(() => Level(null, dummySteps, DateTime(2018), DateTime(2019)),
           throwsArgumentError);
     });
   });

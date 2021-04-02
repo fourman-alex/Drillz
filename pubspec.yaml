@@ -14,7 +14,7 @@ description: An easy to follow workouts for short and concise functional trainin
 version: 1.0.0+11
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -29,6 +29,7 @@ dependencies:
   wakelock: ^0.5.0+2
   #clips the work steps in the level selection screen
   clippy_flutter: ^2.0.0-nullsafety.1
+  collection: ^1.15.0-nullsafety.4
 
 dev_dependencies:
   mockito: ^5.0.3

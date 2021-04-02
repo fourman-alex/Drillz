@@ -78,7 +78,7 @@ class _PopAnimationObserver extends NavigatorObserver {
   bool get isAnimating => _isAnimating;
 
   @override
-  void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
+  void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     if (route is ModalRoute) {
       _isAnimating = true;
       debugPrint('isAnimating: TRUE');

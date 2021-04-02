@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class FillTransition extends StatelessWidget {
   FillTransition({
-    Key key,
+    Key? key,
     // TODO(alex): there should be an easier way to calculate the sorce documented here. maybe add a utility method or convert this to statefull and calculate it yourslef
-    @required this.source,
-    @required this.child,
-    @required Color fromColor,
-    @required Color toColor,
-    @required BorderRadius fromBorderRadius,
+    required this.source,
+    required this.child,
+    required Color fromColor,
+    required Color toColor,
+    required BorderRadius fromBorderRadius,
     // TODO(alex): toBorderRadius should default to a square
-    @required BorderRadius toBorderRadius,
+    required BorderRadius toBorderRadius,
   })  : colorTween = ColorTween(begin: fromColor, end: toColor),
         _borderRadiusTween = BorderRadiusTween(
           begin: fromBorderRadius,
@@ -27,7 +27,7 @@ class FillTransition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double>/*!*/ animation = ModalRoute.of(context).animation;
+    final Animation<double> animation = ModalRoute.of(context)!.animation!;
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final Animation<double> positionAnimation = CurvedAnimation(
@@ -59,7 +59,7 @@ class FillTransition extends StatelessWidget {
             AnimatedBuilder(
               child: child,
               animation: animation,
-              builder: (_, Widget child) {
+              builder: (_, Widget? child) {
                 return Positioned.fromRelativeRect(
                   rect: itemPosition.value,
                   child: Stack(

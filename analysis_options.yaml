@@ -69,7 +69,9 @@ linter:
 #    - constant_identifier_names
     - control_flow_in_finally
     - curly_braces_in_flow_control_structures
-    - diagnostic_describe_all_properties
+#    removing diagnostic_describe_all_properties as this adds a lot of extra boiler plate code
+#    and it is not clear what the usefulness of that would be
+#    - diagnostic_describe_all_properties
     - directives_ordering
     - empty_catches
     - empty_constructor_bodies
