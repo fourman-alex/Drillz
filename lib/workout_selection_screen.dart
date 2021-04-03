@@ -127,6 +127,9 @@ class WorkoutSelectionScreen extends StatelessWidget {
             SafeArea(
               child: Consumer<Repository>(
                 builder: (_, repository, __) {
+                  final workoutTypes =
+                      repository.value.plans.keys.toList(growable: false);
+
                   //create indicator
                   Widget progressIndicator;
                   if (repository.value == Model.empty()) {
@@ -185,53 +188,63 @@ class WorkoutSelectionScreen extends StatelessWidget {
                       ),
                       Expanded(
                         flex: 8,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Flexible(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(
-                                            WorkoutType.pushups)
-                                        .toUpperCase(),
-                                    color: Colors.green,
-                                    workoutType: WorkoutType.pushups,
-                                  ),
-                                  _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(
-                                            WorkoutType.pullups)
-                                        .toUpperCase(),
-                                    color: Colors.deepOrange,
-                                    workoutType: WorkoutType.pullups,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(
-                                            WorkoutType.situps)
-                                        .toUpperCase(),
-                                    color: Colors.pink,
-                                    workoutType: WorkoutType.situps,
-                                  ),
-                                  _WorkoutButton(
-                                    text: Plan.getWorkoutTypeString(
-                                            WorkoutType.squats)
-                                        .toUpperCase(),
-                                    color: Colors.indigo,
-                                    workoutType: WorkoutType.squats,
-                                  ),
-                                ],
-                              ),
-                            ),
+                        child: GridView.count(
+                          crossAxisCount: 2,
+                          children: [
+                            for (int i = 0; i < workoutTypes.length; i++)
+                              _WorkoutButton(
+                                  text: workoutTypes[i].name,
+                                  workoutType: workoutTypes[i],
+                                  color: workoutColors[i])
                           ],
                         ),
+                        // child: Column(
+                        //   mainAxisSize: MainAxisSize.min,
+                        //   children: <Widget>[
+                        //     Flexible(
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: <Widget>[
+                        //           _WorkoutButton(
+                        //             text: Plan.getWorkoutTypeString(
+                        //                     WorkoutType.pushups)
+                        //                 .toUpperCase(),
+                        //             color: Colors.green,
+                        //             workoutType: WorkoutType.pushups,
+                        //           ),
+                        //           _WorkoutButton(
+                        //             text: Plan.getWorkoutTypeString(
+                        //                     WorkoutType.pullups)
+                        //                 .toUpperCase(),
+                        //             color: Colors.deepOrange,
+                        //             workoutType: WorkoutType.pullups,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     Flexible(
+                        //       child: Row(
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: <Widget>[
+                        //           _WorkoutButton(
+                        //             text: Plan.getWorkoutTypeString(
+                        //                     WorkoutType.situps)
+                        //                 .toUpperCase(),
+                        //             color: Colors.pink,
+                        //             workoutType: WorkoutType.situps,
+                        //           ),
+                        //           _WorkoutButton(
+                        //             text: Plan.getWorkoutTypeString(
+                        //                     WorkoutType.squats)
+                        //                 .toUpperCase(),
+                        //             color: Colors.indigo,
+                        //             workoutType: WorkoutType.squats,
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ),
                       Expanded(
                         child: Padding(
@@ -286,55 +299,47 @@ class _WorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final BorderRadius borderRadius = BorderRadius.circular(15.0);
 
-    return Flexible(
-      child: AspectRatio(
-        aspectRatio: 1 / 1,
-        child: Container(
-          margin: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: borderRadius,
-          ),
-          child: Builder(
-            builder: (context) {
-              final Center child = Center(
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    //makes sure that the font size fills the container
-                    //AND is the same for all the buttons
-                    final double fontSize = constraints.biggest.width / 5.5;
-                    return Text(
-                      text,
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .bodyText2!
-                          .copyWith(
-                            fontSize: fontSize,
-                            fontFamily: Consts.righteousFont,
-                          ),
-                    );
-                  },
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: borderRadius,
+      ),
+      child: Builder(
+        builder: (context) {
+          final Center child = Center(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                //makes sure that the font size fills the container
+                //AND is the same for all the buttons
+                final double fontSize = constraints.biggest.width / 5.5;
+                return Text(
+                  text,
+                  style: Theme.of(context).primaryTextTheme.bodyText2!.copyWith(
+                        fontSize: fontSize,
+                        fontFamily: Consts.righteousFont,
+                      ),
+                );
+              },
+            ),
+          );
+          return GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              Navigator.of(context).push(
+                LevelSelectionScreen.route(
+                  title: text,
+                  context: context,
+                  workoutType: workoutType,
+                  fromColor: color,
+                  toColor: Theme.of(context).canvasColor,
+                  fromRadius: borderRadius,
                 ),
               );
-              return GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () {
-                  Navigator.of(context).push(
-                    LevelSelectionScreen.route(
-                      title: text,
-                      context: context,
-                      workoutType: workoutType,
-                      fromColor: color,
-                      toColor: Theme.of(context).canvasColor,
-                      fromRadius: borderRadius,
-                    ),
-                  );
-                },
-                child: child,
-              );
             },
-          ),
-        ),
+            child: child,
+          );
+        },
       ),
     );
   }

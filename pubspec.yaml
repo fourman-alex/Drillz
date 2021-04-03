@@ -30,6 +30,7 @@ dependencies:
   shared_preferences: ^2.0.5
   #keep screen on
   wakelock: ^0.5.0+2
+  equatable: ^2.0.0
 
 dev_dependencies:
   flutter_test:

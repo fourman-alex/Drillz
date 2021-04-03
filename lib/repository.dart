@@ -38,10 +38,15 @@ class Repository extends ValueNotifier<Model> {
   }
 
   Future<Model> _getModelFromJson(List<dynamic> json) async {
-    final List<Level> pushupLevels = <Level>[];
-    final List<Level> pullupLevels = <Level>[];
-    final List<Level> squatLevels = <Level>[];
-    final List<Level> situpLevels = <Level>[];
+    final workoutTypes = [
+      const WorkoutType(id: 'pushups', name: 'Pushups'),
+      const WorkoutType(id: 'pullups', name: 'Pullups'),
+      const WorkoutType(id: 'squats', name: 'Squats'),
+      const WorkoutType(id: 'situps', name: 'Situps'),
+    ];
+    final plans = <WorkoutType, List<Level>>{
+      for (final type in workoutTypes) type: <Level>[],
+    };
     for (int i = 0; i < json.length; i++) {
       final Map<String, dynamic> rawLevel = json[i];
       final List<dynamic> rawSteps = rawLevel['steps'];
@@ -65,38 +70,20 @@ class Repository extends ValueNotifier<Model> {
         );
       }
 
-      final String pushupsID = 'pushups $i';
-      pushupLevels.add(await buildLevel(pushupsID));
-      final String pullupsID = 'pullups $i';
-      pullupLevels.add(await buildLevel(pullupsID));
-      final String squatID = 'squats $i';
-      squatLevels.add(await buildLevel(squatID));
-      final String situpsID = 'situps $i';
-      situpLevels.add(await buildLevel(situpsID));
+      for (final entry in plans.entries) {
+        final String pushupsID = '${entry.key} $i';
+        entry.value.add(await buildLevel(pushupsID));
+      }
     }
 
     return Model(
       <WorkoutType, Plan>{
-        WorkoutType.pushups: Plan(
-          WorkoutType.pushups,
-          pushupLevels,
-          await _getIsCalibrated(WorkoutType.pushups),
-        ),
-        WorkoutType.pullups: Plan(
-          WorkoutType.pullups,
-          pullupLevels,
-          await _getIsCalibrated(WorkoutType.pullups),
-        ),
-        WorkoutType.situps: Plan(
-          WorkoutType.situps,
-          situpLevels,
-          await _getIsCalibrated(WorkoutType.situps),
-        ),
-        WorkoutType.squats: Plan(
-          WorkoutType.squats,
-          squatLevels,
-          await _getIsCalibrated(WorkoutType.squats),
-        ),
+        for (final entry in plans.entries)
+          entry.key: Plan(
+            entry.key,
+            entry.value,
+            await _getIsCalibrated(entry.key),
+          ),
       },
     );
   }

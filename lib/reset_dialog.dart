@@ -1,5 +1,6 @@
+import 'package:drillz/repository.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'model.dart';
 
 class ResetDialog extends StatefulWidget {
@@ -10,10 +11,7 @@ class ResetDialog extends StatefulWidget {
 }
 
 class _ResetDialogState extends State<ResetDialog> {
-  bool _situpsSwitch = false;
-  bool _pullupsSwitch = false;
-  bool _pushupsSwitch = false;
-  bool _squatsSwitch = false;
+  late Map<WorkoutType, bool> switched;
 
   @override
   Widget build(BuildContext context) {
@@ -22,81 +20,32 @@ class _ResetDialogState extends State<ResetDialog> {
       contentPadding: const EdgeInsets.fromLTRB(0, 12, 0, 0),
       title: const Text('Reset Workout'),
       children: <Widget>[
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text('Pushups'),
-              Switch(
-                  value: _pushupsSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      _pushupsSwitch = value;
-                    });
-                  })
-            ],
+        for (final type in switched.keys)
+          Container(
+            padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(type.name),
+                Switch(
+                    value: switched[type]!,
+                    onChanged: (value) {
+                      setState(() {
+                        switched[type] = value;
+                      });
+                    })
+              ],
+            ),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text('Pullups'),
-              Switch(
-                  value: _pullupsSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      _pullupsSwitch = value;
-                    });
-                  })
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text('Situps'),
-              Switch(
-                  value: _situpsSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      _situpsSwitch = value;
-                    });
-                  })
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              const Text('Squats'),
-              Switch(
-                  value: _squatsSwitch,
-                  onChanged: (value) {
-                    setState(() {
-                      _squatsSwitch = value;
-                    });
-                  })
-            ],
-          ),
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             TextButton(
               onPressed: () {
-                final List<WorkoutType> res = <WorkoutType>[
-                  if (_situpsSwitch) WorkoutType.situps,
-                  if (_squatsSwitch) WorkoutType.squats,
-                  if (_pullupsSwitch) WorkoutType.pullups,
-                  if (_pushupsSwitch) WorkoutType.pushups,
-                ];
+                final List<WorkoutType> res = switched.entries
+                    .where((e) => e.value)
+                    .map((e) => e.key)
+                    .toList(growable: false);
                 Navigator.of(context).pop(res);
               },
               child: const Text('RESET'),
@@ -111,5 +60,15 @@ class _ResetDialogState extends State<ResetDialog> {
         )
       ],
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final repo = context.watch<Repository>();
+    final workoutTypes = repo.value.plans.keys.toList(growable: false);
+    switched = {
+      for (final type in workoutTypes) type: false,
+    };
   }
 }

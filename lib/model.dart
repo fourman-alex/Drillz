@@ -1,18 +1,20 @@
 import 'dart:collection';
 import 'dart:math';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
-const String _pushupsString = 'pushups';
-const String _pullupsString = 'pullups';
-const String _situpsString = 'situps';
-const String _squatsString = 'squats';
+class WorkoutType extends Equatable {
+  const WorkoutType({required this.id, required this.name});
 
-enum WorkoutType {
-  pullups,
-  pushups,
-  situps,
-  squats,
+  final String id;
+  final String name;
+
+  @override
+  List<Object?> get props => [id];
+
+  @override
+  bool get stringify => true;
 }
 
 class Model {
@@ -47,24 +49,7 @@ class Plan {
         .toList();
   }
 
-  static String getWorkoutTypeString(WorkoutType workoutType) {
-    late String result;
-    switch (workoutType) {
-      case WorkoutType.pullups:
-        result = _pullupsString;
-        break;
-      case WorkoutType.pushups:
-        result = _pushupsString;
-        break;
-      case WorkoutType.situps:
-        result = _situpsString;
-        break;
-      case WorkoutType.squats:
-        result = _squatsString;
-        break;
-    }
-    return result;
-  }
+  static String getWorkoutTypeString(WorkoutType workoutType) => workoutType.id;
 }
 
 class Level {
