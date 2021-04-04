@@ -82,7 +82,7 @@ class LevelSelectionScreen extends StatelessWidget {
 
     final Repository repository = Provider.of<Repository>(context);
     final List<Level> activeLevels =
-        repository.value.getPlan(workoutType)!.activeLevels;
+        repository.model.getPlan(workoutType)!.activeLevels;
     for (int i = 0; i < activeLevels.length - 1; i++) {
       widgets.add(Builder(
         builder: (context) {
@@ -100,7 +100,7 @@ class LevelSelectionScreen extends StatelessWidget {
       cardColor: theme.primaryColor,
     ));
 
-    if (repository.value.getPlan(workoutType)!.notCalibrated) {
+    if (repository.model.getPlan(workoutType)!.notCalibrated) {
       widgets.add(
         CalibrationBanner(
           maxValue: 100 ~/ kCalibrationMultiplier,

@@ -17,6 +17,7 @@ class WorkoutType extends Equatable {
   bool get stringify => true;
 }
 
+@immutable
 class Model {
   const Model(this.plans);
   factory Model.empty() => const Model({});
@@ -52,6 +53,7 @@ class Plan {
   static String getWorkoutTypeString(WorkoutType workoutType) => workoutType.id;
 }
 
+@immutable
 class Level {
   /// [dateCompleted] must come after [dateAttempted].
   ///
@@ -69,8 +71,8 @@ class Level {
 
   final String id;
   final List<ExerciseStep> _steps;
-  DateTime? dateAttempted;
-  DateTime? dateCompleted;
+  final DateTime? dateAttempted;
+  final DateTime? dateCompleted;
 
   UnmodifiableListView<ExerciseStep> get steps =>
       UnmodifiableListView<ExerciseStep>(_steps);
@@ -82,10 +84,12 @@ class Level {
   }
 }
 
+@immutable
 abstract class ExerciseStep {
   const ExerciseStep();
 }
 
+@immutable
 class WorkStep extends ExerciseStep {
   WorkStep(this.reps) {
     if (reps is! int || reps <= 0) {
@@ -101,6 +105,7 @@ class WorkStep extends ExerciseStep {
   }
 }
 
+@immutable
 class RestStep extends ExerciseStep {
   RestStep(this.duration) {
     if (duration is! int || duration <= 0) {

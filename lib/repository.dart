@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,20 +8,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'consts.dart';
 import 'model.dart';
 
-class Repository extends ValueNotifier<Model> {
+class Repository extends ChangeNotifier {
   factory Repository(BuildContext context) {
     return _repository ??= Repository._internal(context);
   }
 
-  Repository._internal(BuildContext context) : super(Model.empty()) {
-    _getModelFromContext(context).then((model) {
-      value = model;
+  Repository._internal(BuildContext context) {
+    Future(() async {
+      model = await _getModelFromContext(context);
+      notifyListeners();
     });
   }
 
   static Repository? _repository;
 
   List<dynamic>? _staticJsonData;
+  Model model = Model.empty();
 
   ///Get the model from scratch. Will load the json and then additional shared
   ///pref data. Should only be called once per app's lifecycle.
@@ -112,12 +113,12 @@ class Repository extends ValueNotifier<Model> {
         await prefs.setString(key, completedDate.toIso8601String());
     debugPrint('set $completedDate on key:$key is:$res');
 
-    _reloadLevel(id);
+    _reloadModel();
   }
 
   Future<void> calibratePlan(
       WorkoutType workoutType, int? calibrationValue) async {
-    final Plan plan = value.plans[workoutType]!;
+    final Plan plan = model.plans[workoutType]!;
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isCalibrated:$workoutType', true);
@@ -145,7 +146,7 @@ class Repository extends ValueNotifier<Model> {
 
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     for (final WorkoutType workoutType in workoutTypeList) {
-      final Plan plan = value.getPlan(workoutType)!;
+      final Plan plan = model.getPlan(workoutType)!;
       for (final Level level in plan.levels) {
         await prefs.remove(_key(Date.completed, level.id));
         await prefs.remove(_key(Date.attempted, level.id));
@@ -159,21 +160,8 @@ class Repository extends ValueNotifier<Model> {
   ///
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
-    value = await _getModelFromJson(_staticJsonData!);
-  }
-
-  Future<void> _reloadLevel(String id) async {
-    for (final Plan plan in value.plans.values) {
-      final Level? level =
-          plan.levels.firstWhereOrNull((level) => level.id == id);
-      if (level != null) {
-        level
-          ..dateCompleted = await _getWorkoutDate(Date.completed, id)
-          ..dateAttempted = await _getWorkoutDate(Date.attempted, id);
-        notifyListeners();
-        break;
-      }
-    }
+    model = await _getModelFromJson(_staticJsonData!);
+    notifyListeners();
   }
 
   Future<bool> _getIsCalibrated(WorkoutType workoutType) async {

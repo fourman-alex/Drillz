@@ -65,8 +65,8 @@ class _ResetDialogState extends State<ResetDialog> {
   @override
   void initState() {
     super.initState();
-    final repo = context.watch<Repository>();
-    final workoutTypes = repo.value.plans.keys.toList(growable: false);
+    final repo = context.read<Repository>();
+    final workoutTypes = repo.model.plans.keys.toList(growable: false);
     switched = {
       for (final type in workoutTypes) type: false,
     };

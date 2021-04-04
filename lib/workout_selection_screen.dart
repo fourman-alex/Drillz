@@ -128,11 +128,11 @@ class WorkoutSelectionScreen extends StatelessWidget {
               child: Consumer<Repository>(
                 builder: (_, repository, __) {
                   final workoutTypes =
-                      repository.value.plans.keys.toList(growable: false);
+                      repository.model.plans.keys.toList(growable: false);
 
                   //create indicator
                   Widget progressIndicator;
-                  if (repository.value == Model.empty()) {
+                  if (repository.model == Model.empty()) {
                     progressIndicator = const CircularProgressIndicator();
                   } else {
                     progressIndicator = Container();
