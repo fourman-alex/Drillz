@@ -125,149 +125,92 @@ class WorkoutSelectionScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: Builder(
-        builder: (context) => Stack(
-          children: <Widget>[
-            Container(
-              color: Theme.of(context).canvasColor,
-            ),
-            SafeArea(
-              child: Consumer<Repository>(
-                builder: (_, repository, __) {
-                  final workoutTypes =
-                      repository.model.plans.keys.toList(growable: false);
+      body: SafeArea(
+        child: Consumer<Repository>(
+          builder: (_, repository, __) {
+            final workoutTypes =
+                repository.model.plans.keys.toList(growable: false);
 
-                  //create indicator
-                  Widget progressIndicator;
-                  if (repository.model == Model.empty()) {
-                    progressIndicator = const CircularProgressIndicator();
-                  } else {
-                    progressIndicator = Container();
-                  }
+            //create indicator
+            Widget progressIndicator;
+            if (repository.model == Model.empty()) {
+              progressIndicator = const CircularProgressIndicator();
+            } else {
+              progressIndicator = const SizedBox(
+                height: 0,
+              );
+            }
 
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: Stack(
                     children: <Widget>[
-                      Expanded(
-                        flex: 3,
-                        child: Stack(
-                          children: <Widget>[
-                            Positioned.fill(
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
-                                child: Material(
-                                  type: MaterialType.transparency,
-                                  child: FittedBox(
-                                    child: Text(
-                                      'Drillz',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              fontFamily: Consts.righteousFont,
-                                              shadows: <Shadow>[
-                                            Shadow(
-                                                blurRadius: 25.0,
-                                                color: Theme.of(context)
-                                                    .primaryColorLight)
-                                          ]),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Material(
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                  ),
-                                  onPressed: () {
-                                    Scaffold.of(context).openDrawer();
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: GridView.count(
-                          crossAxisCount: 2,
-                          children: [
-                            for (int i = 0; i < workoutTypes.length; i++)
-                              _WorkoutButton(
-                                  text: workoutTypes[i].name,
-                                  workoutType: workoutTypes[i],
-                                  color: workoutColors[i])
-                          ],
-                        ),
-                        // child: Column(
-                        //   mainAxisSize: MainAxisSize.min,
-                        //   children: <Widget>[
-                        //     Flexible(
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: <Widget>[
-                        //           _WorkoutButton(
-                        //             text: Plan.getWorkoutTypeString(
-                        //                     WorkoutType.pushups)
-                        //                 .toUpperCase(),
-                        //             color: Colors.green,
-                        //             workoutType: WorkoutType.pushups,
-                        //           ),
-                        //           _WorkoutButton(
-                        //             text: Plan.getWorkoutTypeString(
-                        //                     WorkoutType.pullups)
-                        //                 .toUpperCase(),
-                        //             color: Colors.deepOrange,
-                        //             workoutType: WorkoutType.pullups,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //     Flexible(
-                        //       child: Row(
-                        //         mainAxisAlignment: MainAxisAlignment.center,
-                        //         children: <Widget>[
-                        //           _WorkoutButton(
-                        //             text: Plan.getWorkoutTypeString(
-                        //                     WorkoutType.situps)
-                        //                 .toUpperCase(),
-                        //             color: Colors.pink,
-                        //             workoutType: WorkoutType.situps,
-                        //           ),
-                        //           _WorkoutButton(
-                        //             text: Plan.getWorkoutTypeString(
-                        //                     WorkoutType.squats)
-                        //                 .toUpperCase(),
-                        //             color: Colors.indigo,
-                        //             workoutType: WorkoutType.squats,
-                        //           ),
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-                      ),
-                      Expanded(
+                      Positioned.fill(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 250),
-                            child: progressIndicator,
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: FittedBox(
+                              child: Text(
+                                'Drillz',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(
+                                        fontFamily: Consts.righteousFont,
+                                        shadows: <Shadow>[
+                                      Shadow(
+                                          blurRadius: 25.0,
+                                          color: Theme.of(context)
+                                              .primaryColorLight)
+                                    ]),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Material(
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.menu,
+                            ),
+                            onPressed: () {
+                              Scaffold.of(context).openDrawer();
+                            },
                           ),
                         ),
                       ),
                     ],
-                  );
-                },
-              ),
-            ),
-          ],
+                  ),
+                ),
+                Expanded(
+                  flex: 8,
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    children: [
+                      for (int i = 0; i < workoutTypes.length; i++)
+                        _WorkoutButton(
+                            text: workoutTypes[i].name,
+                            workoutType: workoutTypes[i],
+                            color: workoutColors[i])
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    child: progressIndicator,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
