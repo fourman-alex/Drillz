@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'consts.dart';
 import 'model.dart';
 
+const _workoutTypesKey = '_workoutTypesKey';
+
 class Repository extends ChangeNotifier {
   factory Repository(BuildContext context) {
     return _repository ??= Repository._internal(context);
@@ -35,16 +37,19 @@ class Repository extends ChangeNotifier {
         await DefaultAssetBundle.of(context).loadString('assets/plan.json');
     _staticJsonData = jsonDecode(jsonString);
 
-    return _getModelFromJson(_staticJsonData!);
+    final workoutTypes = await _loadWorkoutTypes() ??
+        [
+          const WorkoutType(id: 'pushups', name: 'Pushups'),
+          const WorkoutType(id: 'pullups', name: 'Pullups'),
+          const WorkoutType(id: 'squats', name: 'Squats'),
+          const WorkoutType(id: 'situps', name: 'Situps'),
+        ];
+
+    return _getModelFromJson(_staticJsonData!, workoutTypes);
   }
 
-  Future<Model> _getModelFromJson(List<dynamic> json) async {
-    final workoutTypes = [
-      const WorkoutType(id: 'pushups', name: 'Pushups'),
-      const WorkoutType(id: 'pullups', name: 'Pullups'),
-      const WorkoutType(id: 'squats', name: 'Squats'),
-      const WorkoutType(id: 'situps', name: 'Situps'),
-    ];
+  Future<Model> _getModelFromJson(
+      List<dynamic> json, List<WorkoutType> workoutTypes) async {
     final plans = <WorkoutType, List<Level>>{
       for (final type in workoutTypes) type: <Level>[],
     };
@@ -156,17 +161,50 @@ class Repository extends ChangeNotifier {
     await _reloadModel();
   }
 
-  ///Updates the [value] (the model) by reloading everything but the json.
+  ///Updates the [model] (the model) by reloading everything but the json.
   ///
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
-    model = await _getModelFromJson(_staticJsonData!);
+    final workoutTypes = await _loadWorkoutTypes() ??
+        [
+          const WorkoutType(id: 'pushups', name: 'Pushups'),
+          const WorkoutType(id: 'pullups', name: 'Pullups'),
+          const WorkoutType(id: 'squats', name: 'Squats'),
+          const WorkoutType(id: 'situps', name: 'Situps'),
+        ];
+    model = await _getModelFromJson(_staticJsonData!, workoutTypes);
     notifyListeners();
   }
 
   Future<bool> _getIsCalibrated(WorkoutType workoutType) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('isCalibrated:$workoutType') ?? false;
+  }
+
+  Future<void> _saveWorkoutTypes(List<WorkoutType> types) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(_workoutTypesKey, jsonEncode(types));
+    _reloadModel();
+  }
+
+  Future<List<WorkoutType>?> _loadWorkoutTypes() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final jsonString = prefs.getString(_workoutTypesKey);
+    if (jsonString == null) {
+      return null;
+    }
+    final listOfObjects = jsonDecode(jsonString) as List;
+    return listOfObjects.map((e) => WorkoutType.fromJson(e)).toList();
+  }
+
+  Future<void> removeWorkoutType(WorkoutType type) async {
+    final types = [...model.plans.keys]..remove(type);
+    await _saveWorkoutTypes(types);
+  }
+
+  Future<void> addWorkoutType(WorkoutType type) async {
+    final types = [...model.plans.keys, type];
+    await _saveWorkoutTypes(types);
   }
 }
 

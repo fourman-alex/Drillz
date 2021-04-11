@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts.dart';
+import 'edit_workouts_page.dart';
 import 'level_selection_screen.dart';
 import 'model.dart';
 import 'repository.dart';
@@ -47,6 +48,12 @@ class WorkoutSelectionScreen extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
+            ListTile(
+              title: const Text('Edit Workouts'),
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EditWorkoutsPage(),
+              )),
             ),
             ListTile(
               title: const Text('Reset'),

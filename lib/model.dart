@@ -7,6 +7,9 @@ import 'package:flutter/cupertino.dart';
 class WorkoutType extends Equatable {
   const WorkoutType({required this.id, required this.name});
 
+  factory WorkoutType.fromJson(json) =>
+      WorkoutType(id: json['id'], name: json['name']);
+
   final String id;
   final String name;
 
@@ -15,6 +18,13 @@ class WorkoutType extends Equatable {
 
   @override
   bool get stringify => true;
+
+  Map toJson() {
+    return {
+      'id': id,
+      'name': name,
+    };
+  }
 }
 
 @immutable
