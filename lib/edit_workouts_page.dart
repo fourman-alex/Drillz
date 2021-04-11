@@ -14,6 +14,9 @@ class EditWorkoutsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final repo = context.watch<Repository>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Edit Workouts'),
+      ),
       floatingActionButton: OpenContainer<WorkoutType?>(
         openSize: const Size(250, 150),
         openBuilder: (context, _) {
