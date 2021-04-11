@@ -14,6 +14,7 @@ class EditWorkoutsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final repo = context.watch<Repository>();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Edit Workouts'),
       ),
