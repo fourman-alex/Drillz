@@ -16,12 +16,8 @@ const List<MaterialColor> workoutColors = [
   Colors.deepOrange,
   Colors.pink,
   Colors.indigo,
-  Colors.yellow,
   Colors.red,
-  Colors.green,
-  Colors.deepOrange,
-  Colors.pink,
-  Colors.indigo,
-  Colors.yellow,
-  Colors.red,
+  Colors.purple,
+  Colors.brown,
+  Colors.blueGrey
 ];

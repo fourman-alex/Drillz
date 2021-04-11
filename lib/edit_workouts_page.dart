@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'consts.dart';
 import 'model.dart';
 import 'open_container.dart';
 
@@ -19,7 +20,7 @@ class EditWorkoutsPage extends StatelessWidget {
         title: const Text('Edit Workouts'),
       ),
       floatingActionButton: OpenContainer<WorkoutType?>(
-        openSize: const Size(250, 150),
+        openSize: const Size(250, 250),
         openBuilder: (context, _) {
           final themeData = ThemeData.light().copyWith(
               colorScheme: const ColorScheme.light(
@@ -78,6 +79,7 @@ class _AddTypeDialog extends StatefulWidget {
 
 class _AddTypeDialogState extends State<_AddTypeDialog> {
   final TextEditingController _textController = TextEditingController();
+  Color selectedColor = workoutColors.first;
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +97,28 @@ class _AddTypeDialogState extends State<_AddTypeDialog> {
                   autofocus: true,
                   controller: _textController,
                   decoration: const InputDecoration(labelText: 'Workout Name'),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Wrap(
+                      children: List.generate(
+                        workoutColors.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ChoiceChip(
+                            elevation: 5,
+                            selectedColor: workoutColors[index],
+                            selectedShadowColor: workoutColors[index][900],
+                            backgroundColor: workoutColors[index][300],
+                            label: const Text('   '),
+                            onSelected: (value) => setState(
+                                () => selectedColor = workoutColors[index]),
+                            selected: selectedColor == workoutColors[index],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
