@@ -92,8 +92,9 @@ class _AddTypeDialogState extends State<_AddTypeDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextField(
+                  autofocus: true,
                   controller: _textController,
-                  decoration: InputDecoration(labelText: 'Workout Name'),
+                  decoration: const InputDecoration(labelText: 'Workout Name'),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
