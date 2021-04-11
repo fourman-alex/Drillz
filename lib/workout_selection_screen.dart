@@ -125,93 +125,65 @@ class WorkoutSelectionScreen extends StatelessWidget {
           ],
         ),
       ),
-      body: SafeArea(
-        child: Consumer<Repository>(
-          builder: (_, repository, __) {
-            final workoutTypes =
-                repository.model.plans.keys.toList(growable: false);
+      body: Consumer<Repository>(
+        builder: (_, repository, __) {
+          final workoutTypes =
+              repository.model.plans.keys.toList(growable: false);
 
-            //create indicator
-            Widget progressIndicator;
-            if (repository.model == Model.empty()) {
-              progressIndicator = const CircularProgressIndicator();
-            } else {
-              progressIndicator = const SizedBox(
-                height: 0,
-              );
-            }
-
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned.fill(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: FittedBox(
-                              child: Text(
-                                'Drillz',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2!
-                                    .copyWith(
-                                        fontFamily: Consts.righteousFont,
-                                        shadows: <Shadow>[
-                                      Shadow(
-                                          blurRadius: 25.0,
-                                          color: Theme.of(context)
-                                              .primaryColorLight)
-                                    ]),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Material(
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.menu,
-                            ),
-                            onPressed: () {
-                              Scaffold.of(context).openDrawer();
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 8,
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    children: [
-                      for (int i = 0; i < workoutTypes.length; i++)
-                        _WorkoutButton(
-                            text: workoutTypes[i].name,
-                            workoutType: workoutTypes[i],
-                            color: workoutColors[i])
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 250),
-                    child: progressIndicator,
-                  ),
-                ),
-              ],
+          //create indicator
+          Widget progressIndicator;
+          if (repository.model == Model.empty()) {
+            progressIndicator = const CircularProgressIndicator();
+          } else {
+            progressIndicator = const SizedBox(
+              height: 0,
             );
-          },
-        ),
+          }
+
+          return CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                floating: true,
+                pinned: true,
+                expandedHeight: 140,
+                flexibleSpace: FlexibleSpaceBar(
+                  titlePadding: const EdgeInsets.only(left: 64, right: 64),
+                  title: SafeArea(
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: FittedBox(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Drillz',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(
+                                  fontFamily: Consts.righteousFont,
+                                  shadows: <Shadow>[
+                                Shadow(
+                                    blurRadius: 25.0,
+                                    color: Theme.of(context).primaryColorLight)
+                              ]),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              SliverGrid.count(
+                crossAxisCount: 2,
+                children: [
+                  for (int i = 0; i < workoutTypes.length; i++)
+                    _WorkoutButton(
+                        text: workoutTypes[i].name,
+                        workoutType: workoutTypes[i],
+                        color: workoutColors[i])
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
