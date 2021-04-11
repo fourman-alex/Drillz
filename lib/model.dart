@@ -3,15 +3,23 @@ import 'dart:math';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WorkoutType extends Equatable {
-  const WorkoutType({required this.id, required this.name});
+  const WorkoutType(
+      {required this.id, required this.name, required this.color});
 
-  factory WorkoutType.fromJson(json) =>
-      WorkoutType(id: json['id'], name: json['name']);
+  factory WorkoutType.fromJson(json) {
+    return WorkoutType(
+      id: json['id'],
+      name: json['name'],
+      color: Color(json['color'] ?? Colors.purple.value),
+    );
+  }
 
   final String id;
   final String name;
+  final Color color;
 
   @override
   List<Object?> get props => [id];
@@ -23,6 +31,7 @@ class WorkoutType extends Equatable {
     return {
       'id': id,
       'name': name,
+      'color': color.value,
     };
   }
 }

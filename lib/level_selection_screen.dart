@@ -29,7 +29,7 @@ class LevelSelectionScreen extends StatelessWidget {
     required BuildContext context,
     required String title,
     required WorkoutType workoutType,
-    required MaterialColor fromColor,
+    required Color fromColor,
     required Color toColor,
     required BorderRadius fromRadius,
     BorderRadius toRadius = BorderRadius.zero,
@@ -47,9 +47,7 @@ class LevelSelectionScreen extends StatelessWidget {
           child: Theme(
             data: ThemeData(
               brightness: Brightness.dark,
-              primarySwatch: fromColor,
               primaryColor: fromColor,
-              primaryColorDark: fromColor.shade800,
               backgroundColor: toColor,
               canvasColor: toColor,
               dividerColor: Colors.white,

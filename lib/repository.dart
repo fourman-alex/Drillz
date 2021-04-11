@@ -39,10 +39,10 @@ class Repository extends ChangeNotifier {
 
     final workoutTypes = await _loadWorkoutTypes() ??
         [
-          const WorkoutType(id: 'pushups', name: 'Pushups'),
-          const WorkoutType(id: 'pullups', name: 'Pullups'),
-          const WorkoutType(id: 'squats', name: 'Squats'),
-          const WorkoutType(id: 'situps', name: 'Situps'),
+          WorkoutType(id: 'pushups', name: 'Pushups', color: workoutColors[0]),
+          WorkoutType(id: 'pullups', name: 'Pullups', color: workoutColors[1]),
+          WorkoutType(id: 'squats', name: 'Squats', color: workoutColors[2]),
+          WorkoutType(id: 'situps', name: 'Situps', color: workoutColors[3]),
         ];
 
     return _getModelFromJson(_staticJsonData!, workoutTypes);
@@ -167,10 +167,10 @@ class Repository extends ChangeNotifier {
   Future<void> _reloadModel() async {
     final workoutTypes = await _loadWorkoutTypes() ??
         [
-          const WorkoutType(id: 'pushups', name: 'Pushups'),
-          const WorkoutType(id: 'pullups', name: 'Pullups'),
-          const WorkoutType(id: 'squats', name: 'Squats'),
-          const WorkoutType(id: 'situps', name: 'Situps'),
+          WorkoutType(id: 'pushups', name: 'Pushups', color: workoutColors[0]),
+          WorkoutType(id: 'pullups', name: 'Pullups', color: workoutColors[1]),
+          WorkoutType(id: 'squats', name: 'Squats', color: workoutColors[2]),
+          WorkoutType(id: 'situps', name: 'Situps', color: workoutColors[3]),
         ];
     model = await _getModelFromJson(_staticJsonData!, workoutTypes);
     notifyListeners();

@@ -132,8 +132,10 @@ class _AddTypeDialogState extends State<_AddTypeDialog> {
                         WorkoutType? result;
                         if (_textController.value.text.isNotEmpty) {
                           result = WorkoutType(
-                              id: _textController.value.text.toLowerCase(),
-                              name: _textController.value.text);
+                            id: _textController.value.text.toLowerCase(),
+                            name: _textController.value.text,
+                            color: selectedColor,
+                          );
                         }
                         Navigator.pop(context, result);
                       },

@@ -176,9 +176,9 @@ class WorkoutSelectionScreen extends StatelessWidget {
                 children: [
                   for (int i = 0; i < workoutTypes.length; i++)
                     _WorkoutButton(
-                        text: workoutTypes[i].name,
-                        workoutType: workoutTypes[i],
-                        color: workoutColors[i])
+                      text: workoutTypes[i].name,
+                      workoutType: workoutTypes[i],
+                    )
                 ],
               ),
             ],
@@ -209,13 +209,11 @@ class _WorkoutButton extends StatelessWidget {
   const _WorkoutButton({
     required this.text,
     required this.workoutType,
-    required this.color,
     Key? key,
   }) : super(key: key);
 
   final String text;
   final WorkoutType workoutType;
-  final MaterialColor color;
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +222,7 @@ class _WorkoutButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: color,
+        color: workoutType.color,
         borderRadius: borderRadius,
       ),
       child: Builder(
@@ -253,7 +251,7 @@ class _WorkoutButton extends StatelessWidget {
                   title: text,
                   context: context,
                   workoutType: workoutType,
-                  fromColor: color,
+                  fromColor: workoutType.color,
                   toColor: Theme.of(context).canvasColor,
                   fromRadius: borderRadius,
                 ),
