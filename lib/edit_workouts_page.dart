@@ -52,6 +52,10 @@ class EditWorkoutsPage extends StatelessWidget {
         children: [
           for (final type in repo.model.plans.keys)
             ListTile(
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: () => repo.removeWorkoutType(type),
+              ),
               title: Text(type.name),
             )
         ],
