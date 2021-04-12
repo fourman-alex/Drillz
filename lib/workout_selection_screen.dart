@@ -33,30 +33,26 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final Tween<double> _scaleTween = Tween(begin: 1.0, end: 0.8);
+  late Animation<double> _drawerAnimation;
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 200));
+    _drawerAnimation = CurvedAnimation(parent: _controller, curve: Curves.ease);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: AnimatedBuilder(
-              builder: (context, child) => Transform.scale(
-                scale: _scaleTween.evaluate(_controller),
-                child: child,
-              ),
-              animation: _controller,
-              child: _frontPage(),
-            ),
-          ),
-        ],
+      body: AnimatedBuilder(
+        builder: (context, child) => Transform.scale(
+          scale: _scaleTween.evaluate(_drawerAnimation),
+          child: child,
+        ),
+        animation: _controller,
+        child: _frontPage(),
       ),
     );
   }
