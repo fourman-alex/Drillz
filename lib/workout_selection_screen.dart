@@ -172,18 +172,13 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
           onTap: () async {
             rateMyApp.showRateDialog(
               context,
-              title: 'Rate this app', // The dialog title.
-              message:
-                  'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.', // The dialog message.
+              title: 'Rate Drillz', // The dialog title.
+              message: 'We would love to hear your opinion on the app!',
               rateButton: 'RATE', // The dialog "rate" button text.
               noButton: 'NO THANKS', // The dialog "no" button text.
               laterButton: 'MAYBE LATER', // The dialog "later" button text.
-              ignoreNativeDialog: Platform
-                  .isAndroid, // Set to false if you want to show the Apple's native app rating dialog on iOS or Google's native app rating dialog (depends on the current Platform).
-              // contentBuilder: (context, defaultContent) => content, // This one allows you to change the default dialog content.
-              // actionsBuilder: (context) => [], // This one allows you to use your own buttons.
-            );
-            Navigator.pop(context);
+              ignoreNativeDialog: false,
+            ); // Navigator.pop(context);
           },
         ),
         ListTile(

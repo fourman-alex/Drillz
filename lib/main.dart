@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'audio.dart';
+import 'rate.dart';
 import 'repository.dart';
 import 'workout_selection_screen.dart';
 //todo add keys to widget constructors
@@ -38,6 +39,7 @@ class _MyAppState extends State<MyApp> {
 
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     super.initState();
+    rateMyApp.init();
   }
 
   @override
