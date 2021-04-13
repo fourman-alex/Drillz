@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:drillz/rate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -169,15 +170,20 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
         ListTile(
           title: const Text('Rate'),
           onTap: () async {
-            if (Platform.isIOS &&
-                await (WorkoutSelectionScreen._platform
-                    .invokeMethod('canRequestReview') as FutureOr<bool>)) {
-              WorkoutSelectionScreen._platform
-                  .invokeMethod<void>('requestReview');
-            } else {
-              WorkoutSelectionScreen._platform
-                  .invokeMethod<void>('launchStore');
-            }
+            rateMyApp.showRateDialog(
+              context,
+              title: 'Rate this app', // The dialog title.
+              message:
+                  'If you like this app, please take a little bit of your time to review it !\nIt really helps us and it shouldn\'t take you more than one minute.', // The dialog message.
+              rateButton: 'RATE', // The dialog "rate" button text.
+              noButton: 'NO THANKS', // The dialog "no" button text.
+              laterButton: 'MAYBE LATER', // The dialog "later" button text.
+              ignoreNativeDialog: Platform
+                  .isAndroid, // Set to false if you want to show the Apple's native app rating dialog on iOS or Google's native app rating dialog (depends on the current Platform).
+              // contentBuilder: (context, defaultContent) => content, // This one allows you to change the default dialog content.
+              // actionsBuilder: (context) => [], // This one allows you to use your own buttons.
+            );
+            Navigator.pop(context);
           },
         ),
         ListTile(
