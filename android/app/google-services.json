@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740732040592",
+    "project_id": "drillz-7606a",
+    "storage_bucket": "drillz-7606a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740732040592:android:d57b213bbe319cd4792f15",
+        "android_client_info": {
+          "package_name": "com.paraxod.drillz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740732040592-00sv08v3ivnue231jgdr7l95cppq3sds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2GWYaKz8T7ICFCh99aYGvgZ1idg_V9-Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740732040592-00sv08v3ivnue231jgdr7l95cppq3sds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
