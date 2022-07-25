@@ -131,7 +131,7 @@ class _RestTileState extends State<RestTile>
     final int duration = _timerString;
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (timer.tick > duration) {
-        audioPlayer.play(Consts.bellsAudio);
+        audioPlayer.resume();
         timer.cancel();
         widget._onDone();
       } else {
