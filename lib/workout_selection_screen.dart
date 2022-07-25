@@ -72,22 +72,18 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
               leading: _menuButtonBuilder(drawer: _drawerBuilder()),
               expandedHeight: 140,
               flexibleSpace: FlexibleSpaceBar(
-                titlePadding: const EdgeInsets.only(left: 64, right: 64),
+                expandedTitleScale: 4.0,
                 title: SafeArea(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Drillz',
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                            fontFamily: Consts.righteousFont,
-                            shadows: <Shadow>[
-                              Shadow(
-                                  blurRadius: 25.0,
-                                  color: Theme.of(context).primaryColorLight)
-                            ]),
-                      ),
+                  child: Text(
+                    'Drillz',
+                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                      fontSize: 24,
+                      fontFamily: Consts.righteousFont,
+                      shadows: <Shadow>[
+                        Shadow(
+                            blurRadius: 25.0,
+                            color: Theme.of(context).primaryColorLight)
+                      ],
                     ),
                   ),
                 ),
