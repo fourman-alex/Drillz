@@ -1,18 +1,16 @@
 import 'dart:async';
-import 'dart:io';
-import 'dart:ui';
 
-import 'package:drillz/rate.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'consts.dart';
 import 'edit_workouts_page.dart';
 import 'level_selection_screen.dart';
 import 'model.dart';
+import 'rate.dart';
 import 'repository.dart';
 import 'reset_dialog.dart';
+import 'theme.dart';
 
 const String _disclaimerText =
     'The information in this app is for general information purposes only. '
@@ -23,8 +21,6 @@ const String _disclaimerText =
 
 class WorkoutSelectionScreen extends StatefulWidget {
   const WorkoutSelectionScreen({Key? key}) : super(key: key);
-
-  static const MethodChannel _platform = MethodChannel('drillz.com/rate');
 
   @override
   _WorkoutSelectionScreenState createState() => _WorkoutSelectionScreenState();
@@ -47,6 +43,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: AnimatedBuilder(
         builder: (context, child) => Transform.scale(
           scale: _scaleTween.evaluate(_drawerAnimation),
@@ -68,36 +65,31 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
           slivers: [
             SliverAppBar(
               floating: true,
-              pinned: true,
+              backgroundColor: Theme.of(context).colorScheme.background,
               leading: _menuButtonBuilder(drawer: _drawerBuilder()),
-              expandedHeight: 140,
-              flexibleSpace: FlexibleSpaceBar(
-                expandedTitleScale: 4.0,
-                title: SafeArea(
-                  child: Text(
-                    'Drillz',
-                    style: Theme.of(context).textTheme.bodyText2!.copyWith(
-                      fontSize: 24,
-                      fontFamily: Consts.righteousFont,
-                      shadows: <Shadow>[
-                        Shadow(
-                            blurRadius: 25.0,
-                            color: Theme.of(context).primaryColorLight)
-                      ],
-                    ),
-                  ),
-                ),
+              titleTextStyle: TextStyle(
+                fontFamily: Consts.righteousFont,
+                color: Theme.of(context).colorScheme.onSurface,
+                fontSize: 30,
+              ),
+              title: const Text(
+                '${Consts.drillz}™',
               ),
             ),
-            SliverGrid.count(
-              crossAxisCount: 2,
-              children: [
-                for (int i = 0; i < workoutTypes.length; i++)
-                  _WorkoutButton(
-                    text: workoutTypes[i].name,
-                    workoutType: workoutTypes[i],
-                  )
-              ],
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: Insets.md),
+              sliver: SliverGrid.count(
+                crossAxisSpacing: Insets.md,
+                mainAxisSpacing: Insets.md,
+                crossAxisCount: 2,
+                children: [
+                  for (int i = 0; i < workoutTypes.length; i++)
+                    _WorkoutButton(
+                      text: workoutTypes[i].name,
+                      workoutType: workoutTypes[i],
+                    )
+                ],
+              ),
             ),
           ],
         );
@@ -123,7 +115,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
 
   Widget _menuButtonBuilder({required Widget drawer}) {
     return IconButton(
-      icon: const Icon(Icons.menu),
+      icon: Icon(
+        Icons.menu,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
       onPressed: () async {
         _controller.forward();
         await showModalBottomSheet(
@@ -134,12 +129,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
               height: 300,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16),
-                child: Theme(
-                  data: ThemeData(primaryColor: Colors.white),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: drawer,
-                  ),
+                child: Material(
+                  color: Theme.of(context).colorScheme.inverseSurface,
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: drawer,
                 ),
               ),
             );
@@ -151,34 +144,53 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
   }
 
   Widget _drawerBuilder() {
+    final onSecondaryContainer = Theme.of(context).colorScheme.surface;
     return ListView(
       children: <Widget>[
         ListTile(
-          title: const Text('Edit Workouts'),
+          title: Text(
+            'Edit Workouts',
+            style: TextStyle(color: onSecondaryContainer),
+          ),
           onTap: () => Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => const EditWorkoutsPage(),
           )),
         ),
         ListTile(
-          title: const Text('Reset'),
+          title: Text(
+            'Reset',
+            style: TextStyle(color: onSecondaryContainer),
+          ),
           onTap: () => _showResetDialog(context),
         ),
         ListTile(
-          title: const Text('Rate'),
+          title: Text(
+            'Rate',
+            style: TextStyle(color: onSecondaryContainer),
+          ),
           onTap: () async {
             rateMyApp.showRateDialog(
               context,
-              title: 'Rate Drillz', // The dialog title.
+              title: 'Rate Drillz',
+              // The dialog title.
               message: 'We would love to hear your opinion on the app!',
-              rateButton: 'RATE', // The dialog "rate" button text.
-              noButton: 'NO THANKS', // The dialog "no" button text.
-              laterButton: 'MAYBE LATER', // The dialog "later" button text.
+              rateButton: 'RATE',
+              // The dialog "rate" button text.
+              noButton: 'NO THANKS',
+              // The dialog "no" button text.
+              laterButton: 'MAYBE LATER',
+              // The dialog "later" button text.
               ignoreNativeDialog: false,
             ); // Navigator.pop(context);
           },
         ),
         ListTile(
-          title: const Text('Disclaimer'),
+          title: Text(
+            'Disclaimer',
+            style: TextStyle(
+              color: onSecondaryContainer,
+            ),
+          ),
           onTap: () {
             showDialog<SimpleDialog>(
                 context: context,
@@ -199,33 +211,19 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen>
                 });
           },
         ),
-        Theme(
-          data: () {
-            final ThemeData theme = ThemeData.dark().copyWith(
-              buttonTheme: ButtonThemeData(
-                colorScheme:
-                    const ColorScheme.dark().copyWith(secondary: Colors.white),
-              ),
-            );
-            return theme;
-          }(),
-          child: AboutListTile(
-            applicationName: Consts.drillz,
-            applicationLegalese: 'Copyright © Alex Fourman 2019',
-            applicationIcon: const Image(
-              image: AssetImage('assets/icon.png'),
-              width: 70,
-              height: 70,
+        AboutListTile(
+          applicationName: Consts.drillz,
+          applicationLegalese: 'Copyright © Alex Fourman 2019',
+          applicationIcon: const Image(
+            height: 50,
+            width: 50,
+            image: AssetImage('assets/icon.png'),
+          ),
+          child: Text(
+            'About',
+            style: TextStyle(
+              color: onSecondaryContainer,
             ),
-            aboutBoxChildren: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Text(
-                  Consts.contactEmail,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-            ],
           ),
         ),
       ],
@@ -248,9 +246,8 @@ class _WorkoutButton extends StatelessWidget {
     final BorderRadius borderRadius = BorderRadius.circular(15.0);
 
     return Container(
-      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: workoutType.color,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: borderRadius,
       ),
       child: Builder(
@@ -263,10 +260,11 @@ class _WorkoutButton extends StatelessWidget {
                 final double fontSize = constraints.biggest.width / 5.5;
                 return Text(
                   text,
-                  style: Theme.of(context).primaryTextTheme.bodyText2!.copyWith(
-                        fontSize: fontSize,
-                        fontFamily: Consts.righteousFont,
-                      ),
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: fontSize,
+                    fontFamily: Consts.righteousFont,
+                  ),
                 );
               },
             ),
@@ -279,8 +277,6 @@ class _WorkoutButton extends StatelessWidget {
                   title: text,
                   context: context,
                   workoutType: workoutType,
-                  fromColor: workoutType.color,
-                  toColor: Theme.of(context).canvasColor,
                   fromRadius: borderRadius,
                 ),
               );

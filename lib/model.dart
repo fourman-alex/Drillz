@@ -6,20 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutType extends Equatable {
-  const WorkoutType(
-      {required this.id, required this.name, required this.color});
+  const WorkoutType({required this.id, required this.name});
 
   factory WorkoutType.fromJson(json) {
     return WorkoutType(
       id: json['id'],
       name: json['name'],
-      color: Color(json['color'] ?? Colors.purple.value),
     );
   }
 
   final String id;
   final String name;
-  final Color color;
 
   @override
   List<Object?> get props => [id];
@@ -31,7 +28,6 @@ class WorkoutType extends Equatable {
     return {
       'id': id,
       'name': name,
-      'color': color.value,
     };
   }
 }
@@ -39,6 +35,7 @@ class WorkoutType extends Equatable {
 @immutable
 class Model {
   const Model(this.plans);
+
   factory Model.empty() => const Model({});
 
   final Map<WorkoutType, Plan> plans;
@@ -77,16 +74,12 @@ class Level {
   /// [dateCompleted] must come after [dateAttempted].
   ///
   /// [dateAttempted] can't be null if [dateCompleted] is not null.
-  Level(
+  const Level(
     this.id,
     List<ExerciseStep> steps,
     this.dateAttempted,
     this.dateCompleted,
-  ) : _steps = steps {
-    if (id is! String) {
-      throw ArgumentError(id);
-    }
-  }
+  ) : _steps = steps;
 
   final String id;
   final List<ExerciseStep> _steps;
@@ -111,7 +104,7 @@ abstract class ExerciseStep {
 @immutable
 class WorkStep extends ExerciseStep {
   WorkStep(this.reps) {
-    if (reps is! int || reps <= 0) {
+    if (reps <= 0) {
       throw ArgumentError(reps);
     }
   }
@@ -127,7 +120,7 @@ class WorkStep extends ExerciseStep {
 @immutable
 class RestStep extends ExerciseStep {
   RestStep(this.duration) {
-    if (duration is! int || duration <= 0) {
+    if (duration <= 0) {
       throw ArgumentError(duration);
     }
   }
@@ -160,7 +153,7 @@ class FinishStep extends ExerciseStep {
   const FinishStep();
 
   @override
-  String toString() => '\u{1F3C1}';
+  String toString() => 'End';
 
   @override
   bool operator ==(Object other) => other is FinishStep;

@@ -1,6 +1,5 @@
 import 'package:clippy_flutter/chevron.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'calibration_banner.dart';
@@ -29,8 +28,6 @@ class LevelSelectionScreen extends StatelessWidget {
     required BuildContext context,
     required String title,
     required WorkoutType workoutType,
-    required Color fromColor,
-    required Color toColor,
     required BorderRadius fromRadius,
     BorderRadius toRadius = BorderRadius.zero,
   }) {
@@ -38,33 +35,26 @@ class LevelSelectionScreen extends StatelessWidget {
     final Rect sourceRect = box.localToGlobal(Offset.zero) & box.size;
     return PageRouteBuilder<void>(
       pageBuilder: (_, __, ___) {
-        return FillTransition(
-          source: sourceRect,
-          fromColor: fromColor,
-          toColor: toColor,
-          fromBorderRadius: fromRadius,
-          toBorderRadius: toRadius,
-          child: Theme(
-            data: ThemeData(
-              brightness: Brightness.dark,
-              primaryColor: fromColor,
-              colorScheme:
-                  Theme.of(context).colorScheme.copyWith(background: toColor),
-              canvasColor: toColor,
-              dividerColor: Colors.white,
-              iconTheme: const IconThemeData(color: Colors.white),
-            ),
-            child: WillPopScope(
-              onWillPop: () async {
-                return !popAnimationObserver.isAnimating;
-              },
-              child: LevelSelectionScreen(
-                sourceRect: sourceRect,
-                workoutType: workoutType,
-                title: title,
+        return Builder(
+          builder: (context) {
+            return FillTransition(
+              source: sourceRect,
+              fromColor: Theme.of(context).colorScheme.primaryContainer,
+              toColor: Theme.of(context).colorScheme.surface,
+              fromBorderRadius: fromRadius,
+              toBorderRadius: toRadius,
+              child: WillPopScope(
+                onWillPop: () async {
+                  return !popAnimationObserver.isAnimating;
+                },
+                child: LevelSelectionScreen(
+                  sourceRect: sourceRect,
+                  workoutType: workoutType,
+                  title: title,
+                ),
               ),
-            ),
-          ),
+            );
+          }
         );
       },
       transitionDuration: const Duration(milliseconds: 650),
@@ -75,10 +65,6 @@ class LevelSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> widgets = <Widget>[];
     final ThemeData theme = Theme.of(context);
-    final Color textColorOfCompleted =
-        _darken(theme.textTheme.bodyMedium!.color!, 0.4);
-    final Color cardColorOfCompleted = _darken(theme.primaryColor, 0.2);
-
     final Repository repository = Provider.of<Repository>(context);
     final List<Level> activeLevels =
         repository.model.getPlan(workoutType)!.activeLevels;
@@ -86,18 +72,16 @@ class LevelSelectionScreen extends StatelessWidget {
       widgets.add(Builder(
         builder: (context) {
           return LevelPage(
-            textColor: textColorOfCompleted,
-            cardColor: cardColorOfCompleted,
             level: activeLevels[i],
           );
         },
       ));
     }
-    widgets.add(LevelPage(
-      level: activeLevels.last,
-      textColor: theme.textTheme.bodyLarge!.color!,
-      cardColor: theme.primaryColor,
-    ));
+    widgets.add(
+      LevelPage(
+        level: activeLevels.last,
+      ),
+    );
 
     if (repository.model.getPlan(workoutType)!.notCalibrated) {
       widgets.add(
@@ -121,12 +105,14 @@ class LevelSelectionScreen extends StatelessWidget {
           SliverAppBar(
             floating: true,
             titleSpacing: 4.0,
-            backgroundColor: theme.colorScheme.background,
+            leading: BackButton(color: theme.colorScheme.onBackground),
+            backgroundColor: Theme.of(context).colorScheme.background,
             title: Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: Consts.righteousFont,
                 fontSize: 30,
+                color: theme.colorScheme.onBackground,
               ),
             ),
           ),
@@ -135,22 +121,11 @@ class LevelSelectionScreen extends StatelessWidget {
       ),
     );
   }
-
-  Color _darken(Color color, [double amount = .1]) {
-    assert(amount >= 0 && amount <= 1, 'amount must be between 0 and 1');
-
-    final hsl = HSLColor.fromColor(color);
-    final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-
-    return hslDark.toColor();
-  }
 }
 
 class LevelPage extends StatelessWidget {
   LevelPage({
     required this.level,
-    required this.textColor,
-    required this.cardColor,
     Key? key,
   })  : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.total,
@@ -163,8 +138,6 @@ class LevelPage extends StatelessWidget {
     bottomLeft: Radius.circular(15),
     bottomRight: Radius.circular(15),
   );
-  final Color textColor;
-  final Color cardColor;
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +156,6 @@ class LevelPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   fontFamily: Consts.righteousFont,
                   fontSize: 30,
-                  color: textColor,
                 ),
                 children: <TextSpan>[
                   TextSpan(
@@ -191,7 +163,6 @@ class LevelPage extends StatelessWidget {
                     style: theme.textTheme.headlineMedium!.copyWith(
                       fontFamily: Consts.righteousFont,
                       fontSize: 15,
-                      color: textColor,
                     ),
                   ),
                 ],
@@ -199,6 +170,8 @@ class LevelPage extends StatelessWidget {
             ),
             Builder(
               builder: (context) {
+                final colorScheme = Theme.of(context).colorScheme;
+                final primaryColor = colorScheme.primary;
                 return GestureDetector(
                   onTap: () {
                     final RenderBox renderBox =
@@ -211,14 +184,13 @@ class LevelPage extends StatelessWidget {
                         level: level,
                         sourceRect: sourceRect,
                         fromBorderRadius: _borderRadius,
-                        theme: Theme.of(context),
                       ),
                     );
                   },
                   child: Container(
                     height: 60,
                     decoration: BoxDecoration(
-                      color: cardColor,
+                      color: colorScheme.primaryContainer,
                       borderRadius: _borderRadius,
                     ),
                     child: Padding(
@@ -238,18 +210,16 @@ class LevelPage extends StatelessWidget {
                                     padding: const EdgeInsets.all(12),
                                     alignment: Alignment.center,
                                     decoration: BoxDecoration(
-                                      color: textColor.withOpacity(0.3),
+                                      color: primaryColor,
                                     ),
                                     child: SizedBox.expand(
                                       child: FittedBox(
                                         child: Text(
                                           step.reps.toString(),
                                           textAlign: TextAlign.center,
-                                          style: theme.textTheme.bodyMedium!
-                                              .copyWith(
-                                                  color: textColor,
-                                                  fontFamily:
-                                                      Consts.righteousFont),
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                  color: colorScheme.onPrimary),
                                         ),
                                       ),
                                     ),

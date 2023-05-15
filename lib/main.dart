@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -25,8 +26,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     //load notification sound
-    audioPlayer
-        .setSource(AssetSource('soft-bells.mp3'));
+    audioPlayer.setSource(AssetSource('soft-bells.mp3'));
     //load the stupid shared pref
     SharedPreferences.getInstance();
     //lock screen orientation
@@ -42,26 +42,28 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: Colors.grey[850],
-      canvasColor: Colors.grey[850],
-      iconTheme: const IconThemeData(color: Colors.white),
-    );
-    theme = theme.copyWith(
-      buttonTheme: ButtonThemeData(
-          colorScheme:
-              const ColorScheme.dark().copyWith(secondary: Colors.white)),
-      textTheme: theme.textTheme.merge(theme.typography.white),
-      primaryTextTheme: theme.primaryTextTheme.merge(theme.typography.white),
-    );
-
+    const brandColor = Color(0xFF6200FF);
     return ChangeNotifierProvider<Repository>(
-      create: (context) => Repository(context),
-      child: MaterialApp(
-        theme: theme,
-        home: const WorkoutSelectionScreen(),
-        navigatorObservers: <NavigatorObserver>[popAnimationObserver],
+      create: Repository.new,
+      child: DynamicColorBuilder(
+        builder: (lightDynamic, darkDynamic) => MaterialApp(
+          theme: ThemeData(
+            colorScheme: lightDynamic?.harmonized() ??
+                ColorScheme.fromSeed(
+                  seedColor: brandColor,
+
+                ),
+          ),
+          darkTheme: ThemeData(
+            colorScheme: darkDynamic?.harmonized() ??
+                ColorScheme.fromSeed(
+                  seedColor: brandColor,
+                  brightness: Brightness.dark,
+                ),
+          ),
+          home: const WorkoutSelectionScreen(),
+          navigatorObservers: <NavigatorObserver>[popAnimationObserver],
+        ),
       ),
     );
   }

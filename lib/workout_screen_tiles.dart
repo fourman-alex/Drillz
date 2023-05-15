@@ -23,10 +23,9 @@ class StartTile extends StatelessWidget {
         child: Text(
           'GO',
           textAlign: TextAlign.center,
-          style: Theme.of(context)
-              .textTheme
-              .headline1!
-              .copyWith(fontFamily: Consts.righteousFont),
+          style: Theme.of(context).textTheme.displayLarge!.copyWith(
+              fontFamily: Consts.righteousFont,
+              color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );
@@ -50,7 +49,7 @@ class FinishTile extends StatelessWidget {
           textAlign: TextAlign.start,
           style: Theme.of(context)
               .textTheme
-              .headline1!
+              .displayLarge!
               .copyWith(fontFamily: Consts.righteousFont),
         ),
       ),
@@ -80,8 +79,9 @@ class WorkTile extends StatelessWidget {
               alignment: Alignment.topCenter,
               child: Text(
                 'PERFORM',
-                style: Theme.of(context).textTheme.headline4!.copyWith(
+                style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                       fontFamily: Consts.righteousFont,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
               ),
             ),
@@ -89,8 +89,9 @@ class WorkTile extends StatelessWidget {
           Center(
             child: Text(
               '$_amount',
-              style: Theme.of(context).textTheme.headline1!.copyWith(
+              style: Theme.of(context).textTheme.displayLarge!.copyWith(
                     fontFamily: Consts.righteousFont,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
               textAlign: TextAlign.center,
             ),
@@ -153,7 +154,7 @@ class _RestTileState extends State<RestTile>
           child: AnimatedContainer(
             curve: Curves.elasticOut,
             duration: const Duration(milliseconds: 750),
-            color: Theme.of(context).primaryColor.withOpacity(0.7),
+            color: Theme.of(context).colorScheme.primaryContainer,
             height: _progressBarHeight,
           ),
         ),
@@ -163,8 +164,9 @@ class _RestTileState extends State<RestTile>
             alignment: Alignment.topCenter,
             child: Text(
               'REST',
-              style: Theme.of(context).textTheme.headline4!.copyWith(
+              style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                     fontFamily: Consts.righteousFont,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
             ),
           ),
@@ -172,10 +174,9 @@ class _RestTileState extends State<RestTile>
         Align(
           child: Text(
             _timerString.toString(),
-            style: Theme.of(context)
-                .textTheme
-                .headline1!
-                .copyWith(fontFamily: Consts.righteousFont),
+            style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                fontFamily: Consts.righteousFont,
+                color: Theme.of(context).colorScheme.primary),
             textAlign: TextAlign.center,
           ),
         ),

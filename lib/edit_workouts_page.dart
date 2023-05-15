@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'consts.dart';
 import 'model.dart';
 import 'open_container.dart';
 
@@ -15,17 +14,16 @@ class EditWorkoutsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final repo = context.watch<Repository>();
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: const Text('Edit Workouts'),
       ),
       floatingActionButton: OpenContainer<WorkoutType?>(
-        openSize: const Size(250, 250),
+        openSize: const Size(250, 150),
         openBuilder: (context, _) {
-          final themeData = ThemeData.light().copyWith(
-              colorScheme: const ColorScheme.light(
-                  primary: Colors.black, secondary: Colors.black));
-          return _AddTypeDialog(themeData: themeData);
+          return const _AddTypeDialog();
         },
         closedElevation: 6.0,
         closedShape: const RoundedRectangleBorder(
@@ -33,8 +31,8 @@ class EditWorkoutsPage extends StatelessWidget {
             Radius.circular(_fabDimension / 2),
           ),
         ),
-        closedColor: Theme.of(context).colorScheme.secondary,
-        openColor: Theme.of(context).colorScheme.secondary,
+        closedColor: Theme.of(context).colorScheme.primary,
+        openColor: Theme.of(context).colorScheme.primary,
         closedBuilder: (context, openContainer) {
           return SizedBox(
             height: _fabDimension,
@@ -42,7 +40,7 @@ class EditWorkoutsPage extends StatelessWidget {
             child: Center(
               child: Icon(
                 Icons.add,
-                color: Theme.of(context).colorScheme.onSecondary,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           );
@@ -70,8 +68,7 @@ class EditWorkoutsPage extends StatelessWidget {
 }
 
 class _AddTypeDialog extends StatefulWidget {
-  const _AddTypeDialog({required this.themeData, Key? key}) : super(key: key);
-  final ThemeData themeData;
+  const _AddTypeDialog({Key? key}) : super(key: key);
 
   @override
   _AddTypeDialogState createState() => _AddTypeDialogState();
@@ -79,72 +76,43 @@ class _AddTypeDialog extends StatefulWidget {
 
 class _AddTypeDialogState extends State<_AddTypeDialog> {
   final TextEditingController _textController = TextEditingController();
-  Color selectedColor = workoutColors.first;
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: widget.themeData,
-      child: SizedBox.expand(
-        child: Material(
-          color: Theme.of(context).colorScheme.secondary,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextField(
-                  autofocus: true,
-                  controller: _textController,
-                  decoration: const InputDecoration(labelText: 'Workout Name'),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Wrap(
-                      children: List.generate(
-                        workoutColors.length,
-                        (index) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ChoiceChip(
-                            elevation: 5,
-                            selectedColor: workoutColors[index],
-                            selectedShadowColor: workoutColors[index][900],
-                            backgroundColor: workoutColors[index][300],
-                            label: const Text('   '),
-                            onSelected: (value) => setState(
-                                () => selectedColor = workoutColors[index]),
-                            selected: selectedColor == workoutColors[index],
-                          ),
-                        ),
-                      ),
-                    ),
+    return SizedBox.expand(
+      child: Material(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextField(
+                controller: _textController,
+                decoration: const InputDecoration(labelText: 'Workout Name'),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Cancel'),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text('Cancel'),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        WorkoutType? result;
-                        if (_textController.value.text.isNotEmpty) {
-                          result = WorkoutType(
-                            id: _textController.value.text.toLowerCase(),
-                            name: _textController.value.text,
-                            color: selectedColor,
-                          );
-                        }
-                        Navigator.pop(context, result);
-                      },
-                      child: Text('Add'),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  TextButton(
+                    onPressed: () {
+                      WorkoutType? result;
+                      if (_textController.value.text.isNotEmpty) {
+                        result = WorkoutType(
+                          id: _textController.value.text.toLowerCase(),
+                          name: _textController.value.text,
+                        );
+                      }
+                      Navigator.pop(context, result);
+                    },
+                    child: const Text('Add'),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

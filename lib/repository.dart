@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,11 +37,11 @@ class Repository extends ChangeNotifier {
     _staticJsonData = jsonDecode(jsonString);
 
     final workoutTypes = await _loadWorkoutTypes() ??
-        [
-          WorkoutType(id: 'pushups', name: 'Pushups', color: workoutColors[0]),
-          WorkoutType(id: 'pullups', name: 'Pullups', color: workoutColors[1]),
-          WorkoutType(id: 'squats', name: 'Squats', color: workoutColors[2]),
-          WorkoutType(id: 'situps', name: 'Situps', color: workoutColors[3]),
+        const [
+          WorkoutType(id: 'pushups', name: 'Pushups'),
+          WorkoutType(id: 'pullups', name: 'Pullups'),
+          WorkoutType(id: 'squats', name: 'Squats'),
+          WorkoutType(id: 'situps', name: 'Situps'),
         ];
 
     return _getModelFromJson(_staticJsonData!, workoutTypes);
@@ -166,11 +165,11 @@ class Repository extends ChangeNotifier {
   ///This method assumes [_staticJsonData] is not null
   Future<void> _reloadModel() async {
     final workoutTypes = await _loadWorkoutTypes() ??
-        [
-          WorkoutType(id: 'pushups', name: 'Pushups', color: workoutColors[0]),
-          WorkoutType(id: 'pullups', name: 'Pullups', color: workoutColors[1]),
-          WorkoutType(id: 'squats', name: 'Squats', color: workoutColors[2]),
-          WorkoutType(id: 'situps', name: 'Situps', color: workoutColors[3]),
+        const [
+          WorkoutType(id: 'pushups', name: 'Pushups'),
+          WorkoutType(id: 'pullups', name: 'Pullups'),
+          WorkoutType(id: 'squats', name: 'Squats'),
+          WorkoutType(id: 'situps', name: 'Situps'),
         ];
     model = await _getModelFromJson(_staticJsonData!, workoutTypes);
     notifyListeners();
@@ -194,7 +193,7 @@ class Repository extends ChangeNotifier {
       return null;
     }
     final listOfObjects = jsonDecode(jsonString) as List;
-    return listOfObjects.map((e) => WorkoutType.fromJson(e)).toList();
+    return listOfObjects.map(WorkoutType.fromJson).toList();
   }
 
   Future<void> removeWorkoutType(WorkoutType type) async {

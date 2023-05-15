@@ -53,6 +53,7 @@ class _CalibrationBannerState extends State<CalibrationBanner>
         );
       },
       child: Material(
+        color: Theme.of(context).colorScheme.background,
         child: AnimatedBuilder(
           animation: _slideAnimationController,
           builder: (context, child) {

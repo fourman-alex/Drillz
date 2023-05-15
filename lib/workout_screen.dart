@@ -25,22 +25,18 @@ class WorkoutScreen extends StatefulWidget {
     required Level level,
     required Rect sourceRect,
     required BorderRadius fromBorderRadius,
-    required ThemeData theme,
   }) {
     return PageRouteBuilder<void>(
       transitionDuration: const Duration(milliseconds: 350),
       pageBuilder: (_, animation, __) {
-        return Theme(
-          data: theme,
-          child: SlideTransition(
-            position:
-                Tween<Offset>(begin: const Offset(0.1, 0.0), end: Offset.zero)
-                    .animate(animation),
-            child: FadeTransition(
-              opacity: animation,
-              child: WorkoutScreen(
-                level: level,
-              ),
+        return SlideTransition(
+          position:
+          Tween<Offset>(begin: const Offset(0.1, 0.0), end: Offset.zero)
+              .animate(animation),
+          child: FadeTransition(
+            opacity: animation,
+            child: WorkoutScreen(
+              level: level,
             ),
           ),
         );
@@ -84,7 +80,9 @@ class _WorkoutScreenState extends State<WorkoutScreen>
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Material(
+      color: colorScheme.background,
       child: MultiProvider(
         providers: [
           ListenableProvider<ValueNotifier<int>>.value(
@@ -113,11 +111,11 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               end: 16.0,
               child: ProgressButton(
                 size: 56,
-                startColor: Theme.of(context).primaryColor,
-                endColor: Theme.of(context).colorScheme.secondary,
+                startColor: colorScheme.primary,
+                endColor: colorScheme.secondary,
                 onPressCompleted: () => Navigator.of(context).pop(),
-                color: Theme.of(context).primaryColor,
-                child: const Icon(Icons.close),
+                color: colorScheme.primary,
+                child: Icon(Icons.close, color: colorScheme.onPrimary),
               ),
             ),
           ],
@@ -189,6 +187,7 @@ class WorkoutStepsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final List<Widget> workoutStepsWidgets = <Widget>[];
     final UnmodifiableListView<ExerciseStep> workoutSteps =
         Provider.of<Level>(context, listen: false).steps;
@@ -208,24 +207,24 @@ class WorkoutStepsBar extends StatelessWidget {
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 250),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white12),
+                      border: Border.all(color: colorScheme.primary),
                       borderRadius:
                           const BorderRadius.all(Radius.circular(10.0)),
                       color: currentStepNotifier.value == i
-                          ? Theme.of(context).primaryColor
+                          ? Theme.of(context).colorScheme.primary
                           : Colors.transparent,
                     ),
                     child: Center(
                       child: Text(
                         workoutSteps[i].toString(),
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: currentStepNotifier.value == i
-                                  ? Colors.white
-                                  : Colors.white54,
-                              fontSize: 18.0,
-                              fontFamily: Consts.righteousFont,
-                            ),
+                        style: TextStyle(
+                          color: currentStepNotifier.value == i
+                              ? colorScheme.onPrimary
+                              : colorScheme.onSurface,
+                          fontSize: 18.0,
+                          fontFamily: Consts.righteousFont,
+                        ),
                       ),
                     ),
                   ),
@@ -237,8 +236,11 @@ class WorkoutStepsBar extends StatelessWidget {
       );
       if (i + 1 < workoutSteps.length) {
         workoutStepsWidgets.add(
-          const Flexible(
-            child: VerticalDivider(width: 1),
+          Flexible(
+            child: VerticalDivider(
+              width: 1,
+              color: colorScheme.primary,
+            ),
           ),
         );
       }
