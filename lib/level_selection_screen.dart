@@ -48,7 +48,8 @@ class LevelSelectionScreen extends StatelessWidget {
             data: ThemeData(
               brightness: Brightness.dark,
               primaryColor: fromColor,
-              backgroundColor: toColor,
+              colorScheme:
+                  Theme.of(context).colorScheme.copyWith(background: toColor),
               canvasColor: toColor,
               dividerColor: Colors.white,
               iconTheme: const IconThemeData(color: Colors.white),
@@ -75,7 +76,7 @@ class LevelSelectionScreen extends StatelessWidget {
     List<Widget> widgets = <Widget>[];
     final ThemeData theme = Theme.of(context);
     final Color textColorOfCompleted =
-        _darken(theme.textTheme.bodyText2!.color!, 0.4);
+        _darken(theme.textTheme.bodyMedium!.color!, 0.4);
     final Color cardColorOfCompleted = _darken(theme.primaryColor, 0.2);
 
     final Repository repository = Provider.of<Repository>(context);
@@ -94,7 +95,7 @@ class LevelSelectionScreen extends StatelessWidget {
     }
     widgets.add(LevelPage(
       level: activeLevels.last,
-      textColor: theme.textTheme.bodyText1!.color!,
+      textColor: theme.textTheme.bodyLarge!.color!,
       cardColor: theme.primaryColor,
     ));
 
@@ -120,7 +121,7 @@ class LevelSelectionScreen extends StatelessWidget {
           SliverAppBar(
             floating: true,
             titleSpacing: 4.0,
-            backgroundColor: theme.backgroundColor,
+            backgroundColor: theme.colorScheme.background,
             title: Text(
               title,
               style: const TextStyle(
@@ -151,7 +152,7 @@ class LevelPage extends StatelessWidget {
     required this.textColor,
     required this.cardColor,
     Key? key,
-  })   : _steps = level.steps.whereType<WorkStep>().toList(),
+  })  : _steps = level.steps.whereType<WorkStep>().toList(),
         _totalCount = level.total,
         super(key: key);
 
@@ -178,7 +179,7 @@ class LevelPage extends StatelessWidget {
             Text.rich(
               TextSpan(
                 text: '$_totalCount',
-                style: theme.textTheme.bodyText2!.copyWith(
+                style: theme.textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   fontFamily: Consts.righteousFont,
                   fontSize: 30,
@@ -187,7 +188,7 @@ class LevelPage extends StatelessWidget {
                 children: <TextSpan>[
                   TextSpan(
                     text: ' in total',
-                    style: theme.textTheme.headline4!.copyWith(
+                    style: theme.textTheme.headlineMedium!.copyWith(
                       fontFamily: Consts.righteousFont,
                       fontSize: 15,
                       color: textColor,
@@ -244,8 +245,7 @@ class LevelPage extends StatelessWidget {
                                         child: Text(
                                           step.reps.toString(),
                                           textAlign: TextAlign.center,
-                                          style: theme
-                                              .textTheme.bodyMedium!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(
                                                   color: textColor,
                                                   fontFamily:

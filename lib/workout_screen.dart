@@ -219,7 +219,7 @@ class WorkoutStepsBar extends StatelessWidget {
                       child: Text(
                         workoutSteps[i].toString(),
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               color: currentStepNotifier.value == i
                                   ? Colors.white
                                   : Colors.white54,

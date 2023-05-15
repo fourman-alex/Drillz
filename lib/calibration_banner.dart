@@ -141,7 +141,7 @@ class QuestionPage extends StatelessWidget {
             child: Text(
               'Too easy?',
               style:
-                  Theme.of(context).textTheme.bodyText2!.copyWith(fontSize: 15),
+                  Theme.of(context).textTheme.bodyMedium!.copyWith(fontSize: 15),
             ),
           ),
         ),
