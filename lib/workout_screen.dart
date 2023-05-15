@@ -114,7 +114,7 @@ class _WorkoutScreenState extends State<WorkoutScreen>
               child: ProgressButton(
                 size: 56,
                 startColor: Theme.of(context).primaryColor,
-                endColor: Theme.of(context).accentColor,
+                endColor: Theme.of(context).colorScheme.secondary,
                 onPressCompleted: () => Navigator.of(context).pop(),
                 color: Theme.of(context).primaryColor,
                 child: const Icon(Icons.close),

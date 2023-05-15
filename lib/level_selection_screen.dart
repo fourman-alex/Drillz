@@ -245,7 +245,7 @@ class LevelPage extends StatelessWidget {
                                           step.reps.toString(),
                                           textAlign: TextAlign.center,
                                           style: theme
-                                              .accentTextTheme.bodyText2!
+                                              .textTheme.bodyMedium!
                                               .copyWith(
                                                   color: textColor,
                                                   fontFamily:

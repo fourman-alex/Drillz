@@ -45,7 +45,6 @@ class _MyAppState extends State<MyApp> {
     ThemeData theme = ThemeData(
       brightness: Brightness.dark,
       primaryColor: Colors.grey[850],
-      accentColor: Colors.white,
       canvasColor: Colors.grey[850],
       iconTheme: const IconThemeData(color: Colors.white),
     );
@@ -55,7 +54,6 @@ class _MyAppState extends State<MyApp> {
               const ColorScheme.dark().copyWith(secondary: Colors.white)),
       textTheme: theme.textTheme.merge(theme.typography.white),
       primaryTextTheme: theme.primaryTextTheme.merge(theme.typography.white),
-      accentTextTheme: theme.accentTextTheme.merge(theme.typography.white),
     );
 
     return ChangeNotifierProvider<Repository>(
